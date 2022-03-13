@@ -1,6 +1,7 @@
-# <center>qnweb-exam-system-demo</center>
-
-<center>监考场景</center>
+<div align="center">
+    <h1>qnweb-exam-system-demo</h1>
+    <p>监考场景</p>
+</div>
 
 ## 快速启动
 
