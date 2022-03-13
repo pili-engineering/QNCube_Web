@@ -1,0 +1,14 @@
+@mixin agreement-text {
+  .agreement-text {
+    margin: 0 8px;
+    word-break: break-all;
+    color: #007AFF;
+    font-size: 12px;
+  }
+}
+
+@include agreement-text;
+
+@media screen and (max-width: 640px) {
+  @include agreement-text;
+}

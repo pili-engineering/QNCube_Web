@@ -1,0 +1,27 @@
+.exam-room-info {
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  .info {
+    &-item {
+      display: flex;
+      margin-bottom: 10px;
+      .label {
+        flex-shrink: 0;
+        width: 70px;
+      }
+    }
+  }
+  .filter {
+    margin-left: 80px;
+    &-item {
+      display: flex;
+      margin-bottom: 10px;
+      align-items: center;
+      .label {
+        flex-shrink: 0;
+        width: 70px;
+      }
+    }
+  }
+}

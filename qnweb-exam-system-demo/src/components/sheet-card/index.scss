@@ -1,0 +1,61 @@
+.sheet-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  .main-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-left: 8px solid #555;
+    padding-left: 10px;
+  }
+  .sub-title {
+    margin-bottom: 10px;
+  }
+  .content {
+    min-height: 100px;
+    .answer-square {
+      width: 25px;
+      height: 25px;
+      display: inline-block;
+      border: 1px solid #ccc;
+      line-height: 25px;
+      text-align: center;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border-radius: 2px;
+      box-sizing: border-box;
+    }
+    .answered-square {
+      background-color: #3f7dd5;
+      color: #fff;
+      border: 1px solid #3f7dd5;
+    }
+  }
+  .mark {
+    display: flex;
+    justify-content: space-around;
+    .mark-square {
+      display: flex;
+      align-items: center;
+      .icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 2px;
+        margin-right: 4px;
+        border: 2px solid #3f7dd5;
+        box-sizing: border-box;
+      }
+    }
+    .answered {
+      .icon {
+        background-color: #3f7dd5;
+      }
+    }
+    .unanswered {
+      .icon {
+        background-color: #fff;
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+$theme-color: #1890ff;
+$text-color: #fff;
+
+.header-bar {
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
+  background-color: $theme-color;
+  color: $text-color;
+  display: flex;
+  .body {
+    flex: 1;
+  }
+  .prompt {
+    margin-right: 80px;
+  }
+  .exit-button {
+    cursor: pointer;
+  }
+  &-fixed-top {
+    position: fixed;
+    top: 0;
+    z-index: 32;
+  }
+  .title {
+    cursor: pointer;
+  }
+  .title, .body, .prompt, .exit-button {
+    display: flex;
+    align-items: center;
+  }
+  &-placeholder {
+    width: 100%;
+    padding-bottom: 60px;
+  }
+}

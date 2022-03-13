@@ -1,0 +1,18 @@
+$successColor: #4eb3f7;
+$failedColor: #ff2231;
+$defaultAngleColor: #000000;
+
+.angle {
+  width: 20px;
+  height: 20px;
+  border-left: 4px solid $defaultAngleColor;
+  border-top: 4px solid $defaultAngleColor;
+
+  &-error {
+    border-color: $failedColor;
+  }
+
+  &-success {
+    border-color: $successColor;
+  }
+}

@@ -1,0 +1,43 @@
+.exam-student-seat {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 10px;
+  position: relative;
+  .video {
+    width: 200px;
+    height: 200px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    position: relative;
+    .placeholder {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+    > video {
+      position: relative;
+      z-index: 1;
+    }
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-ctx {
+      padding: 5px 0;
+      max-width: 200px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .tag-status {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+  }
+}

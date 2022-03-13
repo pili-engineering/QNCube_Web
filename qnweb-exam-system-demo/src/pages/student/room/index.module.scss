@@ -1,0 +1,124 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.leftSide {
+  flex-shrink: 0;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.rightSide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pcCamera, .mobileCamera, .examDetail {
+  flex-shrink: 0;
+  width: 100%;
+  border: 1px solid #bbb;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.pcCamera, .mobileCamera {
+  overflow: hidden;
+  position: relative;
+  height: 200px;
+  > video {
+    object-fit: cover!important;
+    position: relative;
+  }
+  .cameraTip {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.examDetail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.examDetailTime, .examProgress {
+  width: 100%;
+}
+
+.examDetailTimeCount {
+  color: #ff2231;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.examDetailTimeTip, .examDetailTimeCount,
+.examProgressTip, .examProgressCurrent, .examProgressBar {
+  text-align: center;
+}
+
+.dividerLine {
+  margin: 10px 0;
+  background-color: #bbb;
+}
+
+.rightSideHeader {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  .banner {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 20px;
+  }
+  .buttons {
+    display: flex;
+    .button {
+      margin-right: 10px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.question {
+  padding: 80px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  .topic {
+    margin-bottom: 20px;
+  }
+  .buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+
+.qrCodePopup {
+  position: fixed;
+  left: 0;
+  top: 60px;
+  z-index: 128;
+}
