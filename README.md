@@ -1,6 +1,7 @@
-# <center>QNCube_Web</center>
-
-<center>牛魔方demo</center>
+<div align="center">
+    <h1>QNCube_Web</h1>
+    <p>牛魔方demo</p>
+</div>
 
 ## 方案demo
 
