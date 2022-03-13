@@ -1,0 +1,52 @@
+$successColor: #4eb3f7;
+$failedColor: #ff2231;
+$defaultAngleColor: #000000;
+
+.identity-auth {
+  width: 360px;
+  background-color: #d1d1d1;
+  box-sizing: border-box;
+  padding: 20px 0;
+  position: relative;
+  &-camera {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    > video {
+      object-fit: cover!important;
+    }
+  }
+  .box {
+    width: 300px;
+    height: 350px;
+    background-color: transparent;
+    margin: auto;
+    position: relative;
+    .auth-result-hint {
+      padding: 10px 5px;
+      border: 2px solid #000;
+      font-size: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      &--success {
+        color: $successColor;
+        border-color: $successColor;
+      }
+      &--failed {
+        color: $failedColor;
+        border-color: $failedColor;
+      }
+    }
+  }
+  .tip {
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: #fff;
+  }
+}

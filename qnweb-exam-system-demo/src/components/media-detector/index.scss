@@ -1,0 +1,27 @@
+.media-detector {
+  display: flex;
+  .main {
+    flex-shrink: 0;
+    width: 50%;
+    margin-right: 20px;
+    .pc-camera {
+      width: 400px;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .media-device-select {
+      margin-bottom: 20px;
+    }
+  }
+  .secondary {
+    border: 1px solid #ccc;
+    flex: 1;
+    padding: 20px;
+    .button-play-text {
+      margin-bottom: 20px;
+    }
+  }
+}
