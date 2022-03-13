@@ -1,0 +1,19 @@
+.tableContainer {
+  padding: 40px;
+}
+
+.title {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titleText {
+  border-left: 4px solid #555;
+  padding-left: 6px;
+}
+
+.actionButton {
+  margin: 10px;
+}

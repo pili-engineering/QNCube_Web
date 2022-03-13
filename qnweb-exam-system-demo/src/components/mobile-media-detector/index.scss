@@ -1,0 +1,20 @@
+.mobile-media-detector {
+  display: flex;
+  .main {
+    flex-shrink: 0;
+    width: 50%;
+    margin-right: 20px;
+    .mobile-camera {
+      width: 400px;
+      overflow: hidden;
+    }
+  }
+  .guide {
+    border: 1px solid #ccc;
+    flex: 1;
+    padding: 20px;
+    &-text {
+      margin-bottom: 20px;
+    }
+  }
+}

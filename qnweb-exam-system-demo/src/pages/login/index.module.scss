@@ -1,0 +1,146 @@
+@mixin login {
+  .container {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .loginCard {
+    display: flex;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    box-shadow: 0 4px 18px 0 rgb(4 90 133 / 50%);
+    border-radius: 8px;
+  }
+
+  .loginIllustration {
+    width: 465px;
+    flex-shrink: 0;
+  }
+
+  .loginIllustrationImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .loginForm {
+    padding: 75px 26px 0;
+  }
+
+  .loginFormHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loginFormHeaderText {
+    margin: 0 20px;
+    font-size: 20px;
+    color: #1890FF;
+    white-space: nowrap;
+    font-family: PingFangSC-Medium;
+  }
+
+  .mirror {
+    transform: rotateY(180deg);
+  }
+
+  .barImage {
+    width: 112px;
+    flex-shrink: 0;
+  }
+
+  .container .formInput {
+    padding-left: 0;
+    // 临时处理
+    // 因为开发环境和生产环境的样式加载顺序不同
+    // 生产环境：先加载页面样式，再加载组件样式
+    // 开发环境：先加载组件样式，再加载页面样式
+    border-bottom: 1px solid #E8E8E8!important;
+    &:focus {
+      // 临时处理
+      // 因为开发环境和生产环境的样式加载顺序不同
+      // 生产环境：先加载页面样式，再加载组件样式
+      // 开发环境：先加载组件样式，再加载页面样式
+      border-bottom-color: #1890ff!important;
+    }
+  }
+
+  .formSmsCodeInput {
+    padding-right: 100px;
+  }
+
+  .tip {
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #999999;
+    font-family: PingFangSC-Regular;
+  }
+
+  .loginButton {
+    width: 266px;
+    height: 42px;
+    border-radius: 26px;
+    font-size: 16px;
+    display: block;
+    margin: auto;
+  }
+
+  .container .smsCodeButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    min-width: 102px;
+  }
+
+  .agreement {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .agreementText {
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+
+  .center {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@include login;
+
+// 移动端适配
+@media screen and (max-width: 640px) {
+  // 防止被大屏适配给转化掉
+  @include login;
+
+  .loginIllustration {
+    display: none;
+  }
+  .center {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
+  .loginForm {
+    padding: 40px 20px 0;
+    width: 100%;
+  }
+  .loginCard {
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .agreement {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
