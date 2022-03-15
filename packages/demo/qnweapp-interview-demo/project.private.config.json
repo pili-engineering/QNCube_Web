@@ -1,0 +1,24 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/room/room",
+          "pathName": "pages/room/room",
+          "query": "interviewId=cj4h34pl7p4xk10u",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

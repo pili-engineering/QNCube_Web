@@ -1,0 +1,112 @@
+.im-remote {
+  width: 100%;
+  height: 100%;
+  //background-color: green;
+  position: relative;
+
+  .header {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #2F2F2F;
+    color: #fff;
+    border-radius: 6px 6px 0 0;
+    padding: 20px 20px 12px;
+
+    .title {
+      line-height: 40px;
+      display: flex;
+      font-size: 16px;
+
+      .label {
+        flex: 0 0 80px;
+      }
+
+      .hint {
+        font-weight: 600;
+      }
+    }
+
+    .row-flex-end {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .copy-btn {
+      font-size: 12px;
+      font-family: PingFangSC-Regular;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+      cursor: pointer;
+
+      &-icon {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .content {
+    height: calc(100% - 152px - 144px);
+    overflow: auto;
+    box-sizing: border-box;
+    padding: 12px 0 20px;
+    background-color: #1e1e1e;
+
+    .message {
+      &-date {
+        font-family: PingFangSC-Medium;
+        font-size: 12px;
+        color: #999999;
+        text-align: center;
+        line-height: 28px;
+      }
+      &-ctx {
+        &-item {
+          display: flex;
+          width: 100%;
+          box-sizing: border-box;
+          padding: 8px;
+          font-family: PingFangSC-Regular;
+          font-size: 14px;
+          color: #fff;
+          .time {
+            margin-right: 12px;
+            color: #999999;
+          }
+        }
+        .welcome {
+          background-color: #2F2F2F;
+        }
+      }
+    }
+  }
+
+  .input-wrap {
+    padding: 20px 0;
+    background-color: #2D2B27;
+
+    .chat-box {
+      width: calc(100% - 40px);
+      display: block;
+      margin: auto;
+      background-color: #333333;
+      border: none;
+      color: #fff;
+      height: 62px;
+      resize: none;
+    }
+
+    .btn-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 8px;
+      margin-top: 12px;
+    }
+
+    .send-btn {
+      width: 88px;
+    }
+  }
+}

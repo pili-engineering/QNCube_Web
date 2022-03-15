@@ -1,0 +1,10 @@
+.count-down {
+  display: inline-block;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  &--btn {
+    width: 90px;
+    padding: 0;
+  }
+}

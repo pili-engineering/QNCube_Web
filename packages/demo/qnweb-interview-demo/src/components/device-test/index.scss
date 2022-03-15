@@ -1,0 +1,109 @@
+.device-test {
+  background-color: #fff;
+  .main-title {
+    text-align: center;
+    padding: 33px 0 70px;
+  }
+
+  &-services {
+    display: flex;
+    justify-content: center;
+
+    .test-video {
+      width: 784px;
+      height: 441px;
+      &-mirror {
+        transform: rotateY(180deg);
+      }
+      &-error {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        background: #000;
+        border-radius: 4px;
+        &-hint {
+          font-size: 14px;
+          color: hsla(0,0%,100%,.85);
+          margin-left: 8px;
+        }
+      }
+    }
+
+    .device {
+      &-item {
+        display: flex;
+      }
+      &-icon {
+        width: 10px;
+        height: 10px;
+        background-color: #ccc;
+        margin-right: 12px;
+      }
+      &-hint {
+        margin-top: 12px;
+        color: #999999;
+        display: flex;
+        align-items: center;
+        &-icon {
+          width: 16px;
+          height: 16px;
+          margin-right: 8px;
+        }
+      }
+      &-label {
+        color: #333;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 16px;
+      }
+      &-select {
+        width: 252px;
+        margin-top: 12px;
+      }
+      &-manager {
+        margin-left: 60px;
+      }
+      &-info {
+        margin-bottom: 24px;
+        .volume {
+          &-graph {
+            width: 252px;
+            margin-top: 12px;
+            display: flex;
+          }
+
+          &-bar {
+            border-radius: 2px;
+            width: 4px;
+            height: 16px;
+            background-color: #f0f4fb;
+            margin-right: 4px;
+          }
+        }
+
+        .green-volume {
+          background-color: #31b665;
+        }
+      }
+    }
+  }
+  &-retest {
+    text-align: center;
+    margin: 10px 0 20px;
+    .button {
+      box-sizing: border-box;
+      width: 112px;
+      height: 40px;
+      background-color: #1890FF;
+      border: 1px solid #e5e5e5;
+      font-size: 14px;
+      cursor: pointer;
+      outline: none;
+      font-weight: 500;
+      color: #fff;
+      border-radius: 6px;
+    }
+  }
+}
