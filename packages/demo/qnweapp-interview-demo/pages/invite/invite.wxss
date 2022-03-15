@@ -1,0 +1,34 @@
+.invite-header--image {
+  width: 100%;
+  height: 720rpx;
+}
+
+.invite-agree-btn {
+  width: 560rpx!important;
+  margin-bottom: 32rpx;
+  box-shadow: 0 1px 7px 1px rgba(0,122,255,0.58);
+}
+
+.invite-info {
+  padding: 0 40rpx;
+  margin-bottom: 60rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.policy {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.policy-link {
+  font-weight: 700;
+  color: #007AFF;
+}
+
+.invite-info--label, .invite-info--input {
+  color: #333333!important;
+  font-size: 32rpx;
+}

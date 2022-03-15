@@ -1,0 +1,68 @@
+page {
+  background-color: #F4F5F6;
+}
+
+.interview-list--item-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32rpx;
+}
+
+.interview-list--content-group {
+  padding: 30rpx;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+
+.interview-list--item-tags {
+  margin-bottom: 20rpx;
+}
+
+.interview-list--item-tags-tag {
+  background: rgba(133,198,255,0.20)!important;
+  font-size: 28rpx!important;
+  color: #007AFF!important;
+  margin-right: 32rpx;
+}
+
+.interview-list--item-datetime {
+  display: flex;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #323240;
+}
+
+.icon-add {
+  width: 140rpx;
+  height: 140rpx;
+  position: fixed;
+  right: 40rpx;
+  bottom: 40rpx;
+}
+
+.interview-list--item-buttons-btn {
+  margin-right: 24rpx;
+  margin-top: 20rpx;
+}
+
+/* 面试中 */
+.interview-list--item-status10 {
+  color: #176AFF;
+}
+
+/* 已结束 */
+.interview-list--item-status-10 {
+  color: #999999;
+}
+
+/* 待面试 */
+.interview-list--item-status0 {
+  color: #FABD48;
+}
+
+#van-dialog .van-dialog__message {
+  padding: 64rpx 48rpx 112rpx;
+  font-size: 32rpx;
+  color: #353535;
+  font-family: PingFangSC-Medium;
+}

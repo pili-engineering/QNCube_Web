@@ -1,0 +1,51 @@
+<!-- <navbar 
+  title="面试列表"
+  left-icon='icon-return'
+/> -->
+
+<van-dialog id="van-dialog"/>
+
+<view class="interview-list">
+  <view class="interview-list--content">
+    <view class="interview-list--content-group" wx:for="{{list}}" wx:key="id">
+      <view class="interview-list--item-header">
+        <view class="interview-list--item-title">{{item.title}}</view>
+        <view 
+          class="interview-list--item-status interview-list--item-status{{item.statusCode}}"
+        >{{item.status}}</view>
+      </view>
+      <view class="interview-list--item-tags">
+        <van-tag 
+          custom-class="interview-list--item-tags-tag" 
+          size="large"
+        >{{item.goverment}}</van-tag>
+        <van-tag 
+          custom-class="interview-list--item-tags-tag" 
+          size="large"
+        >{{item.career}}</van-tag>
+      </view>
+      <view class="interview-list--item-datetime">
+        <view class="interview-list--item-datetime-start">{{item.startTimeText}}</view>
+        <text>~</text>
+        <view class="interview-list--item-datetime-end">{{item.endTimeText}}</view>
+      </view>
+      <view class="interview-list--item-buttons" wx:if="{{item.options && item.options.length}}">
+        <van-button 
+          wx:key="type"
+          wx:for="{{item.options}}"
+          wx:for-item="btn"
+          size="small" 
+          type="primary"
+          custom-class="interview-list--item-buttons-btn" 
+          data-btn-type="{{btn.type}}"
+          bind:click="onInterviewAction"
+          data-row="{{item}}"
+          open-type="{{btn.type === 200 ? 'share' : ''}}"
+          dataset="{{item}}"
+        >{{btn.title}}</van-button>
+      </view>
+    </view>
+  </view>
+
+  <image class="icon-add" src="../../images/icon-add.png" bindtap="onCreateInterview"/>
+</view>

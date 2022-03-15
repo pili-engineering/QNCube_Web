@@ -1,0 +1,51 @@
+<navbar 
+  title="登录"
+/>
+
+<view class="login">
+  <van-toast id="van-toast" />
+  <view class="login-header">
+    <image class="login-header--logo" src="../../images/niucube-logo.png"/>
+  </view>
+  <view class="login-form">
+    <van-field
+      model:value="{{ phone }}"
+      placeholder="请输入手机号"
+      maxlength="{{11}}"
+      type="number"
+      custom-style="margin-bottom: 64rpx;padding-left: 28px;padding-right: 28px;"
+    />
+    <van-field
+      model:value="{{ smsCode }}"
+      placeholder="请输入验证码"
+      use-button-slot
+      custom-style="margin-bottom: 20rpx;padding-left: 28px;padding-right: 28px;"
+    >
+      <van-button 
+        type="primary" 
+        custom-class="login-form--sms-code-btn" 
+        slot="button"
+        bind:click="getSmsCode"
+        loading="{{smsCodeLoading}}"
+        loading-class="login-form--sms-code-btn--loading"
+      >{{count > 0 ? count : '获取验证码'}}</van-button>
+    </van-field>
+    <view class="login-form--tips">Tips:新用户可直接通过验证码进行注册登录</view>
+    <van-button 
+      custom-class="login-form--submit" 
+      type="primary" 
+      block 
+      bind:click="onSubmit"
+      loading="{{loginLoading}}" 
+      disabled="{{loginLoading}}"
+      loading-text="登录中..." 
+    >登录</van-button>
+    <view class="login-form--policy" bindtap="onChecked">
+      <view class="icon-checked">
+        <image wx:if="{{checked}}" class="icon-pitch-on" src="../../images/icon-pitch-on.png"/>
+        <image wx:else class="icon-pitch-on-off" src="../../images/icon-pitch-on-off.png"/>
+      </view>
+      <view class="login-form--policy-text">我已阅读并同意<text data-id="userAgreement" catchtap="onNavigateTo" class="login-form--policy-link">《七牛云服务用户协议》</text>和<text data-id="privacyRight" catchtap="onNavigateTo"  class="login-form--policy-link">《隐私权政策》</text></view>
+    </view>
+  </view>
+</view>
