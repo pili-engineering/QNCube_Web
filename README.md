@@ -6,7 +6,7 @@
 ## 方案demo
 
 * [监考场景](./packages/demo/qnweb-exam-system-demo)
-* [面试场景](./packages/demo/qnweapp-interview-demo)
+* [面试场景](./packages/demo/qnweb-interview-demo)
 
 ## 快速启动
 
