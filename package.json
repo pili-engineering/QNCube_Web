@@ -1,0 +1,14 @@
+{
+  "name": "root",
+  "private": true,
+  "description": "QNCube_Web",
+  "version": "1.0.0",
+  "keywords": [],
+  "scripts": {
+    "commit": "git-cz --disable-emoji"
+  },
+  "devDependencies": {
+    "git-cz": "^4.8.0",
+    "jest": "^27.5.1"
+  }
+}

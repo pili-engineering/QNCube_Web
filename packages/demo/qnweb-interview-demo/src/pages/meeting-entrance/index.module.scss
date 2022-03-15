@@ -1,0 +1,28 @@
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.meetingEntrance {
+  composes: flex-center;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../assets/images/bg-enter-interview.svg");
+}
+
+.firstIn {
+  margin-right: 26px;
+  color: #999999;
+}
+
+.action {
+  composes: flex-center;
+  //margin: 40px 0;
+}
+
+@media screen and (max-width: 640px) {
+  .action {
+    display: none;
+  }
+}

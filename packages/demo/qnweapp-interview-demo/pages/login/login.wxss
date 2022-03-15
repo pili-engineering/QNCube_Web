@@ -1,0 +1,60 @@
+.login-header {
+  text-align: center;
+  padding: 30rpx 0;
+}
+
+.login-header--logo {
+  width: 280rpx;
+  height: 280rpx;
+}
+
+.login-form {
+  padding: 0 40rpx;
+}
+
+.login-form--tips {
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #999999;
+  margin-bottom: 110rpx;
+  padding-left: 28px;
+}
+
+.login-form--submit {
+  margin-bottom: 28rpx;
+}
+
+.icon-pitch-on-off, .icon-pitch-on {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.login-form--policy {
+  display: flex;
+  /* align-items: center; */
+}
+
+.login-form--policy-text {
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #007AFF;
+  line-height: 18px;
+}
+
+.login-form--policy-link {
+  font-weight: 700;
+}
+
+.icon-checked {
+  margin-right: 12rpx;
+  line-height: 18px;
+}
+
+.login-form--sms-code-btn {
+  background-color: transparent!important;
+  color: #007AFF!important;
+}
+
+.login-form--sms-code-btn--loading .van-loading__spinner {
+  color: blue!important;
+}

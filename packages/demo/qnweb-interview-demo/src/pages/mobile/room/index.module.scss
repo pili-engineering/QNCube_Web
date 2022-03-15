@@ -1,0 +1,197 @@
+$translucent: rgba(0,0,0,0.50);
+
+.z-index-1 {
+  z-index: 1;
+}
+
+.z-index-2 {
+  z-index: 2;
+}
+
+.z-index-10 {
+  z-index: 10;
+}
+
+.full-fixed {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.room {
+  width: 100%;
+  height: 100%;
+  composes: full-fixed;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  position: relative;
+  composes: z-index-10;
+}
+
+.leftIcons, .rightIcons {
+  width: 80px;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.leftIcons {
+  justify-content: flex-start;
+}
+
+.rightIcons {
+  justify-content: flex-end;
+}
+
+.leftButton {
+  margin-right: 28px;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.rightButton {
+  margin-right: 28px;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #FFFFFF;
+  text-shadow: 0 2px 3px $translucent;
+}
+
+.chatContainer {
+  position: fixed;
+  padding: 0 18px;
+  bottom: 138px;
+  composes: z-index-10;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 24px;
+  composes: z-index-10;
+}
+
+.button {
+  width: 80px;
+  height: 80px;
+}
+
+.userPlayer {
+  position: fixed;
+  overflow: hidden;
+  display: none;
+  video {
+    object-fit: cover!important;
+  }
+}
+
+.userPlayerCover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  object-fit: cover;
+}
+
+.userPlayerUsername {
+  position: absolute;
+  width: 100%;
+  padding: 2px 0;
+  background: $translucent;
+  bottom: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.userPlayerSmall {
+  width: 104px;
+  height: 155px;
+  top: 98px;
+  right: 20px;
+  composes: z-index-2;
+  display: block;
+  background-color: #000;
+}
+
+.userPlayerBig {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  composes: z-index-1;
+  display: block;
+  background-color: #000;
+}
+
+.dots {
+  position: fixed;
+  bottom: 140px;
+  padding: 0 20px;
+  width: 100%;
+  composes: z-index-10;
+  display: flex;
+  justify-content: center;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: $translucent;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.activeDot {
+  background: #fff;
+}
+
+.translateAudioSwitchContainer {
+  position: fixed;
+  right: 20px;
+  bottom: 180px;
+  composes: z-index-10;
+}
+
+.translateAudioSwitch {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.subTitle {
+  max-width: 40%;
+  padding: 0 10px;
+  background: $translucent;
+  composes: z-index-10;
+  position: fixed;
+  bottom: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  border-radius: 6px;
+}
+
+.snapPhoto {
+  position: fixed;
+  left: 20px;
+  top: 98px;
+  composes: z-index-10;
+  width: 104px;
+}

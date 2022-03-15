@@ -1,0 +1,36 @@
+$translucent: rgba(0,0,0,0.50);
+
+.chat {
+  width: 100%;
+  .message-list {
+    margin-bottom: 18px;
+    height: 160px;
+    overflow-y: scroll;
+    .message-ctx {
+      font-family: PingFangSC-Regular;
+      background: $translucent;
+      color: #fff;
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      width: fit-content;
+      margin-bottom: 6px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  &-input {
+    width: 100%;
+    background: $translucent;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    height: 34px;
+    padding: 0 20px;
+    color: #fff;
+    &::placeholder {
+      color: #D6D6D6;
+    }
+  }
+}

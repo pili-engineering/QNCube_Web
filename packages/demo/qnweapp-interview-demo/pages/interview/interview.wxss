@@ -1,0 +1,21 @@
+page {
+  background-color: #F4F5F6;
+}
+
+.interview-form--group {
+  margin-bottom: 20rpx;
+}
+
+.icon-eye {
+  margin-right: 20rpx;
+}
+
+.icon-eye-off, .icon-eye-on {
+  width: 20px;
+  height: 15px;
+}
+
+.interview-submit-btn {
+  margin-top: 44rpx;
+  width: 464rpx!important;
+}

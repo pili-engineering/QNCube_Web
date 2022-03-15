@@ -1,0 +1,49 @@
+<navbar 
+  title="面试详情"
+  left-icon="icon-white-return"
+  color="#fff"
+  background-color="transprent"
+  placeholder="{{false}}"
+/>
+
+<view class="invite">
+  <view class="invite-header">
+    <image class="invite-header--image" src="../../images/invite-entrance.png"/>
+  </view>
+  <view class="invite-info">
+    <van-field
+      value="{{ interviewerName }}"
+      label="面试官"
+      border="{{ false }}"
+      readonly="{{ true }}"
+      label-class="invite-info--label"
+      input-class="invite-info--input"
+    />
+    <van-field
+      value="{{ goverment }}"
+      label="面试部门"
+      border="{{ false }}"
+      readonly="{{ true }}"
+      label-class="invite-info--label"
+      input-class="invite-info--input"
+    />
+    <van-field
+      value="{{ career }}"
+      label="面试岗位"
+      border="{{ false }}"
+      readonly="{{ true }}"
+      label-class="invite-info--label"
+      input-class="invite-info--input"
+    />
+    <van-field
+      value="{{ startTimeText }}"
+      label="面试时间"
+      border="{{ false }}"
+      readonly="{{ true }}"
+      label-class="invite-info--label"
+      input-class="invite-info--input"
+    />
+  </view>
+  <van-button bind:click="onAgreeToEnter" custom-class="invite-agree-btn" type="primary" block>同意并加入</van-button>
+  <view class="policy">我已阅读并同意<text data-id="privacyRight" catchtap="onNavigateTo"  class="policy-link">《隐私权政策》</text></view>
+</view>

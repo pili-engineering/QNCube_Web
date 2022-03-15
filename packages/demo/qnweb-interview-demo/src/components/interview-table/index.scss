@@ -1,0 +1,27 @@
+.interview-table {
+  background-color: #fff;
+  .ant-table-content {
+    > table {
+      background-color: #fff;
+    }
+  }
+  .ant-table-thead {
+    .ant-table-cell {
+      background: #1890FF;
+      color: #fff;
+    }
+  }
+  .ant-table-pagination {
+    margin-right: 66px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .ant-table {
+    width: 100%;
+    overflow-y: scroll;
+  }
+  .interview-table .ant-table-pagination {
+    margin-right: 10px;
+  }
+}
