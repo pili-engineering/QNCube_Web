@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "面试列表",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true,
+  "navigationStyle": "default",
+  "usingComponents": {}
+}

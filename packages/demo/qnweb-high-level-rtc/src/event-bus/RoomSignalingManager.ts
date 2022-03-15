@@ -1,0 +1,163 @@
+import RtmManager from './RtmManager';
+import {
+  CameraMicStatusSignaling,
+  ScreenMicSeat,
+  ScreenSignaling,
+  SitDownUpSignaling, UserExtension,
+  UserJoinSignaling,
+  UserMicSeat
+} from '../types';
+import RoomManager from './RoomManager';
+import { LogModel } from '../util';
+
+const log = new LogModel('log');
+log.setPreTitle('RoomSignalingManager');
+
+class RoomSignalingManager {
+
+  public tag: string = 'RoomSignalingManager'
+
+  getImGroupId() {
+    return RoomManager.getRoomEntity()?.imGroupId || '';
+  }
+
+  /**
+   * 发送上麦信令
+   * @param data
+   */
+  sendUserSitDown(data: UserMicSeat) {
+    const signaling: SitDownUpSignaling = {
+      action: 'rtc_sitDown',
+      data
+    };
+    const msg = JSON.stringify(signaling);
+    log.log('RtmManager.getRtmAdapter()', RtmManager.getRtmAdapter());
+    log.log('getImGroupId', this.getImGroupId());
+    return RtmManager.getRtmAdapter()?.sendChannelMsg(
+      msg,
+      this.getImGroupId(),
+      true
+    )
+  }
+
+  /**
+   * 发送下麦信令
+   * @param data
+   */
+  sendUserSitUp(data: UserMicSeat) {
+    const signaling: SitDownUpSignaling = {
+      action: 'rtc_sitUp',
+      data
+    };
+    const msg = JSON.stringify(signaling);
+    return RtmManager.getRtmAdapter()?.sendChannelMsg(
+      msg,
+      this.getImGroupId(),
+      true
+    )
+  }
+
+  /**
+   * 发送摄像头切换信令
+   * @param data
+   */
+  sendUserCameraStatusChange(data: UserMicSeat) {
+    const signaling: CameraMicStatusSignaling = {
+      action: 'rtc_cameraStatus',
+      data
+    };
+    const msg = JSON.stringify(signaling);
+    return RtmManager.getRtmAdapter()?.sendChannelMsg(
+      msg,
+      this.getImGroupId(),
+      true
+    )
+  }
+
+  /**
+   * 发送麦克风切换信令
+   * @param data
+   */
+  sendUserMicrophoneStatusChange(data: UserMicSeat) {
+    const signaling: CameraMicStatusSignaling = {
+      action: 'rtc_microphoneStatus',
+      data
+    };
+    const msg = JSON.stringify(signaling);
+    return RtmManager.getRtmAdapter()?.sendChannelMsg(
+      msg,
+      this.getImGroupId(),
+      true
+    )
+  }
+
+  /**
+   * 发送屏幕采集开启信令
+   * @param data
+   */
+  sendUserPubScreen(data: ScreenMicSeat) {
+    const signaling: ScreenSignaling = {
+      action: 'rtc_pubScreen',
+      data
+    };
+    const msg = JSON.stringify(signaling);
+    return RtmManager.getRtmAdapter()?.sendChannelMsg(
+      msg,
+      this.getImGroupId(),
+      true
+    )
+  }
+
+  /**
+   * 发送屏幕采集关闭信令
+   * @param data
+   */
+  sendUserUnPubScreen(data: ScreenMicSeat) {
+    const signaling: ScreenSignaling = {
+      action: 'rtc_unPubScreen',
+      data
+    };
+    const msg = JSON.stringify(signaling);
+    return RtmManager.getRtmAdapter()?.sendChannelMsg(
+      msg,
+      this.getImGroupId(),
+      true
+    )
+  }
+
+  /**
+   * 发送用户进入房间信令
+   * @param data
+   */
+  sendUserJoin(data: UserExtension) {
+    const signaling: UserJoinSignaling = {
+      action: 'rtc_userJoin',
+      data
+    };
+    const msg = JSON.stringify(signaling);
+    return RtmManager.getRtmAdapter()?.sendChannelMsg(
+      msg,
+      this.getImGroupId(),
+      true
+    )
+  }
+
+  /**
+   * 发送用户离开房间信令
+   * @param data
+   */
+  sendUserLeft(data: UserExtension) {
+    const signaling: UserJoinSignaling = {
+      action: 'rtc_userLeft',
+      data
+    };
+    const msg = JSON.stringify(signaling);
+    return RtmManager.getRtmAdapter()?.sendChannelMsg(
+      msg,
+      this.getImGroupId(),
+      true
+    )
+  }
+}
+
+export default new RoomSignalingManager();

@@ -1,0 +1,29 @@
+.navbar {
+  width: 100%;
+  /* background-color: #fff; */
+  left: 0;
+  top: 0;
+  right: 0;
+  position: fixed;
+  padding-left: 24px;
+  padding-right: 24px;
+  box-sizing: border-box;
+  z-index: 999;
+}
+
+.navbar-navigation-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-left-icon, .navbar-right {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.navbar-title {
+  flex: 1;
+  text-align: center;
+}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "创建面试",
+  "usingComponents": {
+    "player": "/miniprogram_npm/qiniu-wx-player/live-player/index",
+    "pusher": "/miniprogram_npm/qiniu-wx-player/live-pusher/index"
+  }
+}

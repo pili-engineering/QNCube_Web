@@ -1,0 +1,16 @@
+{
+  "name": "qnweapp-interview-demo",
+  "version": "1.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@rongcloud/imlib-v4": "^4.3.4",
+    "@vant/weapp": "^1.6.8",
+    "dayjs": "^1.10.4",
+    "pili-rtc-wxapp": "^1.2.1",
+    "qiniu-wx-player": "^0.1.1"
+  },
+  "devDependencies": {
+    "qs": "^6.10.1"
+  }
+}

@@ -1,0 +1,16 @@
+<view
+  class="navbar"
+  style="background-color: {{backgroundColor}};color: {{color}};"
+>
+  <view class="navbar-status-bar" style="height:{{statusBarHeight}}px"></view>
+  <view class="navbar-navigation-bar" style="height:{{navigationBarHeight}}px">
+    <image bindtap="onIconBack" wx:if="{{leftIcon}}" class="navbar-left-icon" src="../../images/{{leftIcon}}.png"/>
+    <view class="navbar-title">{{title}}</view>
+    <view wx:if="{{leftIcon}}" class="navbar-right"></view>
+  </view>
+</view>
+<view 
+  wx:if="{{placeholder}}"
+  class="navbar-placeholder" 
+  style="margin-bottom: {{statusBarHeight + navigationBarHeight}}px"
+></view>

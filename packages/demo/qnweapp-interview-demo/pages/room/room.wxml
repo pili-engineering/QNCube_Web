@@ -1,0 +1,137 @@
+<navbar 
+  title="{{navbarTitle}}"
+  left-icon="{{ showLeaveInterview ? 'icon-quit' : '' }}"
+  event="click"
+  bind:click="onNavbarIconClick"
+/>
+
+<view 
+  class="room"
+  bindtouchstart="onPlayerTouchstart"
+  bindtouchend="onPlayerTouchend"  
+>
+  <block wx:if="{{ subscribeList && subscribeList.length }}">
+    <view 
+      class="room-player {{ smallWin === 'remote-' + index ? 'small-win' : '' }} {{ bigWin === 'remote-' + index ? 'big-win' : '' }}"
+      wx:for="{{ subscribeList }}"
+      wx:key="key"
+      data-win-id="remote-{{index}}"
+      bindtap="onToggleWin"
+    >
+      <player 
+        mode="RTC" 
+        min-cache="0.2" 
+        max-cache="0.8" 
+        src="{{item.url}}"
+        object-fit="fillCrop"
+        autoplay
+        muted="{{ mutedSpeaker }}"
+      ></player>
+      <view 
+      wx:if="{{remoteUser && remoteUser.nickname && smallWin === 'remote-' + index}}" 
+      class="room-player--user"
+    >{{ remoteUser.nickname }}</view>
+    </view>
+  </block>
+  <image mode="aspectFill" class="room-player--placeholder" wx:else src="{{ remoteUser.avatar }}"/>
+
+  <view 
+    class="room-pusher--container {{ bigWin === 'local' ? 'big-win' : '' }} {{ smallWin === 'local' ? 'small-win' : '' }}" 
+    data-win-id="local" 
+    bindtap="onToggleWin"
+  >
+    <pusher 
+      autopush
+      wx:if="{{ publishPath  }}"
+      mode="RTC" 
+      url="{{ publishPath }}"
+      min-bitrate="200" 
+      max-bitrate="400" 
+      enable-mic="{{ !mutedMicro }}"
+      enable-camera="{{ !mutedCamera }}"
+    ></pusher>
+    <image 
+      wx:if="{{ mutedCamera }}" 
+      src="{{ userInfo.avatar}}" 
+      class="room-pusher--placeholder"
+      mode="aspectFill"
+    />
+    <view 
+      wx:if="{{userInfo && userInfo.nickname && smallWin === 'local'}}" 
+      class="room-pusher--user"
+    >{{ userInfo.nickname }}</view>
+  </view>
+
+  <view class="room-top-left">
+    <!-- <view class="room-top-left--btn" bindtap="onToggleShareScreen">
+      <image class="room-top-left--icon" src="/images/{{shareScreen ? 'icon-share-close' : 'icon-share-open'}}.png"/>
+      <view class="room-top-left--text">共享</view>
+    </view> -->
+    <!-- <view class="room-top-left--btn" bindtap="onToggleWhiteBoard">
+      <image class="room-top-left--icon" src="/images/icon-white-board.png"/>
+      <view class="room-top-left--text">白板</view>
+    </view> -->
+    <view class="room-top-left--btn" bindtap="onToggleChat">
+      <image class="room-top-left--icon" src="/images/icon-chat.png"/>
+      <view class="room-top-left--text">聊天</view>
+    </view>
+    <view class="room-top-left--btn" bindtap="onToggleLoudspeaker">
+      <image class="room-top-left--icon" src="/images/{{ mutedSpeaker ? 'icon-loudspeaker-off' : 'icon-loudspeaker-on' }}.png"/>
+      <view class="room-top-left--text">扬声器</view>
+    </view>
+  </view>
+
+  <view class="room-chat">
+    <scroll-view
+      scroll-into-view="room-chat--message-{{messages.length - 1}}" 
+      scroll-y="{{ true }}" 
+      class="room-chat--message-list"
+    >
+      <view 
+        class="room-chat--message" 
+        wx:for="{{ messages }}"
+        wx:key="index"
+        id="room-chat--message-{{index}}"
+      >{{ item.content.msgStr.senderName }}：{{ item.content.msgStr.msgContent }}</view>
+    </scroll-view>
+    <input 
+      placeholder-style="color: #D6D6D6;" 
+      placeholder="请输入文字..." 
+      class="room-chat--input"
+      value="{{ inputValue }}"
+      bindconfirm="onSendMessage"
+      wx:if="{{ chat }}"
+    />
+  </view>
+
+  <view class="room-dots" wx:if="{{ subscribeList.length >= 2 }}">
+    <view 
+      class="room-dot {{ index === activeDot ? 'room-dot-active' : '' }}" 
+      wx:for="{{ subscribeList }}" 
+      wx:key="index"
+    ></view>
+  </view>
+
+  <view class="room-bottom">
+    <view class="room-bottom-btn" bindtap="onToggleMicro">
+      <image class="room-bottom-icon" src="/images/{{mutedMicro ? 'icon-microphone-off' : 'icon-microphone-on'}}.png"/>
+      <view class="room-bottom-btn-text">麦克风</view>
+    </view>
+    <view class="room-bottom-btn" bindtap="onToggleHangup">
+      <image class="room-bottom-icon" src="/images/icon-hangup.png"/>
+      <view class="room-bottom-btn-text">挂断</view>
+    </view>
+    <view class="room-bottom-btn" bindtap="onToggleCamera">
+      <image class="room-bottom-icon" src="/images/{{mutedCamera ? 'icon-video-off' : 'icon-video-on'}}.png"/>
+      <view class="room-bottom-btn-text">摄像头</view>
+    </view>
+  </view>
+</view>
+
+<van-popup position="bottom" custom-class="leave-popup" show="{{ showLeavePopup }}">
+  <view class="leave-popup-bg">
+    <view class="leave-popup--title">确定要离开面试吗?</view>
+    <view class="leave-popup--btn leave-popup--btn-danger" bindtap="onLeaveRoom">离开</view>
+    <view class="leave-popup--btn" bindtap="onCloseLeavePopup">取消</view>
+  </view>
+</van-popup>

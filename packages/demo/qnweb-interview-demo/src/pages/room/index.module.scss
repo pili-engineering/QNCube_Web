@@ -1,0 +1,28 @@
+.room {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  box-sizing: border-box;
+  padding: 50px 72px;
+}
+
+.rtcModule {
+  width: 100%;
+  height: 100%;
+}
+
+.rtcModuleLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remote {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.chat {
+  flex: 0 0 300px;
+}
