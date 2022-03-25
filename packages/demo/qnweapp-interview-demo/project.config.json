@@ -4,7 +4,7 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": true,
     "postcss": true,
@@ -48,7 +48,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.16.1",
-  "appid": "wx32378d84814387eb",
+  "appid": "wx1e4c5b2a685efddf",
   "projectname": "niucube-interview",
   "debugOptions": {
     "hidedInDevtools": []

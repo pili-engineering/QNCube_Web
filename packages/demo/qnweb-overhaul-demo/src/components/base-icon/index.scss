@@ -1,0 +1,12 @@
+.base-icon {
+  cursor: pointer;
+  user-select: none;
+  &-text {
+    color: #fff;
+    padding-left: 10px;
+    vertical-align: middle;
+  }
+  > img {
+    width: 100%;
+  }
+}

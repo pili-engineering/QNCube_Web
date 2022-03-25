@@ -1,0 +1,52 @@
+{
+  "name": "qnweb-cloud-class-demo",
+  "version": "4.0.0-beta.3",
+  "scripts": {
+    "dev": "vite",
+    "build:test": "tsc && vite build --mode test",
+    "build:prod": "tsc && vite build --mode prod",
+    "build": "tsc && vite build --mode prod",
+    "serve": "vite preview",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "jest -c jest.config.ts --passWithNoTests",
+    "coverage": "jest -c jest.config.ts --coverage",
+    "test:watch": "jest -c jest.config.ts --coverage --watch"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "antd": "^4.16.13",
+    "axios": "^0.21.4",
+    "classnames": "^2.3.1",
+    "lodash": "^4.17.21",
+    "qnweb-high-level-rtc": "^4.0.0-beta.4",
+    "qnweb-rtc": "^4.0.2",
+    "qnweb-whiteboard": "^1.1.0-beta.3",
+    "qs": "^6.10.1",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-router-dom": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.176",
+    "@types/node": "^16.11.2",
+    "@types/qs": "^6.9.7",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.3.1",
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "@typescript-eslint/parser": "^4.31.2",
+    "@vitejs/plugin-react": "^1.0.0",
+    "ahooks": "^3.1.9",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "jest": "^27.5.1",
+    "sass": "^1.42.0",
+    "typescript": "^4.4.4",
+    "vite": "^2.6.4",
+    "vite-plugin-imp": "^2.0.9"
+  }
+}

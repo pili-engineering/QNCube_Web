@@ -1,8 +1,36 @@
 /**
+ * 不同环境下不同配置
+ */
+export const apiBaseConfig = {
+  dev: {
+    baseURL: 'http://10.200.20.28:5080',
+    timeout: 10000,
+  },
+  test: {
+    baseURL: 'http://10.200.20.28:5080',
+    timeout: 10000,
+  },
+  prod: {
+    baseURL: 'https://niucube-api.qiniu.com',
+    timeout: 10000,
+  },
+};
+
+/**
+ * 当前环境
+ */
+export const env = import.meta.env.VITE_NODE_ENV || 'dev';
+
+/**
+ * 当前配置
+ */
+export const apiRequestConfig = apiBaseConfig[env];
+
+/**
  * Response 中 code 状态码
  * @link https://cf.qiniu.io/pages/viewpage.action?pageId=63570443
  */
-export const defaultHttpResponseCodeMessage = {
+export const apiResponseCode = {
   0: '请求成功',
   400000: '参数错误',
   401001: '用户未登录或TOKEN过期',
@@ -17,24 +45,3 @@ export const defaultHttpResponseCodeMessage = {
   401000: '权限不足',
   404000: '当前请求接口不可用',
 };
-
-/**
- * 根据环境区别请求的域名地址
- */
-export const defaultHttpRequestConfig = {
-  dev: {
-    baseURL: 'http://10.200.20.28:5080',
-    timeout: 1000,
-  },
-  test: {
-    baseURL: 'http://10.200.20.28:5080',
-    timeout: 1000,
-  },
-  prod: {
-    baseURL: 'https://niucube-api.qiniu.com',
-    timeout: 1000,
-  },
-};
-
-// 场景类型
-export const sceneType = "onlineExam"

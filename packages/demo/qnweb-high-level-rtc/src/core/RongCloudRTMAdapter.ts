@@ -1,6 +1,11 @@
 import * as RongIMLib from '@rongcloud/imlib-v4';
+
 import RtmManager from '../event-bus/RtmManager';
 import { RtmCallBack, RtmAdapter } from '../types';
+import { LogModel } from '../util';
+
+const log = new LogModel('log');
+log.setPreTitle('RongCloudRTMAdapter');
 
 /**
  * 融云 IM 适配器
@@ -21,7 +26,7 @@ class RongCloudRTMAdapter implements RtmAdapter {
   addIMEventListener() {
     this.im.watch({
       message: (event) => {
-        console.log('收到消息', event);
+        log.log('收到消息', event);
         const mapListeners = new Map([
           [1, RtmManager.mRtmC2cListeners], // 单聊
           [4, RtmManager.mRtmChannelListeners], // 聊天室
@@ -49,9 +54,9 @@ class RongCloudRTMAdapter implements RtmAdapter {
       token
     }).then(user => {
       if (callback?.onSuccess) callback.onSuccess(user);
-      console.log('链接成功, 链接用户 id 为: ', user.id);
+      log.log('链接成功, 链接用户 id 为: ', user.id);
     }).catch(error => {
-      console.log('链接失败: ', error.code, error.msg);
+      log.log('链接失败: ', error.code, error.msg);
       if (callback?.onFailure) callback.onFailure(error);
       return Promise.reject(error);
     });
@@ -70,10 +75,10 @@ class RongCloudRTMAdapter implements RtmAdapter {
       count: -1
     }).then(() => {
       if (callback?.onSuccess) callback.onSuccess(true);
-      console.log('加入聊天室成功');
+      log.log('加入聊天室成功');
     }).catch(error => {
       if (callback?.onFailure) callback.onFailure(error);
-      console.log('加入聊天室失败');
+      log.log('加入聊天室失败');
       return Promise.reject(error);
     });
   }
@@ -88,11 +93,11 @@ class RongCloudRTMAdapter implements RtmAdapter {
     return this.im.ChatRoom.get({
       id: channelId
     }).quit().then(() => {
-      console.log('退出聊天室成功');
+      log.log('退出聊天室成功');
       if (callback?.onSuccess) callback.onSuccess();
     }).catch(error => {
       if (callback?.onFailure) callback.onFailure(error);
-      console.log('退出聊天室失败');
+      log.log('退出聊天室失败');
       return Promise.reject(error);
     });
   }
@@ -113,7 +118,7 @@ class RongCloudRTMAdapter implements RtmAdapter {
         content: msg // 文本内容
       }
     }).then(function (message) {
-      console.log('message', message);
+      log.log('message', message);
       const messageContent: any = message.content;
       if (callback?.onSuccess) {
         callback.onSuccess(messageContent.content as string);
@@ -124,7 +129,7 @@ class RongCloudRTMAdapter implements RtmAdapter {
         })
       }
     }).catch(function (error) {
-      console.log('发送文字消息失败', error);
+      log.log('发送文字消息失败', error);
       if (callback?.onFailure) callback.onFailure(error);
       return Promise.reject(error);
     });

@@ -1,0 +1,15 @@
+.im-room-input {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  box-sizing: border-box;
+  border: 1px solid #bfbfbf;
+  &-textarea {
+    color: #000;
+    resize: none;
+    border: none;
+  }
+  .button {
+    height: 100%;
+  }
+}

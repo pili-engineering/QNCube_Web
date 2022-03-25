@@ -1,6 +1,6 @@
 import { httpRequestUtil } from './request';
 import { IMConfig } from './types';
-import { sceneType } from './config';
+import { sceneType } from '@/config';
 
 const getAuthorization = () => `Bearer ${localStorage.getItem('authorization')}`;
 

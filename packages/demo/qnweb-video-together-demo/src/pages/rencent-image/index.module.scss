@@ -1,0 +1,73 @@
+@use "sass:math";
+
+$basePx: 750; // 设计稿基准尺寸
+
+@function pxToVw($px) {
+  @return math.div($px, $basePx) * 100vw;
+}
+
+.container {
+  background-size: 100% 100%;
+  //position: fixed
+  background-image: url("./bg.png");
+  width: 100%;
+  height: 100%;
+}
+
+.center {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.title {
+  font-size: pxToVw(44);
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: pxToVw(60);
+  white-space: nowrap;
+}
+
+.card {
+  //background-color: #8A8CD8;
+  width: pxToVw(470);
+  //height: pxToVw(835);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin: auto;
+  //overflow: auto;
+  > img {
+    width: 100%;
+    height: 100%;
+    //border: 2px solid #8A8CD8;
+    //border-radius: 4px;
+  }
+  > span {
+    font-size: pxToVw(44)
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.button {
+  margin-top: pxToVw(44);
+  width: pxToVw(160);
+  height: pxToVw(64);
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+}

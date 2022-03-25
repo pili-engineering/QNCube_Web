@@ -1,8 +1,38 @@
-# <center>qnweb-high-level-rtc</center>
+# qnweb-high-level-rtc
 
-<center>七牛云 RTC high-level SDK</center>
+一个基于 qnweb-rtc 二次封装的 High Level SDK，屏蔽了 track 相关的概念，采用麦位的形式进行音视频通话。
 
-## 角色
+## 安装依赖
+
+```shell
+$ pnpm install
+```
+
+## 如何打包
+
+```shell
+$ pnpm build:prod
+```
+
+## 生成文档
+
+```shell
+# 生成 markdown 文档
+$ pnpm doc:md
+
+或者
+
+# 生成 html 文档
+$ pnpm doc:html
+```
+
+## 角色系统
+
+通过 setClientRoleType 设置角色，不同角色有用不同的 rtc 操作权限。
+
+* 主播角色：可以发布并订阅流
+* 用户角色：会加入不可以发布流，只能订阅流
+* 拉流角色：不能发布流，也不能订阅流，为 rtmp 拉流角色，一般不需要切换设置为该角色
 
 ```ts
 export enum ClientRoleType {
@@ -21,32 +51,4 @@ export enum ClientRoleType {
 }
 ```
 
-## MutableTrackRoom
 
-> 角色:
-> 
-> 拉流角色: 不加入rtc房间，通过信令监听用户加入房间/退出房间/切换麦克风等事件
-> 
-> 用户角色: 加入rtc房间，但是只能订阅track，不能发布track，通过rtc事件监听用户加入房间/退出房间/切换麦克风等事件
-> 
-> 主播角色: 加入rtc房间，可以发布track，通过rtc事件监听用户加入房间/退出房间/切换麦克风等事件
-> 
-> 思路:
-> 
-> 弱化麦位的概念，强化角色的概念，只有主播角色位于麦上，核心其实是rtc track的操作权限
-
-## LazyTrackRoom
-
-> 角色: 
-> 
-> 拉流角色: 不加入rtc房间，通过信令监听用户加入房间/退出房间/切换麦克风等事件
-> 
-> 用户角色: 加入rtc房间，但是只能订阅track，不能发布track，通过rtc事件监听用户加入房间/退出房间/切换麦克风等事件
-> 
-> 主播角色: 加入rtc房间，可以发布track，通过rtc事件监听用户加入房间/退出房间/切换麦克风等事件
->
-> 思路:
-> 
-> 与MutableTrackRoom不同的是，LazyTrackRoom强化了麦位的概念，同样是主播角色位于麦上，但是内部维护了角色的切换，对外屏蔽了切换角色的方法
-> 
-> 用户通过调用上麦/下麦方法进行上下麦，下麦类型可以分为两种：一种作为拉流角色下麦，一种作为用户角色下麦
