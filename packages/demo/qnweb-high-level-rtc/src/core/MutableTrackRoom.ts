@@ -594,7 +594,7 @@ class MutableTrackRoom extends RtcRoom {
    * @param state
    */
   private handleRtcDirectLivestreamingStateChanged(streamID: string, state: QNLiveStreamingState) {
-    console.log('direct-livestreaming-state-changed', streamID, state);
+    log.log('direct-livestreaming-state-changed', streamID, state);
   }
 
   /**
@@ -604,7 +604,7 @@ class MutableTrackRoom extends RtcRoom {
    * @param state
    */
   private handleRtcTranscodingLivestreamingStateChanged(streamID: string, state: QNLiveStreamingState) {
-    console.log('transcoding-livestreaming-state-changed', streamID, state);
+    log.log('transcoding-livestreaming-state-changed', streamID, state);
   }
 
   /**

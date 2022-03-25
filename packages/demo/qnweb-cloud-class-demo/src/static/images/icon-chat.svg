@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon_chat_@1.5x</title>
+    <defs>
+        <filter x="-43.8%" y="-43.8%" width="187.5%" height="187.5%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="icon_chat_" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon_chat_备份" filter="url(#filter-1)">
+            <rect id="矩形" x="0" y="0" width="24" height="24"></rect>
+            <path d="M20.3333333,2.83333333 C20.563452,2.83333333 20.7717853,2.92660734 20.922589,3.07741102 C21.0733927,3.22821469 21.1666667,3.43654802 21.1666667,3.66666667 L21.1666667,3.66666667 L21.1666667,16.1666667 C21.1666667,16.3967853 21.0733927,16.6051186 20.922589,16.7559223 C20.7717853,16.906726 20.563452,17 20.3333854,17 L20.3333854,17 L14.6277499,16.9996435 L12.0030255,19.9175972 L9.37051468,16.9996435 L3.66666667,17 C3.43654802,17 3.22821469,16.906726 3.07741102,16.7559223 C2.92660734,16.6051186 2.83333333,16.3967853 2.83333333,16.1666667 L2.83333333,16.1666667 L2.83333333,3.66666667 C2.83333333,3.43654802 2.92660734,3.22821469 3.07741102,3.07741102 C3.22821469,2.92660734 3.43654802,2.83333333 3.66666667,2.83333333 L3.66666667,2.83333333 Z" id="矩形-2" stroke="#FFFFFF" stroke-width="1.66666667"></path>
+            <circle id="椭圆形" fill="#FFFFFF" cx="7.41666667" cy="9.91666667" r="1.25"></circle>
+            <path d="M12,11.1666667 C12.6903559,11.1666667 13.25,10.6070226 13.25,9.91666667 C13.25,9.22631073 12.6903559,8.66666667 12,8.66666667 C11.3096441,8.66666667 10.75,9.22631073 10.75,9.91666667 C10.75,10.6070226 11.3096441,11.1666667 12,11.1666667 Z" id="椭圆形备份" fill="#FFFFFF"></path>
+            <circle id="椭圆形备份-2" fill="#FFFFFF" cx="16.5833333" cy="9.91666667" r="1.25"></circle>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,35 @@
+.multi-color-circle-bar {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  .button {
+    &-component {
+      position: relative;
+      margin: 0 10px;
+      width: 20px;
+      height: 20px;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+  }
+  .checked {
+    border: 2px solid #1890ff;
+    &::after {
+      position: absolute;
+      display: table;
+      border: 2px solid #fff;
+      border-top: 0;
+      border-left: 0;
+      transform: rotate(45deg) scale(1) translate(-50%,-50%);
+      opacity: 1;
+      transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
+      content: " ";
+      top: 50%;
+      left: 25.5%;
+      width: 5.71428571px;
+      height: 9.14285714px;
+    }
+  }
+}

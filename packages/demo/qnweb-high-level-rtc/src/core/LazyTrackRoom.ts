@@ -1,3 +1,11 @@
+import {
+  QNConnectionDisconnectedInfo,
+  QNConnectionState,
+  QNCustomMessage, QNLiveStreamingState,
+  QNRemoteAudioTrack, QNRemoteTrack,
+  QNRemoteVideoTrack
+} from 'qnweb-rtc';
+
 import RtcRoom from './RtcRoom';
 import {
   MicSeatListener,
@@ -7,13 +15,6 @@ import {
   UserExtension,
   CameraMicStatusSignaling, ClientRoleType
 } from '../types';
-import {
-  QNConnectionDisconnectedInfo,
-  QNConnectionState,
-  QNCustomMessage, QNLiveStreamingState,
-  QNRemoteAudioTrack, QNRemoteTrack,
-  QNRemoteVideoTrack
-} from 'qnweb-rtc';
 import RtmManager from '../event-bus/RtmManager';
 import RoomSignalingManager from '../event-bus/RoomSignalingManager';
 import { TAG_CAMERA, TAG_MICROPHONE } from '../constants';
@@ -504,7 +505,7 @@ class LazyTrackRoom extends RtcRoom {
    * @param state
    */
   private handleRtcDirectLivestreamingStateChanged(streamID: string, state: QNLiveStreamingState) {
-    console.log('direct-livestreaming-state-changed', streamID, state);
+    log.log('direct-livestreaming-state-changed', streamID, state);
   }
 
   /**
@@ -514,7 +515,7 @@ class LazyTrackRoom extends RtcRoom {
    * @param state
    */
   private handleRtcTranscodingLivestreamingStateChanged(streamID: string, state: QNLiveStreamingState) {
-    console.log('transcoding-livestreaming-state-changed', streamID, state);
+    log.log('transcoding-livestreaming-state-changed', streamID, state);
   }
 
   /**

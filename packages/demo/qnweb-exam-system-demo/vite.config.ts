@@ -8,7 +8,6 @@ const packageJson = require('./package.json');
 // https://vitejs.dev/config/
 export default ({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
-  console.log('监考系统demo: ', process.env.VITE_NODE_ENV);
   return defineConfig({
     plugins: [
       react(),

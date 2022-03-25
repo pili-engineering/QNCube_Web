@@ -1,0 +1,24 @@
+.multi-size-circle-bar {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  .button {
+    position: relative;
+    margin: 0 10px;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    cursor: pointer;
+    &-component {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .checked {
+    border: 2px solid #1890ff;
+  }
+}

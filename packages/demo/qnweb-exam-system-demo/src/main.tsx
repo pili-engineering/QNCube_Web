@@ -6,10 +6,9 @@ import moment from 'moment';
 import 'moment/dist/locale/zh-cn';
 import QNRTC, { QNLogLevel } from 'qnweb-rtc';
 import './style/index.scss';
-import { environment } from '@/config';
+import { environment, defaultHttpRequestConfig } from '@/config';
 import RootRouter from './router';
 import registerRequestInterceptor from './register/registerRequestInterceptor';
-import { defaultHttpRequestConfig } from '@/api/config';
 import UserStore from '@/store/UserStore';
 
 const requestConfig = defaultHttpRequestConfig[environment];
