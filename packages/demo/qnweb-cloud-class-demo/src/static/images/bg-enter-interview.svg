@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440px" height="900px" viewBox="0 0 1440 900" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>BG-进入面试@2x</title>
+    <defs>
+        <linearGradient x1="50%" y1="105.085114%" x2="50%" y2="6.65720926%" id="linearGradient-1">
+            <stop stop-color="#1890FF" offset="0%"></stop>
+            <stop stop-color="#001942" offset="100%"></stop>
+            <stop stop-color="#001942" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="105.085114%" x2="49.5774796%" y2="33.645105%" id="linearGradient-2">
+            <stop stop-color="#1890FF" offset="0%"></stop>
+            <stop stop-color="#001942" offset="100%"></stop>
+            <stop stop-color="#001942" offset="100%"></stop>
+        </linearGradient>
+        <filter id="filter-3">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.113725 0 0 0 0 0.643137 0 0 0 0 1.000000 0 0 0 0.500000 0"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="71.2218512%" x2="44.4987549%" y2="43.6991843%" id="linearGradient-4">
+            <stop stop-color="#1890FF" offset="0%"></stop>
+            <stop stop-color="#001942" offset="100%"></stop>
+            <stop stop-color="#001942" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="105.085114%" x2="49.5202734%" y2="33.645105%" id="linearGradient-5">
+            <stop stop-color="#1890FF" offset="0%"></stop>
+            <stop stop-color="#001942" offset="100%"></stop>
+            <stop stop-color="#001942" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="105.085114%" x2="48.8431953%" y2="33.645105%" id="linearGradient-6">
+            <stop stop-color="#1890FF" offset="0%"></stop>
+            <stop stop-color="#001942" offset="100%"></stop>
+            <stop stop-color="#001942" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="BG-进入面试" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" fill="#001942" x="-36" y="-29" width="1524" height="960"></rect>
+        <rect id="矩形" fill="url(#linearGradient-1)" transform="translate(-35.657960, 343.533867) rotate(47.000000) translate(35.657960, -343.533867) " x="-57.6579597" y="127.033867" width="44" height="433" rx="22"></rect>
+        <rect id="矩形备份-40" fill="url(#linearGradient-2)" transform="translate(52.342040, 69.533867) rotate(47.000000) translate(-52.342040, -69.533867) " x="-7.65795968" y="-146.966133" width="120" height="433" rx="26.4"></rect>
+        <g filter="url(#filter-3)" id="编组-8">
+            <g transform="translate(1193.000000, 126.000000)">
+                <g id="编组备份-4" transform="translate(0.000000, 13.200000)">
+                    <circle id="椭圆形备份-90" fill="#73C7FF" cx="4.4" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-93" fill-opacity="0.8" fill="#62C1FF" cx="16.5" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-99" fill-opacity="0.7" fill="#44B4FF" cx="28.6" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-105" fill-opacity="0.6" fill="#2FADFF" cx="40.7" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-111" fill-opacity="0.5" fill="#17A2FF" cx="52.8" cy="4.4" r="4.4"></circle>
+                </g>
+                <g id="编组备份-5">
+                    <circle id="椭圆形备份-90" fill="#73C7FF" cx="4.4" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-93" fill-opacity="0.8" fill="#62C1FF" cx="16.5" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-99" fill-opacity="0.7" fill="#44B4FF" cx="28.6" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-105" fill-opacity="0.6" fill="#2FADFF" cx="40.7" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-111" fill-opacity="0.5" fill="#17A2FF" cx="52.8" cy="4.4" r="4.4"></circle>
+                </g>
+                <g id="编组备份-6" transform="translate(0.000000, 26.400000)">
+                    <circle id="椭圆形备份-90" fill="#73C7FF" cx="4.4" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-93" fill-opacity="0.8" fill="#62C1FF" cx="16.5" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-99" fill-opacity="0.7" fill="#44B4FF" cx="28.6" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-105" fill-opacity="0.6" fill="#2FADFF" cx="40.7" cy="4.4" r="4.4"></circle>
+                    <circle id="椭圆形备份-111" fill-opacity="0.5" fill="#17A2FF" cx="52.8" cy="4.4" r="4.4"></circle>
+                </g>
+            </g>
+        </g>
+        <g id="编组-8备份" transform="translate(180.000000, 712.000000)">
+            <g id="编组备份-4" transform="translate(0.000000, 13.200000)">
+                <circle id="椭圆形备份-90" fill="#73C7FF" cx="4.4" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-93" fill-opacity="0.8" fill="#62C1FF" cx="16.5" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-99" fill-opacity="0.7" fill="#44B4FF" cx="28.6" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-105" fill-opacity="0.6" fill="#2FADFF" cx="40.7" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-111" fill-opacity="0.5" fill="#17A2FF" cx="52.8" cy="4.4" r="4.4"></circle>
+            </g>
+            <g id="编组备份-5">
+                <circle id="椭圆形备份-90" fill="#73C7FF" cx="4.4" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-93" fill-opacity="0.8" fill="#62C1FF" cx="16.5" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-99" fill-opacity="0.7" fill="#44B4FF" cx="28.6" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-105" fill-opacity="0.6" fill="#2FADFF" cx="40.7" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-111" fill-opacity="0.5" fill="#17A2FF" cx="52.8" cy="4.4" r="4.4"></circle>
+            </g>
+            <g id="编组备份-6" transform="translate(0.000000, 26.400000)">
+                <circle id="椭圆形备份-90" fill="#73C7FF" cx="4.4" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-93" fill-opacity="0.8" fill="#62C1FF" cx="16.5" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-99" fill-opacity="0.7" fill="#44B4FF" cx="28.6" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-105" fill-opacity="0.6" fill="#2FADFF" cx="40.7" cy="4.4" r="4.4"></circle>
+                <circle id="椭圆形备份-111" fill-opacity="0.5" fill="#17A2FF" cx="52.8" cy="4.4" r="4.4"></circle>
+            </g>
+        </g>
+        <rect id="矩形备份-42" fill="url(#linearGradient-5)" transform="translate(1419.000000, 609.500000) rotate(47.000000) translate(-1419.000000, -609.500000) " x="1397" y="535" width="44" height="149" rx="22"></rect>
+        <rect id="矩形备份-44" fill="url(#linearGradient-6)" transform="translate(1382.000000, 853.000000) rotate(47.000000) translate(-1382.000000, -853.000000) " x="1299" y="672" width="166" height="362" rx="26.4"></rect>
+    </g>
+</svg>

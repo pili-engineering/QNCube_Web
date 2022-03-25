@@ -1,0 +1,82 @@
+.toolbar {
+  box-shadow: 0 8px 24px 0 rgb(0 0 0 / 10%);
+  transition: transform 0.4s;
+  background-color: #fff;
+  .switch {
+    cursor: pointer;
+  }
+  .toolbar-block {
+    padding: 10px;
+  }
+  .button {
+    flex-shrink: 0;
+  }
+  &-direction {
+    // 水平
+    &-horizontal {
+      .toolbar-block {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .button {
+        margin: 0 10px;
+      }
+      .switch {
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+      }
+    }
+    // 垂直
+    &-vertical {
+      display: flex;
+      flex-direction: row;
+      .button {
+        margin: 10px 0;
+      }
+      .toolbar-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .switch {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        justify-content: center;
+      }
+    }
+  }
+  &-fixed {
+    width: fit-content;
+    position: absolute;
+    &-top {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &-right {
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      .toolbar {
+        flex-direction: row-reverse;
+      }
+    }
+    &-bottom {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      .toolbar {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+    }
+    &-left {
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}

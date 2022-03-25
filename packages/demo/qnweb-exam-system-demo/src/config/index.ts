@@ -1,2 +1,3 @@
-export const IM_APPKEY = 'cigzypnhoyno';
-export const environment = import.meta.env.VITE_NODE_ENV || 'dev';
+export * from './api';
+export * from './env';
+export * from './im';

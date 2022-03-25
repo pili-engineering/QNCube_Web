@@ -20,12 +20,15 @@
     "build:prod": "rimraf build && rollup -c rollup.config.ts --silent --environment NODE_ENV:prod",
     "build:test": "rimraf build && rollup -c rollup.config.ts --silent --environment NODE_ENV:test",
     "build:dev": "rimraf build && rollup -c rollup.config.ts --silent --environment NODE_ENV:dev",
+    "build": "rimraf build && rollup -c rollup.config.ts --silent --environment NODE_ENV:prod",
     "test": "jest -c jest.config.ts",
     "coverage": "jest -c jest.config.ts --coverage",
     "test:watch": "jest -c jest.config.ts --coverage --watch",
     "tsc": "tsc -init",
     "deploy-docs": "ts-node tools/gh-pages-publish",
-    "doc": "rimraf docs && typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts"
+    "doc:md": "rimraf docs && typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts",
+    "doc:html": "rimraf docs && typedoc --out docs src/index.ts",
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",
