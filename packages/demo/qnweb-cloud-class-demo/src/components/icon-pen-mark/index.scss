@@ -1,0 +1,17 @@
+.popover-content {
+  &--direction {
+    &-horizontal {}
+    &-vertical {
+      display: flex;
+      flex-direction: row;
+      .multi-color-circle-bar, .multi-size-circle-bar {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+.icon-pen-mark {
+  display: inline-block;
+}

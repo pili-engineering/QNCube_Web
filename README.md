@@ -1,12 +1,15 @@
-<div align="center">
-    <h1>QNCube_Web</h1>
-    <p>牛魔方demo</p>
-</div>
+# QNCube_Web
+
+牛魔方demo
 
 ## 方案demo
 
-* [监考场景](./packages/demo/qnweb-exam-system-demo)
-* [面试场景](./packages/demo/qnweb-interview-demo)
+* [监考场景](./packages/demo/qnweb-exam-system-demo/README.md)
+* [面试场景](./packages/demo/qnweb-interview-demo/README.md)
+* [检修场景](./packages/demo/qnweb-overhaul-demo/README.md)
+* [一起看视频场景](./packages/demo/qnweb-video-together-demo/README.md)
+* [云课堂场景](./packages/demo/qnweb-cloud-class-demo/README.md)
+* [小程序端面试场景](./packages/demo/qnweapp-interview-demo/README.md)
 
 ## 快速启动
 

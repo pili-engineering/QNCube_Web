@@ -1,0 +1,42 @@
+.cloud-class-seat {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  background-color: #f9f9fc;
+  &--close {
+    > video {
+      display: none;
+    }
+  }
+  .username {
+    text-shadow: 0 1px 2px rgb(13 29 61 / 80%);
+    color: #fff;
+  }
+  .placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .bottom-bar {
+    width: 100%;
+    padding: 5px 10px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+    .camera-mic {
+      .icon {
+        vertical-align: middle;
+        margin: 0 4px;
+      }
+    }
+  }
+  > video {
+    object-fit: cover!important;
+    transform: rotateY(180deg);
+  }
+}

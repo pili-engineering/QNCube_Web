@@ -1,0 +1,29 @@
+.wb-tabs {
+  .ant-tabs {
+    .ant-tabs-nav {
+      .ant-tabs-nav-wrap {
+        width: 100%;
+        background-color: #505467;
+        .ant-tabs-nav-list {
+          .ant-tabs-tab-remove {
+            color: #fff;
+          }
+          > .ant-tabs-tab {
+            border-radius: 0;
+            background-color: #505467;
+            color: #fff;
+            border-top: none;
+            border-bottom: none;
+            border-left: none;
+          }
+        }
+      }
+      .ant-tabs-nav-operations {
+        .ant-tabs-nav-more {
+          background-color: #505467;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

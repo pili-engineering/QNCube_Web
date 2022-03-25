@@ -1,0 +1,26 @@
+@mixin absolute-center-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.guide-card {
+  width: 884px;
+  height: 490px;
+  background-color: #fff;
+  display: flex;
+  border-radius: 8px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.12);
+  .left {
+    width: 380px;
+    position: relative;
+    .pic {
+      width: 90%;
+      @include absolute-center-center;
+    }
+  }
+  .right {
+    flex: 1;
+  }
+}

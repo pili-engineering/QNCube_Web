@@ -1,0 +1,143 @@
+.room {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.RTCModule {
+  flex: 1;
+}
+
+.RTCModuleFooter {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+.IMModule {
+  flex: 0 0 300px;
+}
+
+.IMModuleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.RTCModuleBody {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.deviceTools {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.deviceButton {
+  margin: 0 15px;
+}
+
+.IconScreenToggle {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.professorSeatContainer {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 0;
+}
+
+.professorSeat {
+  width: 200px;
+  height: 200px;
+  color: #fff;
+  border: 1px solid #ccc;
+  position: relative;
+}
+
+.professorDevice {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.fullContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > video {
+    object-fit: cover!important;
+  }
+}
+
+.rtPlayer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 100%;
+}
+
+.wbContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  > canvas {
+    position: absolute!important;
+    top: 50%!important;;
+    left: 50%!important;;
+    transform: translate(-50%, -50%)!important;;
+  }
+}
+
+.wbBar {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  background-color: #fff;
+  z-index: 2;
+}
+
+.wbCover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
