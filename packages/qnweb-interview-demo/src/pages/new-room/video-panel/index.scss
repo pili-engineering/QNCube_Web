@@ -1,0 +1,59 @@
+.video-panel {
+
+  .header {
+    color: #fff;
+    background-color: #2D2B27;
+    text-align: center;
+    font-size: 18px;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .body {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 60px - 70px);
+
+    .icon-remote-screen {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 20px;
+      cursor: pointer;
+    }
+
+    &-bar {
+      width: 100%;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      bottom: 0;
+
+      .icon-gap {
+        margin: 0 20px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .footer {
+    height: 70px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2D2B27;
+
+    .buttons {
+      .button {
+        margin-left: 20px;
+      }
+    }
+  }
+}

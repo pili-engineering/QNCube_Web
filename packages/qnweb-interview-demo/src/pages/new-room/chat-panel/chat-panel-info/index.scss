@@ -1,0 +1,45 @@
+.chat-panel-info {
+  background-color: #2F2F2F;
+  color: #fff;
+  padding: 20px 20px 12px;
+
+  .info {
+    .ctx {
+      display: flex;
+      margin-bottom: 20px;
+
+      &-label {
+        flex: 0 0 80px;
+        font-size: 16px;
+      }
+
+      &-content {
+        word-break: break-all;
+      }
+    }
+  }
+
+  .button {
+    display: flex;
+    justify-content: flex-end;
+
+    .copy-button {
+      text-align: right;
+      cursor: pointer;
+      user-select: none;
+
+      .text {
+        color: #fff;
+        padding-left: 5px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .overflow-dot {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+}
