@@ -1,0 +1,25 @@
+.schedule-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  .time, .progress {
+    width: 100%;
+  }
+
+  .time-count {
+    color: #ff2231;
+    font-size: 28px;
+    font-weight: 500;
+  }
+
+  .divider {
+    margin: 10px 0;
+    background-color: #bbb;
+  }
+}
+
+.text-center {
+  text-align: center;
+}

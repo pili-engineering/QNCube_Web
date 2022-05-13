@@ -1,0 +1,20 @@
+.chat-panel-input {
+  background-color: #2D2B27;
+  padding: 20px;
+
+  .input {
+    display: block;
+    color: #fff;
+    background-color: #333333;
+    resize: none;
+    height: 80px;
+    border: none;
+    outline: none;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+}

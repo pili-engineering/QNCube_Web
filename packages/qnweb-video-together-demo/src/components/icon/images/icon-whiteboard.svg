@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon_white board_</title>
+    <defs>
+        <filter x="-43.8%" y="-43.8%" width="187.5%" height="187.5%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <path d="M1.80036636,17.0798305 C3.37179734,17.4003143 4.59988254,18.6283995 4.92036636,20.1998305 C5.03072968,20.7409759 5.55888189,21.0901938 6.10002732,20.9798305 C6.64117276,20.8694672 6.99039065,20.3413149 6.88002732,19.8001695 C6.3993016,17.443023 4.5571738,15.6008952 2.20002732,15.1201695 C1.65888189,15.0098062 1.13072968,15.3590241 1.02036636,15.9001695 C0.910003026,16.4413149 1.25922092,16.9694672 1.80036636,17.0798305 Z M1.88965833,13.0438718 C5.60775269,13.4573986 8.54279824,16.3924442 8.956325,20.1105385 C9.01737373,20.6594388 9.51183509,21.0549206 10.0607353,20.9938718 C10.6096356,20.9328231 11.0051174,20.4383618 10.9440687,19.8894615 C10.4271602,15.2418435 6.75835329,11.5730366 2.11073535,11.0561282 C1.56183509,10.9950794 1.06737373,11.3905612 1.006325,11.9394615 C0.945276265,12.4883618 1.34075807,12.9828231 1.88965833,13.0438718 Z M3.00019684,8 L3.00019684,6 C3.00019684,5.44771525 3.44791209,5 4.00019684,5 L20.0001968,5 C20.5524816,5 21.0001968,5.44771525 21.0001968,6 L21.0001968,18 C21.0001968,18.5522847 20.5524816,19 20.0001968,19 L14.0001968,19 C13.4479121,19 13.0001968,19.4477153 13.0001968,20 C13.0001968,20.5522847 13.4479121,21 14.0001968,21 L20.0001968,21 C21.6570511,21 23.0001968,19.6568542 23.0001968,18 L23.0001968,6 C23.0001968,4.34314575 21.6570511,3 20.0001968,3 L4.00019684,3 C2.34334259,3 1.00019684,4.34314575 1.00019684,6 L1.00019684,8 C1.00019684,8.55228475 1.44791209,9 2.00019684,9 C2.55248159,9 3.00019684,8.55228475 3.00019684,8 Z" id="path-2"></path>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="面试房间-应聘者备份" transform="translate(-236.000000, -787.000000)">
+            <g id="icon_white-board_" transform="translate(236.000000, 787.000000)">
+                <circle id="椭圆形备份-3" fill-opacity="0.4" fill="#000000" cx="24.9303279" cy="24.9303279" r="24.9303279"></circle>
+                <g id="icon_white-board_备份" filter="url(#filter-1)" transform="translate(13.000000, 13.000000)">
+                    <rect id="矩形" x="0" y="0" width="24" height="24"></rect>
+                    <mask id="mask-3" fill="white">
+                        <use xlink:href="#path-2"></use>
+                    </mask>
+                    <use id="Shape" fill="#FFFFFF" xlink:href="#path-2"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

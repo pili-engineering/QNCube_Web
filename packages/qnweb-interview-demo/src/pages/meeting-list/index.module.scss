@@ -1,0 +1,25 @@
+.container {
+  padding: 0 132px;
+}
+
+.tableButtons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  margin: auto;
+}
+
+.placeholderDivider {
+  width: 12px;
+  margin: 0 2px;
+  border-top: 2px solid #E9E9E9;
+  min-width: 12px;
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    padding: 0;
+  }
+}
