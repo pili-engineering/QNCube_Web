@@ -1,0 +1,464 @@
+// Vitest Snapshot v1
+
+exports[`Login > first render 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="_container_1nq4d_1"
+      >
+        <div
+          class="login-form"
+        >
+          <div
+            class="left"
+          >
+            <img
+              alt="登录表单背景图"
+              src="/src/pages/login/login-form/login-card-bg.png"
+            />
+          </div>
+          <div
+            class="right"
+          >
+            <h1
+              class="header"
+            >
+              <span
+                class="bar"
+              />
+              <span
+                class="text"
+              >
+                欢迎登录
+              </span>
+              <span
+                class="bar bar-mirror"
+              />
+            </h1>
+            <div
+              class="body"
+            >
+              <form
+                class="ant-form ant-form-vertical"
+              >
+                <div
+                  class="ant-row ant-form-item"
+                  style="margin-bottom: 10px;"
+                >
+                  <div
+                    class="ant-col ant-form-item-label"
+                  >
+                    <label
+                      class=""
+                      title="手机号"
+                    >
+                      手机号
+                    </label>
+                  </div>
+                  <div
+                    class="ant-col ant-form-item-control"
+                  >
+                    <div
+                      class="ant-form-item-control-input"
+                    >
+                      <div
+                        class="ant-form-item-control-input-content"
+                      >
+                        <input
+                          class="ant-input ant-input-borderless base-input"
+                          defaultvalue=""
+                          placeholder="请输入手机号"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tip"
+                >
+                  未注册用户可以手机号直接登录
+                </div>
+                <div
+                  class="ant-row ant-form-item"
+                >
+                  <div
+                    class="ant-col ant-form-item-label"
+                  >
+                    <label
+                      class=""
+                      title="验证码"
+                    >
+                      验证码
+                    </label>
+                  </div>
+                  <div
+                    class="ant-col ant-form-item-control"
+                  >
+                    <div
+                      class="ant-form-item-control-input"
+                    >
+                      <div
+                        class="ant-form-item-control-input-content"
+                      >
+                        <div
+                          class="captcha"
+                        >
+                          <input
+                            class="ant-input ant-input-borderless sms-input base-input"
+                            defaultvalue=""
+                            placeholder="请输入验证码"
+                            type="text"
+                          />
+                          <button
+                            class="ant-btn ant-btn-link countdown-button"
+                            type="button"
+                          >
+                            <span>
+                              获取验证码
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-form-item"
+                  style="margin-bottom: 16px;"
+                >
+                  <div
+                    class="ant-col ant-form-item-control"
+                  >
+                    <div
+                      class="ant-form-item-control-input"
+                    >
+                      <div
+                        class="ant-form-item-control-input-content"
+                      >
+                        <button
+                          class="ant-btn ant-btn-primary ant-btn-block button"
+                          type="submit"
+                        >
+                          <span>
+                            登 录
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-form-item"
+                >
+                  <div
+                    class="ant-col ant-form-item-control"
+                  >
+                    <div
+                      class="ant-form-item-control-input"
+                    >
+                      <div
+                        class="ant-form-item-control-input-content"
+                      >
+                        <div
+                          class="agreement-check"
+                        >
+                          <img
+                            alt="icon-checked-false"
+                            src="/src/pages/login/login-form/icon-unchecked.svg"
+                          />
+                          <span
+                            class="agreement"
+                          >
+                            <span>
+                              我已阅读并同意
+                            </span>
+                            <a
+                              class="blank-link"
+                              href="https://www.qiniu.com/user-agreement"
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              《七牛云服务用户协议》
+                            </a>
+                            <span>
+                              和
+                            </span>
+                            <a
+                              class="blank-link"
+                              href="https://www.qiniu.com/privacy-right"
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              《隐私权政策》
+                            </a>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="_container_1nq4d_1"
+    >
+      <div
+        class="login-form"
+      >
+        <div
+          class="left"
+        >
+          <img
+            alt="登录表单背景图"
+            src="/src/pages/login/login-form/login-card-bg.png"
+          />
+        </div>
+        <div
+          class="right"
+        >
+          <h1
+            class="header"
+          >
+            <span
+              class="bar"
+            />
+            <span
+              class="text"
+            >
+              欢迎登录
+            </span>
+            <span
+              class="bar bar-mirror"
+            />
+          </h1>
+          <div
+            class="body"
+          >
+            <form
+              class="ant-form ant-form-vertical"
+            >
+              <div
+                class="ant-row ant-form-item"
+                style="margin-bottom: 10px;"
+              >
+                <div
+                  class="ant-col ant-form-item-label"
+                >
+                  <label
+                    class=""
+                    title="手机号"
+                  >
+                    手机号
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <input
+                        class="ant-input ant-input-borderless base-input"
+                        defaultvalue=""
+                        placeholder="请输入手机号"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tip"
+              >
+                未注册用户可以手机号直接登录
+              </div>
+              <div
+                class="ant-row ant-form-item"
+              >
+                <div
+                  class="ant-col ant-form-item-label"
+                >
+                  <label
+                    class=""
+                    title="验证码"
+                  >
+                    验证码
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <div
+                        class="captcha"
+                      >
+                        <input
+                          class="ant-input ant-input-borderless sms-input base-input"
+                          defaultvalue=""
+                          placeholder="请输入验证码"
+                          type="text"
+                        />
+                        <button
+                          class="ant-btn ant-btn-link countdown-button"
+                          type="button"
+                        >
+                          <span>
+                            获取验证码
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-row ant-form-item"
+                style="margin-bottom: 16px;"
+              >
+                <div
+                  class="ant-col ant-form-item-control"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <button
+                        class="ant-btn ant-btn-primary ant-btn-block button"
+                        type="submit"
+                      >
+                        <span>
+                          登 录
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-row ant-form-item"
+              >
+                <div
+                  class="ant-col ant-form-item-control"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <div
+                        class="agreement-check"
+                      >
+                        <img
+                          alt="icon-checked-false"
+                          src="/src/pages/login/login-form/icon-unchecked.svg"
+                        />
+                        <span
+                          class="agreement"
+                        >
+                          <span>
+                            我已阅读并同意
+                          </span>
+                          <a
+                            class="blank-link"
+                            href="https://www.qiniu.com/user-agreement"
+                            rel="noreferrer"
+                            target="_blank"
+                          >
+                            《七牛云服务用户协议》
+                          </a>
+                          <span>
+                            和
+                          </span>
+                          <a
+                            class="blank-link"
+                            href="https://www.qiniu.com/privacy-right"
+                            rel="noreferrer"
+                            target="_blank"
+                          >
+                            《隐私权政策》
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

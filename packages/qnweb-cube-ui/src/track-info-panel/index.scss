@@ -1,0 +1,32 @@
+@import "../_styles/variable.scss";
+
+.#{$prefixCls}-track-info-panel {
+  background: rgba(28, 28, 28, 0.8);
+  border-radius: 4px;
+  color: #fff;
+  position: absolute;
+  z-index: 64;
+  font-size: 11px;
+  min-width: 22em;
+  left: 10px;
+  top: 60px;
+
+  &-mobile {
+    min-width: 17em;
+    left: initial;
+    right: 0;
+    top: 58px;
+  }
+
+  .content {
+    padding: 5px;
+
+    .label {
+      display: inline-block;
+      font-weight: 500;
+      padding: 0 .5em;
+      text-align: right;
+      width: 10em;
+    }
+  }
+}

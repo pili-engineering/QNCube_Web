@@ -1,0 +1,1090 @@
+// Vitest Snapshot v1
+
+exports[`DeviceTest > first render 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="_container_1g2zo_1"
+      >
+        <div
+          class="common-header"
+        >
+          <div
+            class="header"
+          >
+            <div
+              class="header-logo"
+            >
+              <img
+                alt=""
+                src="/src/components/common-header/logo.png"
+              />
+            </div>
+            <div
+              class="header-user"
+            >
+              <span />
+            </div>
+          </div>
+          <div
+            style="padding: 0 132px;"
+          >
+            <div
+              class="device-test-panel _deviceTestPanel_1g2zo_9"
+            >
+              <h1
+                class="main-title"
+              >
+                设备检测
+              </h1>
+              <div
+                class="device-test-panel-services"
+              >
+                <div
+                  class="test-video test-video-mirror"
+                />
+                <div
+                  class="device-manager"
+                >
+                  <div
+                    class="device-item"
+                  >
+                    <div
+                      class="device-info"
+                    >
+                      <div
+                        class="device-label"
+                      >
+                        浏览器兼容性
+                      </div>
+                      <div
+                        class="device-hint"
+                      >
+                        <img
+                          alt=""
+                          class="device-hint-icon"
+                          src="/src/components/device-test-panel/icon-abnormality.svg"
+                        />
+                        <span>
+                          当前浏览器兼容性检测未通过
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="device-item"
+                  >
+                    <div
+                      class="device-info"
+                    >
+                      <div
+                        class="device-label"
+                      >
+                        摄像头
+                      </div>
+                      <div
+                        class="ant-select device-select ant-select-single ant-select-show-arrow"
+                      >
+                        <div
+                          class="ant-select-selector"
+                        >
+                          <span
+                            class="ant-select-selection-search"
+                          >
+                            <input
+                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                              aria-autocomplete="list"
+                              aria-controls="rc_select_TEST_OR_SSR_list"
+                              aria-haspopup="listbox"
+                              aria-owns="rc_select_TEST_OR_SSR_list"
+                              autocomplete="off"
+                              class="ant-select-selection-search-input"
+                              defaultvalue=""
+                              id="rc_select_TEST_OR_SSR"
+                              readonly=""
+                              role="combobox"
+                              style="opacity: 0;"
+                              type="search"
+                              unselectable="on"
+                            />
+                          </span>
+                          <span
+                            class="ant-select-selection-item"
+                            title=""
+                          />
+                        </div>
+                        <span
+                          aria-hidden="true"
+                          class="ant-select-arrow"
+                          style="user-select: none;"
+                          unselectable="on"
+                        >
+                          <span
+                            aria-label="down"
+                            class="anticon anticon-down ant-select-suffix"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="down"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="device-item"
+                  >
+                    <div
+                      class="device-info"
+                    >
+                      <div
+                        class="device-label"
+                      >
+                        麦克风
+                      </div>
+                      <div
+                        class="ant-select device-select ant-select-single ant-select-show-arrow"
+                      >
+                        <div
+                          class="ant-select-selector"
+                        >
+                          <span
+                            class="ant-select-selection-search"
+                          >
+                            <input
+                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                              aria-autocomplete="list"
+                              aria-controls="rc_select_TEST_OR_SSR_list"
+                              aria-haspopup="listbox"
+                              aria-owns="rc_select_TEST_OR_SSR_list"
+                              autocomplete="off"
+                              class="ant-select-selection-search-input"
+                              defaultvalue=""
+                              id="rc_select_TEST_OR_SSR"
+                              readonly=""
+                              role="combobox"
+                              style="opacity: 0;"
+                              type="search"
+                              unselectable="on"
+                            />
+                          </span>
+                          <span
+                            class="ant-select-selection-item"
+                            title=""
+                          />
+                        </div>
+                        <span
+                          aria-hidden="true"
+                          class="ant-select-arrow"
+                          style="user-select: none;"
+                          unselectable="on"
+                        >
+                          <span
+                            aria-label="down"
+                            class="anticon anticon-down ant-select-suffix"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="down"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="volume-graph"
+                      >
+                        <div
+                          class="volume-bar green-volume"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                        <div
+                          class="volume-bar"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="device-item"
+                  >
+                    <div
+                      class="device-info"
+                    >
+                      <div
+                        class="device-label"
+                      >
+                        扬声器
+                      </div>
+                      <div
+                        class="ant-select device-select ant-select-single ant-select-show-arrow"
+                      >
+                        <div
+                          class="ant-select-selector"
+                        >
+                          <span
+                            class="ant-select-selection-search"
+                          >
+                            <input
+                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                              aria-autocomplete="list"
+                              aria-controls="rc_select_TEST_OR_SSR_list"
+                              aria-haspopup="listbox"
+                              aria-owns="rc_select_TEST_OR_SSR_list"
+                              autocomplete="off"
+                              class="ant-select-selection-search-input"
+                              defaultvalue=""
+                              id="rc_select_TEST_OR_SSR"
+                              readonly=""
+                              role="combobox"
+                              style="opacity: 0;"
+                              type="search"
+                              unselectable="on"
+                            />
+                          </span>
+                          <span
+                            class="ant-select-selection-item"
+                            title=""
+                          />
+                        </div>
+                        <span
+                          aria-hidden="true"
+                          class="ant-select-arrow"
+                          style="user-select: none;"
+                          unselectable="on"
+                        >
+                          <span
+                            aria-label="down"
+                            class="anticon anticon-down ant-select-suffix"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="down"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="audio-box"
+                      >
+                        <div
+                          class="audio-play-btn"
+                        />
+                        <div
+                          class="audio-graph"
+                        >
+                          <div
+                            class="audio-bar audio-bar-10"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                          <div
+                            class="audio-bar audio-bar-18"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                          <div
+                            class="audio-bar audio-bar-10"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                          <div
+                            class="audio-bar audio-bar-18"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                          <div
+                            class="audio-bar audio-bar-10"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                          <div
+                            class="audio-bar audio-bar-18"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                          <div
+                            class="audio-bar audio-bar-10"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                          <div
+                            class="audio-bar audio-bar-18"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                          <div
+                            class="audio-bar audio-bar-10"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                          <div
+                            class="audio-bar audio-bar-18"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                          <div
+                            class="audio-bar audio-bar-10"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                          <div
+                            class="audio-bar audio-bar-18"
+                          />
+                          <div
+                            class="audio-bar audio-bar-14"
+                          />
+                        </div>
+                        <div
+                          class="time-total"
+                        >
+                          0"
+                        </div>
+                        <audio
+                          class="test-audio-player"
+                          src="/src/components/audio/device-test-audio.mp3"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="device-item"
+                  >
+                    <div
+                      class="device-info"
+                    >
+                      <div
+                        class="device-label"
+                      >
+                        网络检测
+                      </div>
+                      <div
+                        class="device-hint"
+                      >
+                        <img
+                          alt="/src/components/device-test-panel/icon-abnormality.svg"
+                          class="device-hint-icon"
+                          src="/src/components/device-test-panel/icon-abnormality.svg"
+                        />
+                        <span>
+                          当前无网络，请检查后重新尝试
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="device-test-panel-retest"
+                  >
+                    <button
+                      class="button"
+                    >
+                      重新检测
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="_container_1g2zo_1"
+    >
+      <div
+        class="common-header"
+      >
+        <div
+          class="header"
+        >
+          <div
+            class="header-logo"
+          >
+            <img
+              alt=""
+              src="/src/components/common-header/logo.png"
+            />
+          </div>
+          <div
+            class="header-user"
+          >
+            <span />
+          </div>
+        </div>
+        <div
+          style="padding: 0 132px;"
+        >
+          <div
+            class="device-test-panel _deviceTestPanel_1g2zo_9"
+          >
+            <h1
+              class="main-title"
+            >
+              设备检测
+            </h1>
+            <div
+              class="device-test-panel-services"
+            >
+              <div
+                class="test-video test-video-mirror"
+              />
+              <div
+                class="device-manager"
+              >
+                <div
+                  class="device-item"
+                >
+                  <div
+                    class="device-info"
+                  >
+                    <div
+                      class="device-label"
+                    >
+                      浏览器兼容性
+                    </div>
+                    <div
+                      class="device-hint"
+                    >
+                      <img
+                        alt=""
+                        class="device-hint-icon"
+                        src="/src/components/device-test-panel/icon-abnormality.svg"
+                      />
+                      <span>
+                        当前浏览器兼容性检测未通过
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="device-item"
+                >
+                  <div
+                    class="device-info"
+                  >
+                    <div
+                      class="device-label"
+                    >
+                      摄像头
+                    </div>
+                    <div
+                      class="ant-select device-select ant-select-single ant-select-show-arrow"
+                    >
+                      <div
+                        class="ant-select-selector"
+                      >
+                        <span
+                          class="ant-select-selection-search"
+                        >
+                          <input
+                            aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                            aria-autocomplete="list"
+                            aria-controls="rc_select_TEST_OR_SSR_list"
+                            aria-haspopup="listbox"
+                            aria-owns="rc_select_TEST_OR_SSR_list"
+                            autocomplete="off"
+                            class="ant-select-selection-search-input"
+                            defaultvalue=""
+                            id="rc_select_TEST_OR_SSR"
+                            readonly=""
+                            role="combobox"
+                            style="opacity: 0;"
+                            type="search"
+                            unselectable="on"
+                          />
+                        </span>
+                        <span
+                          class="ant-select-selection-item"
+                          title=""
+                        />
+                      </div>
+                      <span
+                        aria-hidden="true"
+                        class="ant-select-arrow"
+                        style="user-select: none;"
+                        unselectable="on"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down ant-select-suffix"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="device-item"
+                >
+                  <div
+                    class="device-info"
+                  >
+                    <div
+                      class="device-label"
+                    >
+                      麦克风
+                    </div>
+                    <div
+                      class="ant-select device-select ant-select-single ant-select-show-arrow"
+                    >
+                      <div
+                        class="ant-select-selector"
+                      >
+                        <span
+                          class="ant-select-selection-search"
+                        >
+                          <input
+                            aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                            aria-autocomplete="list"
+                            aria-controls="rc_select_TEST_OR_SSR_list"
+                            aria-haspopup="listbox"
+                            aria-owns="rc_select_TEST_OR_SSR_list"
+                            autocomplete="off"
+                            class="ant-select-selection-search-input"
+                            defaultvalue=""
+                            id="rc_select_TEST_OR_SSR"
+                            readonly=""
+                            role="combobox"
+                            style="opacity: 0;"
+                            type="search"
+                            unselectable="on"
+                          />
+                        </span>
+                        <span
+                          class="ant-select-selection-item"
+                          title=""
+                        />
+                      </div>
+                      <span
+                        aria-hidden="true"
+                        class="ant-select-arrow"
+                        style="user-select: none;"
+                        unselectable="on"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down ant-select-suffix"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="volume-graph"
+                    >
+                      <div
+                        class="volume-bar green-volume"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                      <div
+                        class="volume-bar"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="device-item"
+                >
+                  <div
+                    class="device-info"
+                  >
+                    <div
+                      class="device-label"
+                    >
+                      扬声器
+                    </div>
+                    <div
+                      class="ant-select device-select ant-select-single ant-select-show-arrow"
+                    >
+                      <div
+                        class="ant-select-selector"
+                      >
+                        <span
+                          class="ant-select-selection-search"
+                        >
+                          <input
+                            aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                            aria-autocomplete="list"
+                            aria-controls="rc_select_TEST_OR_SSR_list"
+                            aria-haspopup="listbox"
+                            aria-owns="rc_select_TEST_OR_SSR_list"
+                            autocomplete="off"
+                            class="ant-select-selection-search-input"
+                            defaultvalue=""
+                            id="rc_select_TEST_OR_SSR"
+                            readonly=""
+                            role="combobox"
+                            style="opacity: 0;"
+                            type="search"
+                            unselectable="on"
+                          />
+                        </span>
+                        <span
+                          class="ant-select-selection-item"
+                          title=""
+                        />
+                      </div>
+                      <span
+                        aria-hidden="true"
+                        class="ant-select-arrow"
+                        style="user-select: none;"
+                        unselectable="on"
+                      >
+                        <span
+                          aria-label="down"
+                          class="anticon anticon-down ant-select-suffix"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="audio-box"
+                    >
+                      <div
+                        class="audio-play-btn"
+                      />
+                      <div
+                        class="audio-graph"
+                      >
+                        <div
+                          class="audio-bar audio-bar-10"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                        <div
+                          class="audio-bar audio-bar-18"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                        <div
+                          class="audio-bar audio-bar-10"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                        <div
+                          class="audio-bar audio-bar-18"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                        <div
+                          class="audio-bar audio-bar-10"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                        <div
+                          class="audio-bar audio-bar-18"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                        <div
+                          class="audio-bar audio-bar-10"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                        <div
+                          class="audio-bar audio-bar-18"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                        <div
+                          class="audio-bar audio-bar-10"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                        <div
+                          class="audio-bar audio-bar-18"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                        <div
+                          class="audio-bar audio-bar-10"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                        <div
+                          class="audio-bar audio-bar-18"
+                        />
+                        <div
+                          class="audio-bar audio-bar-14"
+                        />
+                      </div>
+                      <div
+                        class="time-total"
+                      >
+                        0"
+                      </div>
+                      <audio
+                        class="test-audio-player"
+                        src="/src/components/audio/device-test-audio.mp3"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="device-item"
+                >
+                  <div
+                    class="device-info"
+                  >
+                    <div
+                      class="device-label"
+                    >
+                      网络检测
+                    </div>
+                    <div
+                      class="device-hint"
+                    >
+                      <img
+                        alt="/src/components/device-test-panel/icon-abnormality.svg"
+                        class="device-hint-icon"
+                        src="/src/components/device-test-panel/icon-abnormality.svg"
+                      />
+                      <span>
+                        当前无网络，请检查后重新尝试
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="device-test-panel-retest"
+                >
+                  <button
+                    class="button"
+                  >
+                    重新检测
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
