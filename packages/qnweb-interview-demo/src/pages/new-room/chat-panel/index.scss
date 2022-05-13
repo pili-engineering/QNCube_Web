@@ -1,0 +1,25 @@
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+
+  .body {
+    flex: 1;
+    overflow: auto;
+    scroll-behavior: smooth;
+    background-color: #1e1e1e;
+
+    .message-ctx {
+      color: #fff;
+      padding: 10px;
+
+      .date {
+        color: #999999;
+        padding-right: 12px;
+      }
+
+      .username, .content {
+        color: #fff;
+      }
+    }
+  }
+}

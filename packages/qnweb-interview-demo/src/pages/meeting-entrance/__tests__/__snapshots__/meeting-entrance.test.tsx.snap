@@ -1,0 +1,296 @@
+// Vitest Snapshot v1
+
+exports[`MeetingEntrance > first render 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="_meetingEntrance_1bqbz_7 _flex-center_1bqbz_1"
+      >
+        <div
+          class="ant-card invite-card"
+        >
+          <div
+            class="ant-card-body"
+            style="padding: 0;"
+          >
+            <div
+              class="info"
+            >
+              <div
+                class="info-panel"
+              >
+                <h2
+                  class="info-panel-title"
+                >
+                  欢迎参加面试
+                </h2>
+                <div
+                  class="info-panel-ctx"
+                >
+                  <div
+                    class="info-panel-label"
+                  >
+                    面试者
+                  </div>
+                  <div
+                    class="info-panel-dtl"
+                  />
+                </div>
+                <div
+                  class="info-panel-ctx"
+                >
+                  <div
+                    class="info-panel-label"
+                  >
+                    面试岗位
+                  </div>
+                  <div
+                    class="info-panel-dtl"
+                  />
+                </div>
+                <div
+                  class="date-box"
+                >
+                  <div
+                    class="time"
+                  />
+                  <div
+                    class="date"
+                  />
+                </div>
+                <div
+                  class="agreement-check"
+                >
+                  <img
+                    alt="icon-iconPitchOnOff"
+                    src="/src/components/icon/icon-pitch-on-off.svg"
+                  />
+                  <span
+                    class="agreement"
+                  >
+                    <span>
+                      我已阅读并同意
+                    </span>
+                    <a
+                      class="blank-link"
+                      href="https://www.qiniu.com/user-agreement"
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      《七牛云服务用户协议》
+                    </a>
+                    <span>
+                      和
+                    </span>
+                    <a
+                      class="blank-link"
+                      href="https://www.qiniu.com/privacy-right"
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      《隐私权政策》
+                    </a>
+                  </span>
+                </div>
+                <div
+                  class="agree-btn"
+                >
+                  同意并加入
+                </div>
+              </div>
+            </div>
+            <div
+              class="_action_1bqbz_19 _flex-center_1bqbz_1"
+            >
+              <span
+                class="_firstInTip_1bqbz_14"
+              >
+                首次进入？
+              </span>
+              <button
+                class="ant-btn ant-btn-default ant-btn-dangerous"
+                type="button"
+              >
+                <span>
+                  设备检测
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="_meetingEntrance_1bqbz_7 _flex-center_1bqbz_1"
+    >
+      <div
+        class="ant-card invite-card"
+      >
+        <div
+          class="ant-card-body"
+          style="padding: 0;"
+        >
+          <div
+            class="info"
+          >
+            <div
+              class="info-panel"
+            >
+              <h2
+                class="info-panel-title"
+              >
+                欢迎参加面试
+              </h2>
+              <div
+                class="info-panel-ctx"
+              >
+                <div
+                  class="info-panel-label"
+                >
+                  面试者
+                </div>
+                <div
+                  class="info-panel-dtl"
+                />
+              </div>
+              <div
+                class="info-panel-ctx"
+              >
+                <div
+                  class="info-panel-label"
+                >
+                  面试岗位
+                </div>
+                <div
+                  class="info-panel-dtl"
+                />
+              </div>
+              <div
+                class="date-box"
+              >
+                <div
+                  class="time"
+                />
+                <div
+                  class="date"
+                />
+              </div>
+              <div
+                class="agreement-check"
+              >
+                <img
+                  alt="icon-iconPitchOnOff"
+                  src="/src/components/icon/icon-pitch-on-off.svg"
+                />
+                <span
+                  class="agreement"
+                >
+                  <span>
+                    我已阅读并同意
+                  </span>
+                  <a
+                    class="blank-link"
+                    href="https://www.qiniu.com/user-agreement"
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    《七牛云服务用户协议》
+                  </a>
+                  <span>
+                    和
+                  </span>
+                  <a
+                    class="blank-link"
+                    href="https://www.qiniu.com/privacy-right"
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    《隐私权政策》
+                  </a>
+                </span>
+              </div>
+              <div
+                class="agree-btn"
+              >
+                同意并加入
+              </div>
+            </div>
+          </div>
+          <div
+            class="_action_1bqbz_19 _flex-center_1bqbz_1"
+          >
+            <span
+              class="_firstInTip_1bqbz_14"
+            >
+              首次进入？
+            </span>
+            <button
+              class="ant-btn ant-btn-default ant-btn-dangerous"
+              type="button"
+            >
+              <span>
+                设备检测
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
