@@ -1,3 +1,15 @@
+const packages = [
+  'qnuniapp-voice-chat',
+  'qnweapp-interview-demo',
+  'qnweb-cloud-class-demo',
+  'qnweb-cube-ui',
+  'qnweb-exam-system-demo',
+  'qnweb-high-level-rtc',
+  'qnweb-interview-demo',
+  'qnweb-overhaul-demo',
+  'qnweb-video-together-demo',
+];
+
 module.exports = {
   disableEmoji: true,
   format: '{type}{scope}: {emoji}{subject}',
@@ -5,7 +17,7 @@ module.exports = {
   maxMessageLength: 64,
   minMessageLength: 3,
   questions: ['type', 'scope', 'subject', 'body', 'breaking', 'issues', 'lerna'],
-  scopes: [],
+  scopes: packages.concat('*'),
   types: {
     chore: {
       description: 'Build process or auxiliary tool changes',
