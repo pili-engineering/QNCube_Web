@@ -10,6 +10,7 @@
 * [一起看视频场景](./packages/qnweb-video-together-demo/README.md)
 * [云课堂场景](./packages/qnweb-cloud-class-demo/README.md)
 * [小程序端面试场景](./packages/qnweapp-interview-demo/README.md)
+* [unapp版语聊房场景](./packages/qnuniapp-voice-chat/README.md)
 
 ## 快速启动
 
