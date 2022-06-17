@@ -32,6 +32,10 @@
 			</view>
 		</view>
 		
+		<view class="version">
+			当前版本: {{version}}
+		</view>
+		
 		<view class="modal" v-if="showModal">
 			<view class="modal-mask"></view>
 			<view class="modal-card">
@@ -61,7 +65,8 @@
 				loading: false,
 				list: Object.entries(config),
 				curEnv: StorageApi.getEnv(),
-				showModal: false
+				showModal: false,
+				version: plus.runtime.version
 			}
 		},
 		methods: {
@@ -250,5 +255,9 @@
 	}
 	.modal-card-context--active {
 		border: 4rpx solid red;
+	}
+	.version {
+		text-align: center;
+		font-size: 12px;
 	}
 </style>
