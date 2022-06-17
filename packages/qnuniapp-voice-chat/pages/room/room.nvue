@@ -23,7 +23,7 @@
 		</view>
 		<view class="mic-card">
 			<view class="mic-card-list--seat mic-card-list--seat-size mic-card-list--seat-owner">
-				<image :src="owner.avatar" mode="aspectFill" class="mic-card-list--seat-size"></image>
+				<image v-if="owner" :src="owner.avatar" mode="aspectFill" class="mic-card-list--seat-size"></image>
 			</view>
 			<view class="mic-card-list">
 				<view v-for="(item, index) in seats" :key="index">
@@ -84,6 +84,7 @@
 	export default {
 		data() {
 			return {
+				// { userId: string, avatar: string, seatIndex: number }
 				seats: Array(6).fill({
 					userId: null
 				}),
@@ -107,65 +108,92 @@
 				messages: [],
 				inputValue: "",
 				imAppKey: 'cigzypnhoyno',
-				owner: null,
-				isOwner: false // 是否是房主
 			}
 		},
 		computed: {
+			/**
+			 * 是否在麦上
+			 */
 			isOnMic() {
+				if (!this.userInfo) {
+					return false
+				}
 				return this.seats.some(
 					s => s.userId === this.userInfo.userId
+				);
+			},
+			/**
+			 * 是否是房主
+			 */
+			isOwner() {
+				if (!this.roomInfo) return false;
+				if (!this.userInfo) return false;
+				return this.roomInfo.creator === this.userInfo.userId
+			},
+			/**
+			 * 房主
+			 */
+			owner() {
+				if (!this.roomInfo) return null;
+				return (this.allUserList || []).find(
+					user => user.userId === this.roomInfo.creator
 				);
 			}
 		},
 		methods: {
+			/**
+			 * 点击按钮请求上麦
+			 * @param {Object} seatIndex
+			 * @param {Object} seat
+			 */
 			onSitDown(seatIndex, seat) {
-				const _this = this;
-				if (_this.isOwner) { // 房主
+				if (this.isOwner) { // 房主
 					return;
 				}
-				if (_this.seats.some(s => s.userId === _this.userInfo.userId)) { // 已在麦上
+				if (this.seats.some(s => s.userId === this.userInfo.userId)) { // 已在麦上
 					return;
 				}
-				// 上麦
-				BaseRoomApi.upMic({
-					roomId: _this.roomId,
-					attrs: {
-						seatIndex: seatIndex + ''
-					}
-				}).then((result) => {
-					console.log('BaseRoomApi.upMic', result)
-					// 发送上麦信令
-					_this.sendMsg('userSitDown', JSON.stringify({
-						userId: _this.userInfo.userId,
-						seatIndex
-					}));
-				});
+				// 发送上麦信令
+				this.sendMsg('requestUserSitDown', JSON.stringify({
+					userId: this.userInfo.userId,
+					seatIndex,
+					username: this.userInfo.nickname,
+					avatar: this.userInfo.avatar,
+				}));
+				uniShowToast({
+					title: '成功发送上麦请求',
+				})
 			},
+			/**
+			 * 点击关闭按钮
+			 */
 			onCloseRoom() {
-				const _this = this;
-				if (_this.isOnMic && !_this.isOwner) {
+				if (this.isOnMic && !this.isOwner) {
 					// 下麦
-					const seatIndex = _this.seats.findIndex(
-						s => s.userId === _this.userInfo.userId
+					const seatIndex = this.seats.findIndex(
+						s => s.userId === this.userInfo.userId
 					)
+					uni.showLoading({
+						title: '下麦中...'
+					})
 					BaseRoomApi.downMic({
-						roomId: _this.roomId,
-						uid: _this.userInfo.userId
+						roomId: this.roomId,
+						uid: this.userInfo.userId
 					}).then((result) => {
-						console.log('BaseRoomApi.downMic', result)
+						uni.hideLoading();
+						this.disableMic();
 						// 发送下麦信令
-						_this.sendMsg('userSitUp', JSON.stringify({
-							userId: _this.userInfo.userId,
+						this.sendMsg('userSitUp', JSON.stringify({
+							userId: this.userInfo.userId,
 							seatIndex
-						}))
+						}));
 					});
 				} else {
 					uni.navigateBack();
 				}
 			},
 			/**
-			 * mute mic
+			 * mute麦克风
 			 */
 			onMicMutedChange() {
 				this.isMicMuted = !this.isMicMuted;
@@ -192,7 +220,6 @@
 			 */
 			initRTC() {
 				QNRTC.configRTC();
-				QNRTC.setAudioRouteToSpeakerphone(true);
 				this.rtcClient = QNRTC.createClient();
 				this.rtcClient.setAutoSubscribe(false);
 				this.rtcClient.on("onConnectionStateChanged", (params) => {
@@ -303,22 +330,39 @@
 			 * 打开麦克风
 			 */
 			enableMic() {
-				this.localMicTrack = QNRTC.createMicrophoneAudioTrack({
+				this.localMicTrack = this.localMicTrack || QNRTC.createMicrophoneAudioTrack({
 					tag: 'mic'
 				});
 				this.rtcClient.publish([this.localMicTrack], (onPublished, error) => {
-					console.log('onEnableMic publish', onPublished, error);
 					if (onPublished) {
 						this.isMicMuted = false;
 						uniShowToast({
-							title: "上麦成功"
-						})
+							title: '上麦成功',
+						});
 					} else {
-						uniShowToast({
-							title: `上麦失败, 错误信息：${error.message}`
+						uniShowModal({
+							content: `上麦失败, 错误信息：${error.message}`,
+							showCancel: false
 						})
 					}
 				});
+			},
+			/**
+			 * 关闭麦克风
+			 */
+			disableMic() {
+				if (this.localMicTrack) {
+					this.rtcClient.unpublish([this.localMicTrack]);
+					uniShowModal({
+						content: '下麦成功',
+						showCancel: false
+					})
+				} else {
+					uniShowModal({
+						content: '未开启麦克风',
+						showCancel: false
+					});
+				}
 			},
 			/**
 			 * 加入房间
@@ -333,10 +377,6 @@
 						this.allUserList = result.data.allUserList;
 						this.userInfo = result.data.userInfo;
 						this.roomInfo = result.data.roomInfo;
-						this.owner = (this.allUserList || []).find(
-							user => user.userId === this.roomInfo.creator
-						);
-						this.isOwner = this.roomInfo.creator === this.userInfo.userId;
 					});
 			},
 			sendMsg(action, msg) {
@@ -363,140 +403,143 @@
 			 * 获取imClient
 			 */
 			getIMClient() {
-				const _this = this;
-				_this.initCount = _this.initCount || 1;
+				this.initCount = this.initCount || 1;
 				return new Promise((resolve, reject) => {
-					if (_this.initCount > 20) {
+					if (this.initCount > 20) {
 						// 超出最大实例化次数
 						return reject('Instantiation failed');
 					}
-					if (!_this.imClient) {
-						_this.imClient = QNIM.init({
+					if (!this.imClient) {
+						this.imClient = QNIM.init({
 							autoLogin: false,
-							appid: _this.imAppKey,
+							appid: this.imAppKey,
 						});
 					}
-					if (_this.imClient && _this.imClient.isReady && _this.imClient.isReady()) {
-						console.log('getIMClient resolve')
-						resolve(_this.imClient);
+					if (this.imClient && this.imClient.isReady && this.imClient.isReady()) {
+						resolve(this.imClient);
 					} else {
-						console.log('getIMClient setTimeout')
-						_this.imClientInitTimer = setTimeout(() => {
-							_this.initCount++;
-							resolve(_this.getIM);
+						this.imClientInitTimer = setTimeout(() => {
+							this.initCount++;
+							resolve(this.getIM);
 						}, 1000);
 					}
 				});
 			},
 			initIM() {
-				const _this = this;
 				this.getIMClient().then(() => {
-					uniShowToast({
-						title: 'IM初始化成功'
-					})
+					console.log('initIM 初始化成功');
 					const imConfig = StorageApi.getIMConfig();
-					console.log('imConfig', imConfig)
 					this.imClient.login({
 						name: imConfig.imUsername,
 						password: imConfig.imPassword
 					});
 					this.imClient.on({
 						loginSuccess: result => {
-							console.log('im loginSuccess', result)
-							uniShowToast({
-								title: 'IM登录成功'
-							});
-							console.log('this.imConfig', this.imConfig);
+							console.log('initIM loginSuccess 登录成功', result);
 							this.imClient.chatroomManage.join(this.imConfig.imGroupId).catch(error => {
-								console.log('chatroomManage error1', error)
 								if (error.data.code === 20017) { // 已经在群/聊天室内
 									return Promise.resolve(error);
 								}
 								return Promise.reject(error);
 							}).then((result) => {
-								console.log('chatroomManage result', result)
-								// uniShowToast({
-								// 	title: '成功加入聊天室'
-								// });
 								this.sendMsg('notice', '加入了聊天室')
 							}).catch(error => {
-								console.log('chatroomManage error2', error)
-								uniShowToast({
-									title: `聊天室加入失败, 错误信息: ${error.data.message}`
+								uniShowModal({
+									content: `聊天室加入失败, 错误信息: ${error.data.message}`
 								});
 							})
 						},
 						loginFail: (error) => {
-							console.log('im loginFail', error)
-							uniShowToast({
-								title: `IM登录失败, 错误信息: ${JSON.stringify(error)}`
+							uniShowModal({
+								content: `im登录失败, 错误信息: ${JSON.stringify(error)}`
 							});
 						},
 						imGroupJoined: (result) => {
-							console.log('im imGroupJoined', result)
-							// uniShowToast({
-							// 	title: '成功加入聊天室'
-							// });
+							console.log('initIM imGroupJoined', result)
 						},
 						onGroupMessage: (result) => {
-							console.log('onGroupMessage result', result)
+							console.log('initIM onGroupMessage result', result)
 							const content = JSON.parse(result.content)
 							const senderName = content.msgStr.senderName;
 							const msgContent = content.msgStr.msgContent;
 							const senderId = content.msgStr.senderId;
 							const action = content.action;
-							if (['notice', 'text'].includes(content.action)) {
-								_this.messages = [{
+							if (['notice', 'text'].includes(action)) {
+								this.messages = [{
 									username: senderName,
 									content: msgContent,
 									action,
-								}].concat(_this.messages);
+								}].concat(this.messages);
 							}
-							if (action === 'reply') { // 房主回复信令
-								const parsedMsgContent = JSON.parse(msgContent);
-								if (parsedMsgContent.action === 'agree') { // 同意用户上麦
-									const userInfo = _this.allUserList.find(
-										user => user.userId === parsedMsgContent.userId
-									);
-									_this.$set(_this.seats, parsedMsgContent.seatIndex, userInfo);
-									if (_this.userInfo.userId === userInfo.userId) {
-										_this.enableMic();
-									}
+							if (action === 'requestUserSitDown') {
+								if (this.isOwner) {
+									// 房主收到用户请求上麦信令
+									const parsedMsgContent = JSON.parse(msgContent);
+									uniShowModal({
+										content: `${senderName}请求上麦`
+									}).then(result => {
+										if (result.confirm) { // 同意用户上麦
+											return this.sendMsg('userSitDown', msgContent)
+										}
+										return Promise.reject();
+									}).catch(() => { // 拒绝用户上麦
+										this.sendMsg('refuse', JSON.stringify({
+											userId: parsedMsgContent.userId,
+										}))
+									})
 								}
 							}
-							if (_this.isOwner && action === 'userSitDown') {
-								// 房主收到用户请求上麦信令
+							if (action === 'refuse') {
 								const parsedMsgContent = JSON.parse(msgContent);
-								uniShowModal({
-									content: `${senderName}请求上麦`
-								}).then(result => {
-									if (result.confirm) { // 同意用户上麦
-										return _this.sendMsg('reply', JSON.stringify({
-											userId: senderId,
-											action: 'agree',
-											seatIndex: parsedMsgContent
-												.seatIndex
-										}))
-									}
-									return Promise.reject();
-								}).catch(() => { // 拒绝用户上麦
-									_this.sendMsg('reply', JSON.stringify({
-										userId: senderId,
-										action: 'refuse',
-										seatIndex: parsedMsgContent.seatIndex
-									}))
-								})
+								if (parsedMsgContent.userId === this.userInfo.userId) {
+									uniShowModal({
+										content: '房主拒绝了你的上麦请求',
+										showCancel: false
+									})
+								}
+							}
+							// 用户上麦信令
+							if (action === 'userSitDown') {
+								const parsedMsgContent = JSON.parse(msgContent);
+								// 是否是请求的发起人
+								const isRequestUser = parsedMsgContent.userId === this.userInfo.userId;
+								if (isRequestUser) {
+									// 上麦
+									BaseRoomApi.upMic({
+										roomId: this.roomId,
+										attrs: [{
+											key: "seatIndex",
+											value: parsedMsgContent.seatIndex
+										}]
+									}).then((result) => {
+										// 更新麦位
+										this.$set(
+											this.seats,
+											parsedMsgContent.seatIndex,
+											parsedMsgContent
+										);
+										console.log(
+											'onGroupMessage BaseRoomApi.upMic result',
+											result
+										);
+										this.enableMic();
+									});
+								} else {
+									// 更新麦位
+									this.$set(
+										this.seats,
+										parsedMsgContent.seatIndex,
+										parsedMsgContent
+									);
+								}
 							}
 							// 用户下麦信令
 							if (action === 'userSitUp') {
 								const parsedMsgContent = JSON.parse(msgContent);
-								_this.$set(_this.seats, parsedMsgContent.seatIndex, {
+								// 更新麦位
+								this.$set(this.seats, parsedMsgContent.seatIndex, {
 									userId: null
 								});
-								if (_this.userInfo.userId === userInfo.userId) {
-									_this.localMicTrack.setMuted(true);
-									_this.localMicTrack = null;
-								}
 							}
 						}
 					});
@@ -544,48 +587,51 @@
 					roomId: this.roomId,
 				}).then(result => {
 					this.roomInfo = result.data.roomInfo;
+					// console.log('getRoomInfo BaseRoomApi.getRoomInfo result', result)
 				})
 			},
 			/**
 			 * 同步麦位
 			 */
 			syncMics() {
-				const _this = this;
 				return BaseRoomApi.getRoomMicInfo({
-					roomId: _this.roomId
+					roomId: this.roomId
 				}).then(result => {
 					const mics = result.data.mics;
 					mics.forEach(mic => {
-						const seatIndex = mic.attrs.seatIndex;
-						const userInfo = _this.allUserList.find(
+						const seatIndex = mic.attrs.find(
+							item => item.key === 'seatIndex'
+						).value;
+						const userInfo = this.allUserList.find(
 							user => mic.uid === user.userId
 						);
-						_this.$set(_this.seats, seatIndex, userInfo)
-					})
+						this.$set(this.seats, seatIndex, {
+							...userInfo,
+							username: userInfo.nick,
+							seatIndex
+						});
+					});
 				})
 			}
 		},
 		onLoad(options) {
-			const _this = this;
-			_this.requestPermissions()
+			this.requestPermissions()
 			const {
 				screenWidth,
 				screenHeight
 			} = uni.getSystemInfoSync();
-			_this.screenWidth = screenWidth;
-			_this.screenHeight = screenHeight;
-			console.log('_this.screenWidth', _this.screenWidth)
-			console.log('_this.screenHeight', _this.screenHeight)
-			_this.roomId = options.roomId;
-			_this.joinRoom().then(() => {
-				_this.roomInfoTimer = setInterval(() => {
-					_this.getRoomInfo()
+			this.screenWidth = screenWidth;
+			this.screenHeight = screenHeight;
+			this.roomId = options.roomId;
+			this.joinRoom().then(() => {
+				this.roomInfoTimer = setInterval(() => {
+					this.getRoomInfo();
 				}, 1000);
-				return _this.syncMics()
+				return this.syncMics();
 			}).then(() => {
-				_this.initRTC();
-				_this.initIM();
-				return _this.rtcClient.join(_this.rtcInfo.roomToken);
+				this.initRTC();
+				this.initIM();
+				return this.rtcClient.join(this.rtcInfo.roomToken);
 			});
 		},
 		onUnload() {
@@ -595,7 +641,7 @@
 			clearTimeout(this.imClientInitTimer);
 			clearTimeout(this.roomInfoTimer);
 			this.imClientInitTimer = null;
-			this.imClient.leave(this.imConfig.imGroupId)
+			this.chatroomManage.leave(this.imConfig.imGroupId);
 			BaseRoomApi.leaveRoom(this.roomId);
 		}
 	}
@@ -703,11 +749,12 @@
 		height: 40px;
 		background: rgba(0, 0, 0, 0.25);
 		border: 0;
+		margin-left: 10px;
 	}
 
 	.icon-mic {
 		width: 40px;
-		margin: 0 10px;
+		margin-left: 10px;
 	}
 
 	.icon-end {

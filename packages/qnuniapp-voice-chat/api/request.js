@@ -25,7 +25,6 @@ export function request(options) {
 		uni.request({
 			url: wholeUrl,
 			success(result) {
-				console.log(`uni.request ${wholeUrl} success`, result)
 				if (result.data.code === 0) {
 					resolve(result.data);	
 				} else {
@@ -51,7 +50,6 @@ export function request(options) {
 				success && success(result);
 			},
 			fail(error) {
-				console.log(`uni.request ${wholeUrl} fail`, error)
 				fail && fail(error);
 				reject(error);
 			},
