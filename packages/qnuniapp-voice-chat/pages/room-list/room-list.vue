@@ -86,7 +86,7 @@
 						return BaseRoomApi.createRoom({
 							title: result.content
 						}).then(result => {
-							console.log('onCreateRoomModal uniNavigateTo', result)
+							console.log('onCreateRoomModal uniNavigateTo', result);
 							uniNavigateTo({
 								url: `/pages/room/room?roomId=${result.data.roomInfo.roomId}`
 							});
