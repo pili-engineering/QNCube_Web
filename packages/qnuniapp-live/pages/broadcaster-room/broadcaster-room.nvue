@@ -1,0 +1,661 @@
+<template>
+	<view class="container" :style="fullScreenStyle">
+		<QNRTC-UniPlugin-SurfaceView fillMode="QNVideoFillModeNone" :local="0" :style="fullScreenStyle"
+			v-if="localCameraTrack" :identifyID="localCameraTrack.identifyID" :trackID="localCameraTrack.trackID">
+		</QNRTC-UniPlugin-SurfaceView>
+		<view class="layer" :style="fullScreenStyle">
+			<view class="header">
+				<view class="control-button" @click="onClose">
+					<text class="control-button-text" style="font-size: 46rpx;">X</text>
+				</view>
+			</view>
+			<view class="body">
+				<view class="control-tool">
+					<view class="control-button" @click="onFlipCamera">
+						<uni-icons type="camera" size="30" style="color:white"></uni-icons>
+					</view>
+					<view class="control-button" @click="onMirror">
+						<image class="control-button-image" :src="require(`./icon-mirror.png`)" mode="aspectFill"></image>
+					</view>
+					<view class="control-button" @click="onToggleMic">
+						<uni-icons :type="isMicOn ? 'mic' : 'micoff'" size="30" style="color:white"></uni-icons>
+					</view>
+					<view class="control-button" @click="onToggleBeauty">
+						<uni-icons :type="isBeautyOn ? 'color-filled' : 'color'" size="30" style="color:white">
+						</uni-icons>
+					</view>
+					<view class="control-button" @click="onToggleClarity">
+						<text class="control-button-text">{{clarityText}}</text>
+					</view>
+					<!-- <view class="control-button">
+						<uni-icons :type="isCameraOn ? 'videocam-filled' : 'videocam'" size="30" style="color:white">
+						</uni-icons>
+					</view> -->
+				</view>
+			</view>
+			<view class="footer" :style="{ width: `${screenWidth * 2}rpx` }">
+				<button v-if="isLiving" class="button" type="warn" @click="onEndLive">结束直播</button>
+				<button v-else class="button" type="primary" @click="onStartLive">开始直播</button>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	import QNRTC from "@/js_sdk/QNRTC-UniPlugin-JS/QNRTC-UniPlugin-JS/RTCIndex.native.js"
+	import {
+		BaseRoomApi
+	} from '@/api';
+	import {
+		uniShowModal,
+		uniShowToast
+	} from '@/utils';
+
+	export default {
+		data() {
+			return {
+				roomId: null,
+				screenWidth: 0,
+				screenHeight: 0,
+				// control
+				cameraFacing: 'front', // font: 前置摄像头, back: 后置摄像头
+				isBeautyOn: false, // 美颜开关 
+				isMicOn: false, // 麦克风开关
+				isCameraOn: false, // 摄像头开关
+				clarity: 'SD', // 清晰度
+				rtcClient: null,
+				roomInfo: null,
+				userInfo: null,
+				rtcInfo: null,
+				// track
+				localCameraTrack: null,
+				localMicTrack: null,
+				isLiving: false, // 是否直播中
+				isLiveStreamDirect: true, // true: 单路转推, false: 合流转推
+				isMirror: true, // 是否是镜像
+			}
+		},
+		computed: {
+			/**
+			 * 单路转推参数
+			 */
+			liveDirectConfig() {
+				return {
+					audioTracks: this.localMicTrack.trackID,
+					videoTracks: this.localCameraTrack.trackID,
+					streamID: this.roomId,
+					url: this.rtcInfo.publishUrl
+				}
+			},
+			/**
+			 * 合流转推参数
+			 */
+			liveMixedConfig() {
+				return {
+					streamID: this.roomId,
+					url: this.rtcInfo.publishUrl,
+					width: this.cameraConfig.width,
+					height: this.cameraConfig.height,
+					videoFrameRate: this.cameraConfig.frameRate,
+					bitrate: this.cameraConfig.bitrate,
+					minBitrate: 500,
+					maxBitrate: 2080,
+					renderMode: "ASPECT_FILL",
+					holdLastFrame: 1,
+					background: {},
+					watermarks: []
+				}
+			},
+			/**
+			 * 待新增、更新的合流转推布局配置
+			 */
+			liveMixedTracks() {
+				return [this.localCameraTrack, this.localMicTrack].map(track => ({
+					trackID: track.trackID,
+					x: 0,
+					y: 0,
+					width: this.cameraConfig.width,
+					height: this.cameraConfig.height,
+					zOrder: 1,
+					renderMode: "ASPECT_FILL",
+					SEIEnabled: false,
+				}))
+			},
+			/**
+			 * 摄像头采集参数
+			 */
+			cameraConfig() {
+				return {
+					// 标清
+					SD: {
+						width: 640,
+						height: 480,
+						frameRate: 15,
+						captureWidth: 640,
+						captureHeight: 480,
+						captureFrameRate: 15,
+						bitrate: 500,
+					},
+					// 高清
+					HD: {
+						width: 1280,
+						height: 720,
+						frameRate: 15,
+						captureWidth: 1280,
+						captureHeight: 720,
+						captureFrameRate: 15,
+						bitrate: 1130,
+					},
+					// 超清
+					FHD: {
+						width: 1920,
+						height: 1080,
+						frameRate: 15,
+						captureWidth: 1920,
+						captureHeight: 1080,
+						captureFrameRate: 15,
+						bitrate: 2080,
+					}
+				} [this.clarity]
+			},
+			/**
+			 * 是否是安卓
+			 */
+			isAndroid() {
+				return getApp().isAndroid;
+			},
+			/**
+			 * 美颜设置
+			 */
+			beautySetting() {
+				return {
+					smoothLevel: 1,
+					whiten: 1,
+					redden: 1,
+					enabled: this.isBeautyOn
+				}
+			},
+			/**
+			 * 分辨率
+			 */
+			sessionPreset() {
+				const sessionPresetMap = {
+					SD: 'AVCaptureSessionPreset640x480',
+					HD: 'AVCaptureSessionPreset1280x720',
+					FHD: 'AVCaptureSessionPreset1920x1080',
+				};
+				return sessionPresetMap[this.clarity];
+			},
+			/**
+			 * 清晰度
+			 */
+			clarityText() {
+				return {
+					SD: '标清',
+					HD: '高清',
+					FHD: '超清'
+				} [this.clarity]
+			},
+			/**
+			 * 全屏
+			 */
+			fullScreenStyle() {
+				return {
+					width: `${this.screenWidth}px`,
+					height: `${this.screenHeight}px`,
+					position: 'fixed',
+					top: 0,
+					right: 0,
+					left: 0,
+					bottom: 0,
+				}
+			}
+		},
+		methods: {
+			/**
+			 * 镜像
+			 */
+			onMirror() {
+				const isMirror = !this.isMirror;
+				this.isMirror = isMirror;
+				if (this.cameraFacing === 'front') { // 前置摄像头
+					this.localCameraTrack.encodeMirrorFrontFacing(!this.isMirror)
+				}
+				if (this.cameraFacing === 'back') { // 前置摄像头
+					this.localCameraTrack.encodeMirrorRearFacing(!this.isMirror)
+				}
+			},
+			/**
+			 * 开启心跳
+			 */
+			enableHeartBeat() {
+				const startHeartBeat = (ms = 0) => {
+					this.heartBeatTimer = setTimeout(() => {
+						BaseRoomApi.heartBeat({
+							roomId: this.roomId
+						}).then(result => {
+							console.log('BaseRoomApi.heartBeat result', result);
+							clearTimeout(this.heartBeatTimer);
+							startHeartBeat(result.data.interval);
+						});
+					}, ms)
+				}
+				startHeartBeat();
+			},
+			/**
+			 * 关闭房间
+			 */
+			onClose() {
+				uni.navigateBack();
+			},
+			/**
+			 * 翻转摄像头
+			 */
+			onFlipCamera() {
+				const cameraFacing = this.cameraFacing === 'front' ? 'back' : 'front';
+				if (this.localCameraTrack) {
+					this.localCameraTrack.switchCamera();
+				}
+			},
+			/**
+			 * 开关麦克风
+			 */
+			onToggleMic() {
+				const isMicOn = !this.isMicOn;
+				if (this.localMicTrack) {
+					this.localMicTrack.setMuted(!isMicOn);
+				}
+				this.isMicOn = isMicOn;
+			},
+			/**
+			 * 开关美颜
+			 */
+			onToggleBeauty() {
+				const isBeautyOn = !this.isBeautyOn;
+				this.isBeautyOn = isBeautyOn;
+				this.localCameraTrack.setBeauty(this.beautySetting)
+			},
+			/**
+			 * 切换清晰度
+			 */
+			onToggleClarity() {
+				this.localCameraTrack.stopCapture();
+				this.localCameraTrack.destroy();
+				const nextClarityMap = {
+					SD: "HD",
+					HD: "FHD",
+					FHD: "SD"
+				};
+				const prevClarity = this.clarity;
+				this.clarity = nextClarityMap[prevClarity];
+				this.enableCamera();
+				// 直播中并且是合流转推的情况下才需要更新合流布局
+				if (this.isLiving && !this.isLiveStreamDirect) {
+					console.log('onToggleClarity 更新合流布局')
+					this.rtcClient.setTranscodingLiveStreamingTracks(
+						this.liveMixedConfig.streamID,
+						this.liveMixedTracks
+					);
+				}
+			},
+			/**
+			 * 开始直播
+			 */
+			onStartLive() {
+				uniShowModal({
+					title: '创建直播间',
+					editable: true,
+					placeholderText: '请输入直播间名'
+				}).then(result => {
+					if (result.confirm) {
+						return BaseRoomApi.createRoom({
+							title: result.content
+						}).then(result => {
+							this.roomId = result.data.roomInfo.roomId;
+							return BaseRoomApi.joinRoom({
+								roomId: this.roomId
+							})
+						}).then((result) => {
+							const {
+								rtcInfo = {}, roomInfo = {}, userInfo = {}
+							} = result.data;
+							this.rtcInfo = rtcInfo;
+							this.roomInfo = roomInfo;
+							this.userInfo = userInfo;
+							uni.showLoading({
+								title: '开启直播中...',
+								mask: true
+							});
+							return this.rtcClient.join(this.rtcInfo.roomToken);
+						})
+					}
+				})
+			},
+			/**
+			 * 结束直播
+			 */
+			onEndLive() {
+				uni.showLoading({
+					title: '结束直播中...',
+					mask: true
+				});
+				this.stopLive();
+				this.rtcClient.unpublish([this.localMicTrack, this.localCameraTrack]);
+				clearTimeout(this.heartBeatTimer)
+				this.heartBeatTimer = null;
+				if (this.rtcClient) {
+					this.rtcClient.leave();
+				}
+				if (this.roomId) {
+					BaseRoomApi.leaveRoom({
+						roomId: this.roomId
+					});
+					this.roomId = null;
+				}
+			},
+			/**
+			 * rtc监听
+			 */
+			addRTCListeners() {
+				this.rtcClient.on("onConnectionStateChanged", (params) => {
+					const {
+						state,
+						info
+					} = params;
+					console.log('onConnectionStateChanged', state, info)
+					if (state === "CONNECTED") { // 连接成功
+						this.enableHeartBeat();
+						this.rtcClient.publish([this.localMicTrack, this.localCameraTrack], (onPublished,
+							error) => {
+							if (onPublished) {
+								this.startLive();
+							} else {
+								uniShowModal({
+									content: error.message
+								})
+							}
+						})
+						uni.hideLoading();
+					} else if (state === "DISCONNECTED") { // 未连接
+						if (info.reason === "KICKED_OUT") { //  被踢出房间
+							uniShowModal({
+								content: '被踢出房间'
+							}).then(result => {
+								if (result.confirm) {
+									uni.navigateBack();
+								}
+							})
+						} else if (info.reason === "ROOM_CLOSED") { // 房间被关闭
+							uniShowModal({
+								content: '房间被关闭'
+							})
+						} else if (info.reason === "ROOM_FULL") { // 房间人数已满
+							uniShowModal({
+								content: '房间人数已满'
+							})
+						} else if (info.reason === "ERROR") { // 发生错误异常断开
+							uniShowModal({
+								content: '发生错误异常断开'
+							})
+						} else if (info.reason === "LEAVE") { // 主动退出		
+
+						}
+					} else if (state === "RECONNECTING") { // 重连中
+						uni.showLoading({
+							title: '重连中...',
+						});
+					} else if (state === "CONNECTING") { // 连接中
+
+					} else if (state === "RECONNECTED") { // 已重连
+						uni.hideLoading();
+						uniShowToast({
+							title: '已重连'
+						});
+					} else {
+						console.log('unknown state', state);
+					}
+				});
+				// 远端用户加入房间
+				this.rtcClient.on('onUserJoined', (params) => {
+					const {
+						remoteUserID,
+						userData
+					} = params;
+					console.log('onUserJoined', params);
+				});
+				// 远端用户离开房间
+				this.rtcClient.on('onUserLeft', (params) => {
+					const {
+						remoteUserID
+					} = params;
+					console.log('onUserLeft', params);
+				});
+				// 远端 Track 发布
+				this.rtcClient.on('onUserPublished', (params) => {
+					const {
+						remoteUserID,
+						trackList
+					} = params;
+					console.log('onUserPublished', params);
+				});
+				// 远端 Track 取消发布
+				this.rtcClient.on('onUserUnpublished', (params) => {
+					const {
+						remoteUserID,
+						trackList
+					} = params;
+					console.log('onUserUnpublished', params);
+				});
+				// 远端用户重连成功
+				this.rtcClient.on('onUserReconnected', (params) => {
+					const {
+						remoteUserID
+					} = params;
+					console.log('onUserReconnected', params);
+				});
+				// 远端用户进入重连
+				this.rtcClient.on('onUserReconnecting', (params) => {
+					const {
+						remoteUserID
+					} = params;
+					console.log('onUserReconnecting', params);
+				});
+				// 转推任务成功
+				this.rtcClient.on('onStartLiveStreaming', (params) => {
+					console.log('onStartLiveStreaming', params);
+					this.isLiving = true;
+					uni.hideLoading();
+					uniShowModal({
+						content: "开启直播成功",
+						showCancel: false
+					})
+				})
+				// 转推任务成功
+				this.rtcClient.on('onStoppedLiveStreaming', (params) => {
+					console.log('onStoppedLiveStreaming', params)
+					this.isLiving = false;
+					uni.hideLoading();
+					uniShowModal({
+						content: "结束直播成功",
+						showCancel: false
+					})
+				})
+				// 转推任务合流布局更新
+				this.rtcClient.on('onUpdatedLiveStreaming', (params) => {
+					console.log('onUpdatedLiveStreaming', params)
+				})
+				// 转推任务出错
+				this.rtcClient.on('onErrorLiveStreaming', (params) => {
+					console.log('onErrorLiveStreaming', params)
+					const {
+						info,
+						streamID
+					} = params;
+					uniShowModal({
+						content: info.message,
+						showCancel: false
+					})
+				})
+			},
+			/**
+			 * 初始化RTC
+			 */
+			initRTC() {
+				QNRTC.configRTC();
+				this.rtcClient = QNRTC.createClient();
+				this.rtcClient.setAutoSubscribe(false);
+				this.addRTCListeners();
+				this.enableCamera();
+				this.enableMic();
+			},
+			/**
+			 * 采集摄像头
+			 */
+			enableCamera() {
+				if (this.isAndroid) {
+					this.localCameraTrack = QNRTC.createCameraVideoTrack(this.cameraConfig);
+				} else {
+					this.localCameraTrack = QNRTC.createCameraVideoTrack();
+				}
+				if (!this.isAndroid) {
+					this.localCameraTrack.setSessionPreset(this.sessionPreset);
+				}
+				this.localCameraTrack.setBeauty(this.beautySetting);
+				this.localCameraTrack.encodeMirrorFrontFacing(false);
+				this.isCameraOn = true;
+			},
+			/**
+			 * 采集麦克风
+			 */
+			enableMic() {
+				this.localMicTrack = QNRTC.createMicrophoneAudioTrack();
+				this.isMicOn = true;
+			},
+			/**
+			 * 开始直播
+			 * 包含单路/合流转推逻辑
+			 */
+			startLive() {
+				console.log('startLive')
+				if (this.isLiveStreamDirect) {
+					this.rtcClient.startLiveStreamingWithDirect(this.liveDirectConfig);
+				} else {
+					this.rtcClient.startLiveStreamingWithTranscoding(this.liveMixedConfig);
+					this.rtcClient.setTranscodingLiveStreamingTracks(
+						this.liveMixedConfig.streamID,
+						this.liveMixedTracks
+					);
+				}
+			},
+			/**
+			 * 停止直播
+			 * 包含单路/合流转推逻辑
+			 */
+			stopLive() {
+				console.log('stopLive')
+				if (this.isLiveStreamDirect) {
+					this.rtcClient.stopLiveStreamingWithDirect(this.liveDirectConfig);
+				} else {
+					this.rtcClient.stopLiveStreamingWithTranscoding(this.liveMixedConfig);
+				}
+			}
+		},
+		onLoad(options) {
+			const {
+				screenWidth,
+				screenHeight
+			} = uni.getSystemInfoSync();
+			this.screenWidth = screenWidth;
+			this.screenHeight = screenHeight;
+			this.initRTC();
+		},
+		onUnload() {
+			clearTimeout(this.heartBeatTimer)
+			this.heartBeatTimer = null;
+			if (this.rtcClient) {
+				this.rtcClient.leave();
+			}
+			QNRTC.deinit();
+			if (this.roomId) {
+				BaseRoomApi.leaveRoom({
+					roomId: this.roomId
+				});
+				this.roomId = null;
+			}
+		}
+	}
+</script>
+
+<style>
+	.container {
+		display: flex;
+		flex-direction: column;
+		background-color: #808499;
+	}
+
+	.header {
+		display: flex;
+		justify-content: flex-end;
+		padding: 20rpx;
+		flex-direction: row;
+	}
+
+	.body {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		position: relative;
+	}
+
+	.icon-close {
+		font-size: 50rpx;
+		color: #fff;
+		background-color: #484b57;
+	}
+
+	.tool {
+		position: absolute;
+		right: 10rpx;
+		top: 20rpx;
+	}
+
+	.control-tool {
+		position: absolute;
+		top: 20rpx;
+		right: 20rpx;
+	}
+
+	.control-button {
+		width: 80rpx;
+		height: 80rpx;
+		border-radius: 80rpx;
+		background-color: #484b57;
+		margin-bottom: 20rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.control-button-image {
+		width: 50rpx;
+		height: 50rpx;
+	}
+
+	.control-button-text {
+		color: #fff;
+		font-size: 32rpx;
+	}
+
+	.footer {
+		position: fixed;
+		bottom: 40rpx;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	.button {
+		padding: 0 100rpx;
+		border-radius: 100rpx;
+	}
+</style>

@@ -8,6 +8,7 @@ const packages = [
   'qnweb-interview-demo',
   'qnweb-overhaul-demo',
   'qnweb-video-together-demo',
+  'qnuniapp-live'
 ];
 
 module.exports = {
