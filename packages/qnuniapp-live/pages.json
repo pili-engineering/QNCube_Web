@@ -1,0 +1,28 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+      {
+        "path": "pages/login/login"
+      },
+      {
+        "path": "pages/room-list/room-list",
+        "style": {
+          "enablePullDownRefresh": true
+        }
+      },
+			{
+			  "path": "pages/broadcaster-room/broadcaster-room"
+			},
+			{
+			  "path": "pages/audience-room/audience-room"
+			},
+      {
+        "path": "pages/webview/webview"
+      }
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "七牛云直播uniapp版体验",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}
