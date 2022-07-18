@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "keywords": [],
   "scripts": {
-    "commit": "git-cz"
+    "cz": "git-cz"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^16.2.1",

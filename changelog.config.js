@@ -1,15 +1,8 @@
-const packages = [
-  'qnuniapp-voice-chat',
-  'qnweapp-interview-demo',
-  'qnweb-cloud-class-demo',
-  'qnweb-cube-ui',
-  'qnweb-exam-system-demo',
-  'qnweb-high-level-rtc',
-  'qnweb-interview-demo',
-  'qnweb-overhaul-demo',
-  'qnweb-video-together-demo',
-  'qnuniapp-live'
-];
+const fs = require('fs');
+
+const projects = fs.readdirSync('./packages').filter(projectName => {
+  return fs.statSync(`./packages/${projectName}`).isDirectory();
+});
 
 module.exports = {
   disableEmoji: true,
@@ -18,7 +11,7 @@ module.exports = {
   maxMessageLength: 64,
   minMessageLength: 3,
   questions: ['type', 'scope', 'subject', 'body', 'breaking', 'issues', 'lerna'],
-  scopes: packages.concat('*'),
+  scopes: projects.concat(''),
   types: {
     chore: {
       description: 'Build process or auxiliary tool changes',
