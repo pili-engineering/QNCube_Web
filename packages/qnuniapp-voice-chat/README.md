@@ -19,6 +19,6 @@
 
 ### 如何体验 Demo？
 
-* **安卓端**：http://fir.qnsdk.com/lkbz
+* **安卓端**：http://fir.qnsdk.com/snwr
 
-* **iOS**：http://fir.qnsdk.com/7u6v
+* **iOS**：http://fir.qnsdk.com/ksyu

@@ -119,3 +119,15 @@ dist
 # uniapp
 uni_modules
 unpackage
+.DS_Store
+*/.DS_Store
+hbuilderx/
+type/
+dist/
+lib/
+.hbuilderx/
+.vscode/
+happyDoc/
+types/
+js_sdk
+nativeplugins
