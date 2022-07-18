@@ -213,17 +213,24 @@
 		},
 		methods: {
 			/**
-			 * 镜像
+			 * 镜像切换
+			 * @param {Object} isMirror
+			 */
+			toggleMirror(isMirror) {
+				if (this.cameraFacing === 'front') { // 前置摄像头
+					this.localCameraTrack.encodeMirrorFrontFacing(!isMirror)
+				}
+				if (this.cameraFacing === 'back') { // 后置摄像头
+					this.localCameraTrack.encodeMirrorRearFacing(!isMirror)
+				}
+			},
+			/**
+			 * 点击镜像按钮
 			 */
 			onMirror() {
 				const isMirror = !this.isMirror;
+				this.toggleMirror(isMirror);
 				this.isMirror = isMirror;
-				if (this.cameraFacing === 'front') { // 前置摄像头
-					this.localCameraTrack.encodeMirrorFrontFacing(!this.isMirror)
-				}
-				if (this.cameraFacing === 'back') { // 前置摄像头
-					this.localCameraTrack.encodeMirrorRearFacing(!this.isMirror)
-				}
 			},
 			/**
 			 * 开启心跳
@@ -253,6 +260,7 @@
 			 */
 			onFlipCamera() {
 				const cameraFacing = this.cameraFacing === 'front' ? 'back' : 'front';
+				this.cameraFacing = cameraFacing;
 				if (this.localCameraTrack) {
 					this.localCameraTrack.switchCamera();
 				}
@@ -279,8 +287,6 @@
 			 * 切换清晰度
 			 */
 			onToggleClarity() {
-				this.localCameraTrack.stopCapture();
-				this.localCameraTrack.destroy();
 				const nextClarityMap = {
 					SD: "HD",
 					HD: "FHD",
@@ -288,14 +294,20 @@
 				};
 				const prevClarity = this.clarity;
 				this.clarity = nextClarityMap[prevClarity];
-				this.enableCamera();
-				// 直播中并且是合流转推的情况下才需要更新合流布局
-				if (this.isLiving && !this.isLiveStreamDirect) {
-					console.log('onToggleClarity 更新合流布局')
-					this.rtcClient.setTranscodingLiveStreamingTracks(
-						this.liveMixedConfig.streamID,
-						this.liveMixedTracks
-					);
+				if (this.isAndroid) { // android
+					this.localCameraTrack.stopCapture();
+					this.localCameraTrack.destroy();
+					this.localCameraTrack = null;
+					this.enableCamera();
+					// 直播中并且是合流转推的情况下才需要更新合流布局
+					if (this.isLiving && !this.isLiveStreamDirect) {
+						this.rtcClient.setTranscodingLiveStreamingTracks(
+							this.liveMixedConfig.streamID,
+							this.liveMixedTracks
+						);
+					}
+				} else { // ios
+					this.localCameraTrack.setSessionPreset(this.sessionPreset);
 				}
 			},
 			/**
@@ -512,16 +524,13 @@
 			 * 采集摄像头
 			 */
 			enableCamera() {
-				if (this.isAndroid) {
-					this.localCameraTrack = QNRTC.createCameraVideoTrack(this.cameraConfig);
-				} else {
-					this.localCameraTrack = QNRTC.createCameraVideoTrack();
-				}
-				if (!this.isAndroid) {
-					this.localCameraTrack.setSessionPreset(this.sessionPreset);
+				if (this.isAndroid) { // android
+					this.localCameraTrack = this.localCameraTrack || QNRTC.createCameraVideoTrack(this.cameraConfig);
+				} else { // ios
+					this.localCameraTrack = this.localCameraTrack || QNRTC.createCameraVideoTrack();
 				}
 				this.localCameraTrack.setBeauty(this.beautySetting);
-				this.localCameraTrack.encodeMirrorFrontFacing(false);
+				this.toggleMirror(this.isMirror);
 				this.isCameraOn = true;
 			},
 			/**
