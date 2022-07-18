@@ -9,6 +9,7 @@
 ## 如何运行
 
 * 需要在插件市场载入 [JS 插件](https://ext.dcloud.net.cn/plugin?id=6859) 以及 [Native 插件](https://ext.dcloud.net.cn/plugin?id=6857)。JS 插件主要负责处理加工原生返回的数据，便于使用者调用，Native 插件负责直接调用原生接口返回 JS 插件。
+* 需要在插件市场载入 [uni-icons图标](https://ext.dcloud.net.cn/plugin?name=uni-icons)，主要用于该 demo 的 icon ui 展示。
 * 通过 HBuilderX 导入该项目，通过【运行->运行到手机或模拟器】选择基座进行运行。
 
 ## 项目结构
@@ -36,7 +37,7 @@
 
 * **安卓端**：http://fir.qnsdk.com/mpve
 
-* **iOS**：http://fir.qnsdk.com/7u6v
+* **iOS**：http://fir.qnsdk.com/ulx8
 
 ### 无法正常使用rtc通话？
 
@@ -85,6 +86,6 @@ export default {
 
 ### 视频无法正常播放，提示添加 videoplayer模块？
 
-参考https://ask.dcloud.net.cn/article/283和https://ask.dcloud.net.cn/question/113030
+参考 https://ask.dcloud.net.cn/article/283 和 https://ask.dcloud.net.cn/question/113030
 
 需要在 **manifest.json** 的 **App模块配置=>VideoPlayer(视频播放)** 勾选上
