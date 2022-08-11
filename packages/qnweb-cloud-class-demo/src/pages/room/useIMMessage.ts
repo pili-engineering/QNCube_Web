@@ -1,33 +1,53 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { BaseMessageJson, QNRTMAdapter, RtmManager } from 'qnweb-high-level-rtc';
-import { IChatMessage } from '../../components';
-import { BaseUserInfo } from '../../api';
 
-const useIMMessage = (adapter?: QNRTMAdapter, userInfo?: BaseUserInfo) => {
-  const [messages, setMessages] = useState<IChatMessage[]>([]);
+import { IChatMessage } from '@/components';
+import { UserStoreContext } from '@/store';
 
-  // eslint-disable-next-line consistent-return
+const useIMMessage = (adapter?: QNRTMAdapter | null) => {
+  const { state: userStoreState } = useContext(UserStoreContext);
+  const [messages, setMessages] = useState<BaseMessageJson[]>([]);
+  const [chatMessages, setChatMessages] = useState<IChatMessage[]>([]);
+
+  /**
+   * 接受im消息
+   */
   useEffect(() => {
-    const channelMessageHandler = (receivedMessage: string) => {
-      const json: BaseMessageJson = JSON.parse(receivedMessage);
-      const isMe = json.data.senderId === userInfo?.accountId;
-      setMessages((prevMessages) => prevMessages.concat({
-        direction: isMe ? 'rtl' : 'ltr',
-        avatar: json.data.avatar,
-        content: json.data.msgContent,
-        username: json.data.senderName,
-      }));
+    const handler = (message: string) => {
+      const messageJson: BaseMessageJson = JSON.parse(message);
+      setMessages((prev) => [...prev, messageJson]);
     };
-    if (adapter && userInfo?.accountId) {
-      RtmManager.addRtmChannelListener(channelMessageHandler);
+    if (adapter) {
+      RtmManager.addRtmChannelListener(handler);
       return () => {
-        RtmManager.removeRtmChannelListener(channelMessageHandler);
+        RtmManager.removeRtmChannelListener(handler);
       };
     }
-  }, [adapter, userInfo]);
+  }, [adapter]);
+
+  /**
+   * 过滤出聊天的消息
+   */
+  useEffect(() => {
+    setChatMessages(
+      messages
+        .filter(
+          item => item.action === 'pub_chat_text'
+        )
+        .map((item) => {
+          return {
+            direction: item.data.senderId === userStoreState.userInfo?.accountId ? 'rtl' : 'ltr',
+            avatar: item.data.avatar,
+            content: item.data.msgContent,
+            username: item.data.senderName,
+          };
+        })
+    );
+  }, [messages, userStoreState]);
 
   return {
     messages,
+    chatMessages
   };
 };
 

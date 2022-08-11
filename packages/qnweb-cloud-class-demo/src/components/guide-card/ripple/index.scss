@@ -1,0 +1,8 @@
+.ripple {
+  position: relative;
+  overflow: hidden;
+  &-inner {
+    background-color: #CCEEFA;
+    border-radius: 50%;
+  }
+}

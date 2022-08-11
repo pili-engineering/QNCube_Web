@@ -1,25 +1,36 @@
-import React, { ReactElement, useState } from 'react';
-import GuideCard from '@/ui-kit/guide-card';
-import RoleSelectPanel, { RoleValue } from '@/ui-kit/guide-card/role-select-panel';
-import RippleGroup from '@/ui-kit/guide-card/ripple-group';
-import RoomCreateForm, { FormResult } from '@/ui-kit/guide-card/room-create-form';
-import RoomJoinForm from '@/ui-kit/guide-card/room-join-form';
-import { useUserStore } from '@/store';
-import { baseCreateRoomApi } from '@/api';
-import styles from './index.module.scss';
-import usePushHistory from '@/hooks/usePushHistory';
+import React, { ReactNode, useState } from 'react';
 import { Form, FormProps } from 'antd';
 
-type Step = 'role-select' | 'room-create' | 'room-join';
+import { useUserStore } from '@/store';
+import { RoomApi } from '@/api';
+import { usePushHistory } from '@/hooks';
+import {
+  FormResult,
+  GuideCard,
+  RippleGroup,
+  RoleSelectPanel,
+  RoleValue,
+  RoomCreateForm,
+  RoomJoinForm
+} from '@/components';
 
-const Guide = () => {
+import styles from './index.module.scss';
+
+type FormType = 'roleSelect' | 'roomCreate' | 'roomJoin';
+
+const Guide: React.FC = () => {
   const pushHistory = usePushHistory();
-  const [selectedRole, setSelectedRole] = useState<RoleValue>();
-  const [step, setStep] = useState<Step>('role-select');
   const { state: userState } = useUserStore();
-  const [secretKey, setSecretKey] = useState<string>('');
   const [form] = Form.useForm();
 
+  const [selectedRole, setSelectedRole] = useState<RoleValue>();
+  const [formType, setFormType] = useState<FormType>('roleSelect');
+  const [secretKey, setSecretKey] = useState<string>('');
+
+  /**
+   * 表单字段变化
+   * @param changedFields
+   */
   const onFieldsChange: FormProps['onFieldsChange'] = (changedFields) => {
     const [field] = changedFields;
     const fieldName = field.name;
@@ -31,14 +42,18 @@ const Guide = () => {
       });
     }
   };
-  // 老师创建房间，提交表单
+
+  /**
+   * 创建房间，提交表单
+   * @param result
+   */
   const onCreateRoom = (result: FormResult): void => {
     const mapClassType = {
-      'small-class': 1,
-      '1v1': 2
+      smallClass: 1,
+      oneToOne: 2
     };
     const classTypeValue = mapClassType[result.classType];
-    baseCreateRoomApi({
+    RoomApi.baseCreateRoomApi({
       title: result.title,
       params: [
         { key: 'nickname', value: result.nickname },
@@ -48,35 +63,44 @@ const Guide = () => {
       ],
     }).then((response) => {
       const roomId = response.roomInfo?.roomId;
-      pushHistory('/room', {
-        query: {
-          roomId,
-          role: selectedRole
-        }
-      });
+      if (!roomId) {
+        return Promise.reject(new TypeError(`roomId is ${roomId}`));
+      }
+      onJoinRoom(roomId);
     });
   };
-  // 确认选择角色
+
+  /**
+   * 确认选择角色
+   */
   const onSubmitRole = (): void => {
     if (selectedRole === 'teacher') {
-      setStep('room-create');
+      setFormType('roomCreate');
     }
     if (selectedRole === 'student') {
-      setStep('room-join');
+      setFormType('roomJoin');
     }
   };
-  // 学生点击加入房间
-  const onJoinRoom = (): void => {
+
+  /**
+   * 加入房间
+   * @param roomId
+   */
+  const onJoinRoom = (roomId: string): void => {
     pushHistory('/room', {
       query: {
-        roomId: secretKey,
-        role: selectedRole
+        roomId,
+        role: selectedRole,
       }
     });
   };
-  // 渲染表单
-  const renderStep = (step: Step): ReactElement | undefined => {
-    if (step === 'role-select') {
+
+  /**
+   * 渲染相应的表单
+   * @param type
+   */
+  const renderForm = (type: FormType): ReactNode => {
+    if (type === 'roleSelect') {
       return <RoleSelectPanel
         title="欢迎来到牛课堂!"
         tipTitle="选择您的角色"
@@ -85,24 +109,24 @@ const Guide = () => {
         onSubmit={onSubmitRole}
       />;
     }
-    if (step === 'room-create') {
+    if (type === 'roomCreate') {
       return <RoomCreateForm
         title="创建教室"
         form={form}
         initialValues={{
           nickname: userState.userInfo?.nickname,
-          classType: 'small-class',
+          classType: 'smallClass',
         }}
         onFinish={onCreateRoom}
         onFieldsChange={onFieldsChange}
       />;
     }
-    if (step === 'room-join') {
+    if (type === 'roomJoin') {
       return <RoomJoinForm
         title="进入教室"
         value={secretKey}
         onChange={event => setSecretKey(event.target.value)}
-        onOk={onJoinRoom}
+        onOk={() => onJoinRoom(secretKey)}
       />;
     }
   };
@@ -112,7 +136,7 @@ const Guide = () => {
       <GuideCard
         className={styles.card}
       >
-        <div className={styles.step}>{renderStep(step)}</div>
+        <div className={styles.step}>{renderForm(formType)}</div>
       </GuideCard>
       <RippleGroup
         className={styles.rippleGroupTopLeft}

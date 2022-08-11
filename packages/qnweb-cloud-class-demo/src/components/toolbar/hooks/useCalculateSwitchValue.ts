@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ToolbarProps } from '../index';
 
-const useCalculateSwitchValue = (
+export const useCalculateSwitchValue = (
   direction: Exclude<ToolbarProps['direction'], undefined>,
   elementId: string,
   gap: number,
@@ -30,5 +30,3 @@ const useCalculateSwitchValue = (
     switchValue,
   ];
 };
-
-export default useCalculateSwitchValue;

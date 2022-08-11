@@ -10,6 +10,13 @@
   overflow: hidden;
 }
 
+.workBox {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  z-index: 2;
+}
+
 .roomBodyWhiteBoard {
   flex: 1;
   border: 1px solid #ececf1;

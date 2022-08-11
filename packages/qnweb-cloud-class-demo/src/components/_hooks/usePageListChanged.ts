@@ -19,7 +19,7 @@ const log = (...args: any[]) => {
   console.log('usePageListChanged', ...args);
 };
 
-const usePageListChanged = (whiteboardClient: QNWhiteboard) => {
+export const usePageListChanged = (whiteboardClient: QNWhiteboard) => {
   const [documents, setDocuments] = useState<WhiteboardDocument[]>([]);
 
   useEffect(() => {
@@ -56,4 +56,3 @@ const usePageListChanged = (whiteboardClient: QNWhiteboard) => {
   };
 };
 
-export default usePageListChanged;

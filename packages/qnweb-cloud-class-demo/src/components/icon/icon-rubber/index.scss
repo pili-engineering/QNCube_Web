@@ -1,0 +1,18 @@
+.popover-content {
+  &--direction {
+    &-horizontal {}
+    &-vertical {
+      .rubber-bar {
+        display: flex;
+        flex-direction: column;
+        .button {
+          margin: 10px 0;
+        }
+      }
+    }
+  }
+}
+
+.icon-rubber {
+  display: inline-block;
+}

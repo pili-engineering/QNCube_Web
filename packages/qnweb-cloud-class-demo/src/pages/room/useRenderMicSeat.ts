@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { MutableTrackRoomSeat, MutableTrackRoom } from 'qnweb-high-level-rtc';
-import { BaseRoomRole, BaseUserInfo } from '../../api';
-import { ICloudClassSeat, RtcJoinState } from '../../components';
+
+import { BaseRoomRole, BaseUserInfo } from '@/api';
+import { ICloudClassSeat } from '@/components';
 
 export type Seat = ICloudClassSeat & { userId: string; role: BaseRoomRole };
 
 const useRenderMicSeat = (
-  client: MutableTrackRoom | null, rtcJoinState: RtcJoinState,
-  rtcSeats: MutableTrackRoomSeat[], userInfo?: BaseUserInfo,
+  client: MutableTrackRoom | null,
+  isJoined: boolean,
+  rtcSeats: MutableTrackRoomSeat[],
+  userInfo?: BaseUserInfo,
 ) => {
   const [seats, setSeats] = useState<Seat[]>([]);
   /**
@@ -61,7 +64,7 @@ const useRenderMicSeat = (
    * 渲染好麦位播放对应的音视频
    */
   useEffect(() => {
-    if (client && rtcJoinState === 'joined') {
+    if (client && isJoined) {
       seats.forEach((s) => {
         const elementId = s.userId;
         const element = document.getElementById(elementId);
@@ -82,7 +85,7 @@ const useRenderMicSeat = (
         }
       });
     }
-  }, [seats, client, rtcJoinState, userInfo]);
+  }, [seats, client, isJoined, userInfo]);
 
   return {
     seats,

@@ -47,3 +47,5 @@ export { default as laser2Selected } from './laser-2-selected.png';
 export { default as navSettle } from './nav-settle.png';
 export { default as navToChat } from './nav-to-chat.png';
 export { default as tabIcon } from './tab-icon.png';
+export { default as iconToolBox } from './icon-tool-box.svg';
+export { default as iconScreenShare } from './icon-screen-share.svg';

@@ -1,13 +1,10 @@
 import { Spin } from 'antd';
 import React, { HTMLAttributes } from 'react';
 import classNames from 'classnames';
+
 import './index.scss';
 
-export interface RouterLoadingProps extends HTMLAttributes<HTMLDivElement>{
-
-}
-
-const RouterLoading: React.FC<RouterLoadingProps> = (props) => {
+export const RouterLoading: React.FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   const { className, ...restProps } = props;
   return (
     <div className={classNames('loading-ctx', className)} {...restProps}>
@@ -15,5 +12,3 @@ const RouterLoading: React.FC<RouterLoadingProps> = (props) => {
     </div>
   );
 };
-
-export default RouterLoading;

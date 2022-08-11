@@ -2,7 +2,9 @@ import React, {
   FC, HTMLAttributes,
 } from 'react';
 import classNames from 'classnames';
-import BaseToolbar from './BaseToolbar';
+
+import { BaseToolbar } from './BaseToolbar';
+
 import './index.scss';
 
 export interface ToolbarProps extends HTMLAttributes<HTMLDivElement> {
@@ -12,7 +14,7 @@ export interface ToolbarProps extends HTMLAttributes<HTMLDivElement> {
   fixedClassName?: string;
 }
 
-const Toolbar: FC<ToolbarProps> = (props) => {
+export const Toolbar: FC<ToolbarProps> = (props) => {
   const {
     fixedClassName, fixed, ...restProps
   } = props;
@@ -32,5 +34,3 @@ const Toolbar: FC<ToolbarProps> = (props) => {
     ) : <BaseToolbar {...nextProps} />
   );
 };
-
-export default Toolbar;

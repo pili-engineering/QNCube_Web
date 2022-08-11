@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Avatar } from 'antd';
+
 import './index.scss';
 
 export interface IChatMessage {
@@ -16,7 +17,7 @@ export type ChatMessageProps = IChatMessage & {
   className?: string;
 }
 
-const ChatMessage: React.FC<ChatMessageProps> = (props) => {
+export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
   const {
     className, direction = 'ltr', content,
     avatar, username = '暂无昵称', ...restProps
@@ -40,5 +41,3 @@ const ChatMessage: React.FC<ChatMessageProps> = (props) => {
     </div>
   );
 };
-
-export default ChatMessage;

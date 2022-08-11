@@ -1,14 +1,16 @@
 import React, { HTMLAttributes } from 'react';
 import classNames from 'classnames';
-import Icon, { IconType } from '../icon';
+
+import { Icon, IconType } from '@/components';
+
 import './index.scss';
 
-export interface GestureBarProps extends HTMLAttributes<HTMLDivElement>{
+export interface GestureBarProps extends HTMLAttributes<HTMLDivElement> {
   value?: IconType;
   onValueChange: (value: IconType) => void;
 }
 
-const GestureBar: React.FC<GestureBarProps> = (props) => {
+export const GestureBar: React.FC<GestureBarProps> = (props) => {
   const {
     className, value, onValueChange, ...restProps
   } = props;
@@ -27,7 +29,7 @@ const GestureBar: React.FC<GestureBarProps> = (props) => {
               onClick={() => onValueChange(icon)}
               key={icon}
             >
-              <Icon className="button-component" type={icon} size={30} />
+              <Icon className="button-component" type={icon} size={30}/>
             </div>
           );
         })
@@ -35,5 +37,3 @@ const GestureBar: React.FC<GestureBarProps> = (props) => {
     </div>
   );
 };
-
-export default GestureBar;

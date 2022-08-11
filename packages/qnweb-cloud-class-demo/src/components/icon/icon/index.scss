@@ -1,0 +1,16 @@
+.icon {
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+  overflow: hidden;
+  text-align: center;
+
+  &-text {
+    color: #000;
+    padding-top: 5px;
+  }
+
+  &-img {
+    width: 32px;
+  }
+}

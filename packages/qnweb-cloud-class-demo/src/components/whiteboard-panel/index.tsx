@@ -2,20 +2,25 @@ import React, {
   HTMLAttributes,
 } from 'react';
 import classNames from 'classnames';
+import { TabsProps } from 'antd/lib/tabs';
+
 import {
-  Toolbar, ToolbarProps, WhiteBoardTabs, WhiteBoardTabsProps,
-} from '..';
+  Toolbar,
+  ToolbarProps,
+  WhiteBoardTabs,
+} from '@/components';
+
 import './index.scss';
 
 export interface WhiteBoardPanelProps extends HTMLAttributes<HTMLDivElement> {
   toolbarProps?: ToolbarProps;
-  tabsProps?: WhiteBoardTabsProps;
+  tabsProps?: TabsProps;
   toolbarVisible: boolean;
   tabsVisible: boolean;
   locked?: boolean;
 }
 
-const WhiteBoardPanel: React.FC<WhiteBoardPanelProps> = (props) => {
+export const WhiteBoardPanel: React.FC<WhiteBoardPanelProps> = (props) => {
   const {
     className, tabsProps, toolbarProps, toolbarVisible, tabsVisible, locked, ...restProps
   } = props;
@@ -36,5 +41,3 @@ const WhiteBoardPanel: React.FC<WhiteBoardPanelProps> = (props) => {
     </div>
   );
 };
-
-export default WhiteBoardPanel;

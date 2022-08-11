@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import { MutableTrackRoom } from 'qnweb-high-level-rtc';
-import { RtcJoinState } from '../../components';
 
-const useInitCameraAndMicrophone = (client: MutableTrackRoom | null, joinState: RtcJoinState) => {
+const useInitCameraAndMicrophone = (client: MutableTrackRoom | null, isJoined: boolean) => {
   const [isCameraOpen, toggleCamera] = useState(false);
   const [isMicOpen, toggleMic] = useState(false);
   /**
    * 加入房间开启摄像头和麦克风
    */
   useEffect(() => {
-    if (joinState === 'joined') {
+    if (isJoined) {
       Promise.all([
         client?.enableCamera(),
         client?.enableMicrophone(),
@@ -18,7 +17,7 @@ const useInitCameraAndMicrophone = (client: MutableTrackRoom | null, joinState: 
         toggleCamera(true);
       });
     }
-  }, [client, joinState]);
+  }, [client, isJoined]);
 
   return {
     toggleMic,

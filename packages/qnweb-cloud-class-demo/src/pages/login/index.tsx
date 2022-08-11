@@ -4,16 +4,18 @@ import {
 } from 'antd';
 import classNames from 'classnames';
 import { useHistory } from 'react-router-dom';
-import bgLoginImage from '../../static/images/bg-login.svg';
-import loginCardBgImage from '../../static/images/login-card-bg.png';
-import BarImage from '../../static/images/bar.svg';
-import AgreementText from './components/agreement-text';
-import { getSmsCodeApi, signUpOrInApi } from '../../api';
-import { UserStoreContext } from '../../store';
-import { limitNumber } from '../../utils';
-import Icon from '../../components/icon';
-import { useInterval } from '../../hooks';
-import { VersionCard } from '../../components';
+import { useInterval } from 'ahooks';
+
+import { Icon, VersionCard } from '@/components';
+import { BaseApi } from '@/api';
+import { UserStoreContext } from '@/store';
+import { limitNumber } from '@/utils';
+import bgLoginImage from '@/static/images/bg-login.svg';
+import loginCardBgImage from '@/static/images/login-card-bg.png';
+import BarImage from '@/static/images/bar.svg';
+
+import { AgreementText } from './agreement-text';
+
 import styles from './index.module.scss';
 
 interface FormValue {
@@ -56,7 +58,7 @@ const Login = () => {
       const nextCount = count - 1;
       setCount(nextCount > 0 ? nextCount : defaultCount);
     },
-    isRunning ? delay : null,
+    isRunning ? delay : undefined,
   );
 
   /**
@@ -74,7 +76,7 @@ const Login = () => {
   const onSmsCodeButton = () => {
     if (!isRunning) {
       setLoadingSmsCode(true);
-      getSmsCodeApi({
+      BaseApi.getSmsCodeApi({
         phone: form.phoneNumber,
       }).then(() => {
         setIsRunning(true);
@@ -110,7 +112,7 @@ const Login = () => {
     if (errorText) {
       message.error(errorText);
     } else {
-      signUpOrInApi({
+      BaseApi.signUpOrInApi({
         phone: form.phoneNumber,
         smsCode: form.smsCode,
       }).then((response) => {
@@ -132,13 +134,13 @@ const Login = () => {
       <div className={styles.center}>
         <div className={styles.loginCard}>
           <div className={styles.loginIllustration}>
-            <img src={loginCardBgImage} className={styles.loginIllustrationImage} alt="loginIllustrationImage" />
+            <img src={loginCardBgImage} className={styles.loginIllustrationImage} alt="loginIllustrationImage"/>
           </div>
           <div className={styles.loginForm}>
             <div className={styles.loginFormHeader}>
-              <img alt="loginFormHeaderBarImage" src={BarImage} className={styles.barImage} />
+              <img alt="loginFormHeaderBarImage" src={BarImage} className={styles.barImage}/>
               <span className={styles.loginFormHeaderText}>欢迎登录</span>
-              <img alt="loginFormHeaderBarImage" src={BarImage} className={classNames(styles.barImage, styles.mirror)} />
+              <img alt="loginFormHeaderBarImage" src={BarImage} className={classNames(styles.barImage, styles.mirror)}/>
             </div>
             <Form
               layout="vertical"
@@ -178,9 +180,9 @@ const Login = () => {
             <Form.Item>
               <div className={styles.agreement} onClick={() => onFieldChange('read', !form.read)}>
                 {
-                  form.read ? <Icon type="icon-pitch-on" /> : <Icon type="icon-pitch-on-off" />
+                  form.read ? <Icon type="icon-pitch-on" size={14}/> : <Icon type="icon-pitch-on-off" size={14}/>
                 }
-                <AgreementText />
+                <AgreementText/>
               </div>
             </Form.Item>
           </div>

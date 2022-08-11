@@ -1,1 +1,1 @@
-export { default as useCalculateSwitchValue } from './useCalculateSwitchValue';
+export * from './useCalculateSwitchValue';

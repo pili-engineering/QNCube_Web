@@ -1,19 +1,16 @@
 import React, { useContext, useEffect, useReducer } from 'react';
-import { BaseUserInfo, getAccountInfoApi } from '../api';
+
+import { BaseUserInfo, BaseApi } from '@/api';
 
 export const UserStoreContext = React.createContext({} as {
   state: State,
   dispatch: (action: Action) => void;
 });
 
-enum IMType {
-  RongCloud = 1, // 融云 IM
-  QN// 七牛 IM
-}
-
 interface IMConfig {
   imToken?: string;
-  type?: IMType;
+  // 1：融云 IM，2：七牛 IM
+  type?: 1 | 2;
   imGroupId?: number;
   imPassword?: string;
   imUsername?: string;
@@ -23,7 +20,7 @@ interface IMConfig {
 interface State {
   authorization: string;
   userInfo?: BaseUserInfo;
-  imConfig?: IMConfig
+  imConfig?: IMConfig;
 }
 
 interface Action {
@@ -33,7 +30,7 @@ interface Action {
 
 export const useUserStore = () => {
   return useContext(UserStoreContext);
-}
+};
 
 const reducer = (state: State, action: Action): State => {
   const { type } = action;
@@ -59,7 +56,7 @@ const reducer = (state: State, action: Action): State => {
   return state;
 };
 
-const UserStore: React.FC<{}> = (props) => {
+const UserStore: React.FC = (props) => {
   const { children } = props;
   const localStorageIMConfig = localStorage.getItem('imConfig');
   const [state, dispatch] = useReducer(reducer, {
@@ -69,7 +66,7 @@ const UserStore: React.FC<{}> = (props) => {
 
   useEffect(() => {
     if (state.authorization) {
-      getAccountInfoApi().then((user) => {
+      BaseApi.getAccountInfoApi().then((user) => {
         dispatch({
           type: 'setUserInfo',
           payload: user,

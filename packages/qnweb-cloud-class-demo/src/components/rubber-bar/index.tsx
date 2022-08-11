@@ -1,6 +1,8 @@
 import React, { FC, HTMLAttributes } from 'react';
 import classNames from 'classnames';
-import Icon from '../icon';
+
+import { Icon } from '@/components';
+
 import './index.scss';
 
 export interface RubberBarProps extends HTMLAttributes<HTMLDivElement> {
@@ -8,7 +10,7 @@ export interface RubberBarProps extends HTMLAttributes<HTMLDivElement> {
   onValueChange: (value: number) => void;
 }
 
-const RubberBar: FC<RubberBarProps> = (props) => {
+export const RubberBar: FC<RubberBarProps> = (props) => {
   const {
     className, value, onValueChange, ...restProps
   } = props;
@@ -36,5 +38,3 @@ const RubberBar: FC<RubberBarProps> = (props) => {
     </div>
   );
 };
-
-export default RubberBar;

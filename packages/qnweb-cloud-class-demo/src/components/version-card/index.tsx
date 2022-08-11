@@ -1,12 +1,13 @@
 import React, { FC, HTMLAttributes } from 'react';
 import classNames from 'classnames';
+
 import './index.scss';
 
 export interface VersionCardProps extends HTMLAttributes<HTMLDivElement> {
   list: { name: string; version: string }[];
 }
 
-const VersionCard: FC<VersionCardProps> = (props) => {
+export const VersionCard: FC<VersionCardProps> = (props) => {
   const { className, list, ...restProps } = props;
   return (
     <div className={classNames('version-card', className)} {...restProps}>
@@ -25,5 +26,3 @@ const VersionCard: FC<VersionCardProps> = (props) => {
     </div>
   );
 };
-
-export default VersionCard;

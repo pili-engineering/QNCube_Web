@@ -4,8 +4,7 @@ import React, {
 import { message, Modal, TooltipProps } from 'antd';
 import classNames from 'classnames';
 import { InputMode, PenType, GeometryMode } from 'qnweb-whiteboard';
-import { useCalculateSwitchValue } from './hooks';
-import { CircleBarConfig } from '../icon-pen-pencil';
+
 import {
   CloudClassIconFont,
   IconGeometry,
@@ -13,10 +12,17 @@ import {
   IconMouse,
   IconPenMark,
   IconPenPencil,
-  IconRubber, IconUpload, ToolbarProps, IconType, QNWhiteBoardStoreContext,
-} from '../index';
+  IconRubber,
+  IconUpload,
+  ToolbarProps,
+  IconType,
+  QNWhiteBoardStoreContext,
+  CircleBarConfig
+} from '@/components';
 
-const BaseToolbar: FC<ToolbarProps> = (props) => {
+import { useCalculateSwitchValue } from './hooks';
+
+export const BaseToolbar: FC<ToolbarProps> = (props) => {
   const {
     className,
     direction = 'horizontal',
@@ -280,5 +286,3 @@ const BaseToolbar: FC<ToolbarProps> = (props) => {
     </div>
   );
 };
-
-export default BaseToolbar;

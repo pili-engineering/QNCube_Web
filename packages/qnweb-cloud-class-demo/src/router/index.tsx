@@ -2,7 +2,8 @@ import React, { lazy, Suspense } from 'react';
 import {
   BrowserRouter, Redirect, Route, Switch,
 } from 'react-router-dom';
-import { RouterLoading } from '../components';
+
+import { RouterLoading } from '@/components';
 
 export const routes = [
   {

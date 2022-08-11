@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { ICloudClassSeat, CloudClassSeat, CloudClassIconFont } from '..';
+
+import { ICloudClassSeat, CloudClassSeat, CloudClassIconFont } from '@/components';
+
 import './index.scss';
 
 export interface RTCPanelProps {
@@ -16,7 +18,7 @@ export interface RTCPanelProps {
   chatIconVisible?: boolean;
 }
 
-const RTCPanel: React.FC<RTCPanelProps> = (props) => {
+export const RTCPanel: React.FC<RTCPanelProps> = (props) => {
   const {
     className, seats, mainSeatCount = 1,
     isCameraOpen = true, isMicOpen = true, onToggleCamera, onToggleMic,
@@ -84,5 +86,3 @@ const RTCPanel: React.FC<RTCPanelProps> = (props) => {
     </div>
   );
 };
-
-export default RTCPanel;

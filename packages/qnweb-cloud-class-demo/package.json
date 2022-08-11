@@ -1,6 +1,6 @@
 {
   "name": "qnweb-cloud-class-demo",
-  "version": "4.0.0-beta.3",
+  "version": "4.0.1",
   "scripts": {
     "dev": "vite",
     "build:test": "tsc && vite build --mode test",
@@ -18,14 +18,13 @@
     "axios": "^0.21.4",
     "classnames": "^2.3.1",
     "lodash": "^4.17.21",
-    "qnweb-high-level-rtc": "^4.0.0-beta.4",
+    "qnweb-high-level-rtc": "4.0.0",
     "qnweb-rtc": "^4.1.0",
     "qnweb-whiteboard": "^1.1.0-beta.3",
     "qs": "^6.10.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "react-router-dom": "^5.3.0",
-    "recoil": "^0.3.1"
+    "react-router-dom": "^5.3.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.176",

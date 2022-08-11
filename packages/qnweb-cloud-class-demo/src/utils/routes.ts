@@ -1,6 +1,7 @@
 import { generatePath } from 'react-router-dom';
-import { stringifyQuery } from '@/utils/query';
-import { PushHistoryConfig } from '@/hooks/usePushHistory';
+
+import { stringifyQuery } from '@/utils';
+import { PushHistoryConfig } from '@/hooks';
 
 export function generateRoutePath(path: string, config: PushHistoryConfig = {}): string {
   const { params, query } = config;

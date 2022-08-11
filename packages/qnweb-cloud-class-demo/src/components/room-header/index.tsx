@@ -1,6 +1,8 @@
 import React, { FC, HTMLAttributes } from 'react';
 import classNames from 'classnames';
-import { CloudClassIconFont } from '../index';
+
+import { CloudClassIconFont } from '@/components';
+
 import './index.scss';
 
 export enum NetworkGrade {
@@ -39,7 +41,7 @@ export interface RoomHeaderProps extends HTMLAttributes<HTMLDivElement> {
   roomId: string;
 }
 
-const RoomHeader: FC<RoomHeaderProps> = (props) => {
+export const RoomHeader: FC<RoomHeaderProps> = (props) => {
   const {
     className, title, networkStat, onClose, roomId, ...restProps
   } = props;
@@ -101,5 +103,3 @@ const RoomHeader: FC<RoomHeaderProps> = (props) => {
     </div>
   );
 };
-
-export default RoomHeader;

@@ -1,6 +1,8 @@
 import React, { FC, HTMLAttributes } from 'react';
 import classNames from 'classnames';
-import Icon, { IconType } from '../icon';
+
+import { Icon, IconType } from '@/components';
+
 import './index.scss';
 
 export interface GeometryBarProps extends HTMLAttributes<HTMLDivElement> {
@@ -8,7 +10,7 @@ export interface GeometryBarProps extends HTMLAttributes<HTMLDivElement> {
   onValueChange: (value: IconType) => void;
 }
 
-const GeometryBar: FC<GeometryBarProps> = (props) => {
+export const GeometryBar: FC<GeometryBarProps> = (props) => {
   const {
     className, value, onValueChange, ...restProps
   } = props;
@@ -35,5 +37,3 @@ const GeometryBar: FC<GeometryBarProps> = (props) => {
     </div>
   );
 };
-
-export default GeometryBar;

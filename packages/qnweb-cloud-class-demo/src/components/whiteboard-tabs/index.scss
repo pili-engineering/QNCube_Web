@@ -1,13 +1,17 @@
 .wb-tabs {
   .ant-tabs {
     .ant-tabs-nav {
+      margin-bottom: 0;
+
       .ant-tabs-nav-wrap {
         width: 100%;
         background-color: #505467;
+
         .ant-tabs-nav-list {
           .ant-tabs-tab-remove {
             color: #fff;
           }
+
           > .ant-tabs-tab {
             border-radius: 0;
             background-color: #505467;
@@ -18,6 +22,7 @@
           }
         }
       }
+
       .ant-tabs-nav-operations {
         .ant-tabs-nav-more {
           background-color: #505467;

@@ -1,6 +1,8 @@
 import React, { CSSProperties } from 'react';
 import classNames from 'classnames';
-import { CloudClassIconFont } from '..';
+
+import { CloudClassIconFont } from '@/components';
+
 import './index.scss';
 
 export interface ICloudClassSeat {
@@ -15,7 +17,7 @@ export type CloudClassSeatProps = ICloudClassSeat & {
   style?: CSSProperties;
 }
 
-const CloudClassSeat: React.FC<CloudClassSeatProps> = (props) => {
+export const CloudClassSeat: React.FC<CloudClassSeatProps> = (props) => {
   const {
     className, username,
     isMicOpen, isCameraOpen,
@@ -72,5 +74,3 @@ const CloudClassSeat: React.FC<CloudClassSeatProps> = (props) => {
     </div>
   );
 };
-
-export default CloudClassSeat;

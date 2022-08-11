@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import './index.scss';
 
 export interface CircleProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -7,7 +8,7 @@ export interface CircleProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: string;
 }
 
-const Circle: React.FC<CircleProps> = (props) => {
+export const Circle: React.FC<CircleProps> = (props) => {
   const {
     size = 20, color = '#000000', className,
     ...restProps
@@ -24,5 +25,3 @@ const Circle: React.FC<CircleProps> = (props) => {
     />
   );
 };
-
-export default Circle;

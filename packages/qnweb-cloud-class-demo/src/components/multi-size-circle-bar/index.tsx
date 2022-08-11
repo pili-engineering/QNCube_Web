@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import Circle from '../circle';
+
+import { Circle } from '@/components';
+
 import './index.scss';
 
 export interface MultiSizeCircleBarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -8,7 +10,7 @@ export interface MultiSizeCircleBarProps extends React.HTMLAttributes<HTMLDivEle
   onValueChange: (value: number) => void;
 }
 
-const MultiSizeCircleBar: React.FC<MultiSizeCircleBarProps> = (props) => {
+export const MultiSizeCircleBar: React.FC<MultiSizeCircleBarProps> = (props) => {
   const {
     className, value, onValueChange, ...restProps
   } = props;
@@ -32,5 +34,3 @@ const MultiSizeCircleBar: React.FC<MultiSizeCircleBarProps> = (props) => {
     </div>
   );
 };
-
-export default MultiSizeCircleBar;

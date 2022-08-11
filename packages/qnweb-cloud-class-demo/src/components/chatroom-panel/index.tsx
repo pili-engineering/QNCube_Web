@@ -3,8 +3,11 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import { Button, Input } from 'antd';
-import { ChatMessage, IChatMessage } from '..';
+
+import { ChatMessage, IChatMessage } from '@/components';
+
 import useScroll from './useScroll';
+
 import './index.scss';
 
 export interface ChatroomPanelProps {
@@ -15,7 +18,7 @@ export interface ChatroomPanelProps {
   onInputValueChange: ((event: React.ChangeEvent<HTMLTextAreaElement>) => void) | undefined;
 }
 
-const ChatroomPanel: React.FC<ChatroomPanelProps> = (props) => {
+export const ChatroomPanel: React.FC<ChatroomPanelProps> = (props) => {
   const {
     className, messages, onSubmit, inputValue, onInputValueChange, ...restProps
   } = props;
@@ -64,5 +67,3 @@ const ChatroomPanel: React.FC<ChatroomPanelProps> = (props) => {
     </div>
   );
 };
-
-export default ChatroomPanel;

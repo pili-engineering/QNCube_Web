@@ -2,14 +2,12 @@ import React, { FC, useContext } from 'react';
 import { Tabs } from 'antd';
 import { TabsProps } from 'antd/lib/tabs';
 import classNames from 'classnames';
+
 import { QNWhiteBoardStoreContext } from '../_store';
+
 import './index.scss';
 
-export interface WhiteBoardTabsProps extends TabsProps {
-
-}
-
-const WhiteBoardTabs: FC<WhiteBoardTabsProps> = (props) => {
+export const WhiteBoardTabs: FC<TabsProps> = (props) => {
   const { className } = props;
   const { state } = useContext(QNWhiteBoardStoreContext);
   /**
@@ -72,5 +70,3 @@ const WhiteBoardTabs: FC<WhiteBoardTabsProps> = (props) => {
     </div>
   );
 };
-
-export default WhiteBoardTabs;

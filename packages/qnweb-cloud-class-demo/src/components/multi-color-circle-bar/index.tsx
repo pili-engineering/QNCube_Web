@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import Circle from '../circle';
+
+import { Circle } from '@/components';
+
 import './index.scss';
 
 export interface MultiColorCircleBarProps extends React.HTMLAttributes<HTMLDivElement>{
@@ -8,7 +10,7 @@ export interface MultiColorCircleBarProps extends React.HTMLAttributes<HTMLDivEl
   onValueChange: (value: string) => void;
 }
 
-const MultiColorCircleBar: React.FC<MultiColorCircleBarProps> = (props) => {
+export const MultiColorCircleBar: React.FC<MultiColorCircleBarProps> = (props) => {
   const {
     className, value, onValueChange, ...restProps
   } = props;
@@ -34,5 +36,3 @@ const MultiColorCircleBar: React.FC<MultiColorCircleBarProps> = (props) => {
     </div>
   );
 };
-
-export default MultiColorCircleBar;

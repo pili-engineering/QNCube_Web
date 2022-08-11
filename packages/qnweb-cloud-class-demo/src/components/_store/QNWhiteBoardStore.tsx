@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer } from 'react';
 import QNWhiteboard, { GeometryMode, InputMode, PenType } from 'qnweb-whiteboard';
+
 import { useDocumentChange, usePageListChanged, WhiteboardDocument } from '../_hooks';
 
-export interface QNWhiteBoardStoreProps extends React.HTMLAttributes<HTMLDivElement> {
-}
+export type QNWhiteBoardStoreProps = React.HTMLAttributes<HTMLDivElement>;
 
 export interface QNWhiteBoardState {
   penColor: string; // 画笔颜色
@@ -124,7 +124,7 @@ export function reducer(state: QNWhiteBoardState, action: QNWhiteBoardAction) {
   }
 }
 
-const QNWhiteBoardStore = (props: QNWhiteBoardStoreProps) => {
+export const QNWhiteBoardStore = (props: QNWhiteBoardStoreProps) => {
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, QNWhiteBoardDefaultState);
   const {
@@ -199,5 +199,3 @@ const QNWhiteBoardStore = (props: QNWhiteBoardStoreProps) => {
     </QNWhiteBoardStoreContext.Provider>
   );
 };
-
-export default QNWhiteBoardStore;

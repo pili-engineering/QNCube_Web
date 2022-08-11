@@ -1,14 +1,14 @@
 import { useContext, useState } from 'react';
-import { useMount } from '../../hooks';
+import { useMount } from 'ahooks';
+
 import {
-  baseJoinRoomApi,
+  RoomApi,
   BaseJoinRoomApiResponseData,
   BaseRoomClassType,
   BaseRoomRole,
-} from '../../api';
-import { getUrlQueryParams } from '../../utils';
-import { QNIMConfig } from '../../components';
-import { UserStoreContext } from '../../store';
+} from '@/api';
+import { getUrlQueryParams } from '@/utils';
+import { UserStoreContext } from '@/store';
 
 const useInitBaseConfig = () => {
   const [roomId] = useState(() => getUrlQueryParams<string>('roomId'));
@@ -23,14 +23,21 @@ const useInitBaseConfig = () => {
   const [classType, setClassType] = useState<BaseRoomClassType>();
   const [roomToken, setRoomToken] = useState<string>();
   const [userExtension, setUserExtension] = useState<string>();
-  const [imConfig, setImConfig] = useState<QNIMConfig>();
+  const [imConfig, setImConfig] = useState<{
+    appKey: string;
+    loginAccount: {
+      name: string;
+      password: string;
+    };
+    chatRoomId: string
+  }>();
   const { state } = useContext(UserStoreContext);
   /**
    * 初始化
    */
   useMount(() => {
     if (roomId) {
-      baseJoinRoomApi({
+      RoomApi.baseJoinRoomApi({
         roomId,
         params: [
           { key: 'role', value: role },
@@ -58,8 +65,8 @@ const useInitBaseConfig = () => {
         setImConfig({
           appKey: 'cigzypnhoyno',
           loginAccount: {
-            name: state.imConfig?.imUsername,
-            password: state.imConfig?.imPassword,
+            name: state.imConfig?.imUsername || '',
+            password: state.imConfig?.imPassword || '',
           },
           chatRoomId: `${response.imConfig?.imGroupId}`,
         });

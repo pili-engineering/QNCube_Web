@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import * as BaseRoomApi from '@/api/baseRoomApi';
+
+import { RoomApi } from '@/api';
 
 interface Params {
   roomId?: string | null;
@@ -9,7 +10,7 @@ interface Params {
  * rtc房间心跳
  * @param params
  */
-const useBaseRoomHeartbeat = (params: Params) => {
+export const useBaseRoomHeartbeat = (params: Params) => {
   const [delay, setDelay] = useState<number>();
   const [isEnabled, setIsEnabled] = useState(false);
   const mountedRef = useRef(false);
@@ -23,7 +24,7 @@ const useBaseRoomHeartbeat = (params: Params) => {
 
   useEffect(() => {
     if (isEnabled) {
-      BaseRoomApi.baseHeartBeatApi({
+      RoomApi.baseHeartBeatApi({
         roomId: params.roomId || '',
       }).then((response) => {
         if (mountedRef.current) {
@@ -36,7 +37,7 @@ const useBaseRoomHeartbeat = (params: Params) => {
   useEffect(() => {
     if (delay) {
       const timer = setInterval(() => {
-        BaseRoomApi.baseHeartBeatApi({
+        RoomApi.baseHeartBeatApi({
           roomId: params.roomId || '',
         }).then((response) => {
           setDelay(response.interval || 0);
@@ -53,5 +54,3 @@ const useBaseRoomHeartbeat = (params: Params) => {
     setIsEnabled,
   };
 };
-
-export default useBaseRoomHeartbeat;

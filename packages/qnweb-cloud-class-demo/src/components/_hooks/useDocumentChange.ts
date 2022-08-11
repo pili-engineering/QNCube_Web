@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { WhiteboardDocument } from './usePageListChanged';
 
-const log = (...args: any[]) => {
+import { WhiteboardDocument } from '@/components';
+
+const log = (...args: unknown[]) => {
   console.log('useDocumentChange', ...args);
 };
 
-const useDocumentChange = (whiteboardClient: any, documents: WhiteboardDocument[]) => {
+export const useDocumentChange = (whiteboardClient: any, documents: WhiteboardDocument[]) => {
   const [curDocument, setCurDocument] = useState<WhiteboardDocument>();
   const [curWidgetId, setCurWidgetId] = useState<string>();
 
@@ -51,4 +52,3 @@ const useDocumentChange = (whiteboardClient: any, documents: WhiteboardDocument[
   };
 };
 
-export default useDocumentChange;

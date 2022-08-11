@@ -1,21 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import QNWhiteboard, { JoinRoomCallbackResult } from 'qnweb-whiteboard';
-import { QNWhiteBoardStoreContext } from '../_store';
+import { message } from 'antd';
 
-export const log = (...args: any[]) => {
+import { QNWhiteBoardStoreContext } from '@/components';
+
+const log = (...args: unknown[]): void => {
   console.log('useQNWhiteBoard', ...args);
 };
 
-/**
- * notIn: 未加入, entering: 加入中, joined: 已加入, failed: 加入失败
- */
-export type WhiteboardJoinState = 'notIn' | 'entering' | 'joined' | 'failed';
-
-const useQNWhiteBoard = (roomToken?: string | null) => {
+export const useQNWhiteBoard = (roomToken?: string | null) => {
   const { state, dispatch } = useContext(QNWhiteBoardStoreContext);
   const [documentChangeWidgetId, setDocumentChangeWidgetId] = useState<string>();
   const [webassemblyReady, setWebassemblyReady] = useState(false);
-  const [joinState, setJoinState] = useState<WhiteboardJoinState>('notIn');
 
   /**
    * 实例化 store 的白板
@@ -36,16 +32,24 @@ const useQNWhiteBoard = (roomToken?: string | null) => {
   useEffect(() => {
     const client = state.whiteboard;
     if (client && roomToken) {
-      setJoinState('entering');
+      const hide = message.loading('加入白板房间中...', 0);
       client.joinRoom(roomToken, (res: JoinRoomCallbackResult) => {
         if (res.status === 'open') {
-          setJoinState('joined');
-        } else {
-          setJoinState('failed');
+          message.success('加入白板房间成功');
+          hide();
+          return;
+        }
+        if (res.status === 'error') {
+          message.error(`加入白板房间失败: ${JSON.stringify(res)}`);
+          hide();
+          return;
         }
       }, {
         aspectRatio: 1.5,
       });
+      return () => {
+        hide();
+      };
     }
   }, [state.whiteboard, roomToken]);
 
@@ -53,7 +57,6 @@ const useQNWhiteBoard = (roomToken?: string | null) => {
    * WebassemblyReady
    * DocumentChange
    */
-  // eslint-disable-next-line consistent-return
   useEffect(() => {
     const client = state.whiteboard;
     const handleWebassemblyReady = (event: number, params: boolean) => {
@@ -131,8 +134,6 @@ const useQNWhiteBoard = (roomToken?: string | null) => {
 
   return {
     whiteboard: state.whiteboard,
-    joinState,
   };
 };
 
-export default useQNWhiteBoard;

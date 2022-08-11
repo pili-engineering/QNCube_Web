@@ -10,7 +10,7 @@ export interface PushHistoryConfig {
 
 type RoutePath = typeof routes[number]['path'];
 
-const usePushHistory = () => {
+export const usePushHistory = () => {
   const history = useHistory();
 
   const pushHistory = useCallback(
@@ -22,5 +22,3 @@ const usePushHistory = () => {
 
   return pushHistory;
 };
-
-export default usePushHistory;
