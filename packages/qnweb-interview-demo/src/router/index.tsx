@@ -2,10 +2,16 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Spin } from 'antd';
 
+import { Login } from '@/pages/login';
+
+const MAIN_VERSION = mainVersion;
+
 const RouterConfig = [
   {
     path: '/login',
-    component: lazy(() => import(/* webpackChunkName: 'login'*/ '../pages/login'))
+    render: () => {
+      return <Login nextUrl="/meeting-list" version={MAIN_VERSION}/>;
+    }
   },
   {
     path: '/meeting-list',
@@ -17,11 +23,15 @@ const RouterConfig = [
   },
   {
     path: '/room/:interviewId',
-    component: lazy(() => import(/* webpackChunkName: 'room'*/ '../pages/new-room'))
+    component: lazy(() => import(/* webpackChunkName: 'room'*/ '../pages/room'))
   },
   {
     path: '/device-test',
     component: lazy(() => import(/* webpackChunkName: 'device-test'*/ '../pages/device-test'))
+  },
+  {
+    path: '/mobile/room/:interviewId',
+    component: lazy(() => import(/* webpackChunkName: 'mobile-room'*/ '../pages/mobile/room'))
   }
 ];
 

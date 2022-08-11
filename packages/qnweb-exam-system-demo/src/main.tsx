@@ -5,7 +5,6 @@ import zhCN from 'antd/lib/locale/zh_CN';
 import moment from 'moment';
 import 'moment/dist/locale/zh-cn';
 import QNRTC, { QNLogLevel } from 'qnweb-rtc';
-import { RecoilRoot } from 'recoil';
 
 import { environment, defaultHttpRequestConfig } from '@/config';
 import registerRequestInterceptor from './register/registerRequestInterceptor';
@@ -25,11 +24,9 @@ QNRTC.setLogLevel(QNLogLevel.NONE);
 
 ReactDOM.render(
   <ConfigProvider locale={zhCN}>
-    <RecoilRoot>
-      <UserStore excludeRoutes={['/student/mobile-camera']}>
-        <RootRouter/>
-      </UserStore>
-    </RecoilRoot>
+    <UserStore excludeRoutes={['/student/mobile-camera']}>
+      <RootRouter/>
+    </UserStore>
   </ConfigProvider>,
   document.getElementById('root'),
 );

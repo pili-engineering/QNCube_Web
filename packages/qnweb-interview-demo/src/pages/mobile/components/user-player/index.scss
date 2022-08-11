@@ -1,0 +1,18 @@
+$translucent: rgba(0,0,0,0.50);
+
+.user-player {
+  width: 100%;
+  height: 100%;
+  background: green;
+  position: relative;
+  &-username {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    font-size: 12px;
+    padding: 2px 0;
+    color: #fff;
+    background: $translucent;
+    text-align: center;
+  }
+}

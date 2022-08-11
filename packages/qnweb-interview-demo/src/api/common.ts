@@ -16,7 +16,28 @@ export interface UserInfo {
   avatar: string;
   phone: string;
   loginToken: string;
-  imConfig?: IMConfig;
+  imConfig: {
+    /**
+     * IM TOKEN
+     */
+    imToken: string
+    /**
+     * IM类型枚举：https://cf.qiniu.io/pages/viewpage.action?pageId=63570443
+     */
+    type: number
+    /**
+     * 七牛IM登录用用户名
+     */
+    imUsername: string
+    /**
+     * 七牛IM登录用密码
+     */
+    imPassword: string
+    /**
+     * 七牛IM的UID
+     */
+    imUid: string
+  }
 }
 
 export type BaseUserInfo = Omit<UserInfo, 'imConfig' | 'loginToken'> & {profile: string};

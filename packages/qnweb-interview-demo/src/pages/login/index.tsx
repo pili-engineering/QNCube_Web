@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { message } from 'antd';
-import { useInterval } from 'ahooks';
 
 import * as API from '@/api';
 import { useUserStore, useIMStore } from '@/store';
@@ -26,12 +25,18 @@ const validateForm = (value: LoginData): string | null => {
   return null;
 };
 
+interface LoginProps {
+  nextUrl: string;
+  version?: string | null;
+}
+
 /**
  * 登录页面
  * @constructor
  */
-const Login: React.FC = () => {
+export const Login: React.FC<LoginProps> = (props) => {
   const history = useHistory();
+  const { nextUrl, version } = props;
   const { dispatch: dispatchUserStoreState } = useUserStore();
   const { dispatch: dispatchIMStoreState } = useIMStore();
 
@@ -44,19 +49,23 @@ const Login: React.FC = () => {
   const [isSmsLoading, setIsSmsLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [countdown, setCountdown] = useState<number>(); // 倒计时
+  const [countdown, setCountdown] = useState<number>(0); // 倒计时
 
   /**
    * 验证码倒计时
    */
-  useInterval(() => {
-    if (!countdown) return;
-    if (countdown > 0) {
-      setCountdown(countdown - 1);
-    } else {
-      setCountdown(undefined);
-    }
-  }, (countdown && countdown > 0) ? 1000 : undefined);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (countdown > 0) {
+        setCountdown(countdown - 1);
+      } else {
+        clearTimeout(timer);
+      }
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [countdown]);
 
   /**
    * 点击登录按钮
@@ -64,34 +73,30 @@ const Login: React.FC = () => {
    */
   const onSubmit = async (data: LoginData) => {
     try {
-      setIsLoading(true);
       const errMsg = validateForm(data);
       if (errMsg) {
         return message.error(errMsg);
       }
+      setIsLoading(true);
       const result = await API.signUpOrIn({
         phone: data.phone,
         smsCode: data.smsCode
       });
-      setCountdown(60);
       dispatchUserStoreState({
         type: 'PATCH',
         payload: {
-          loginToken: result.loginToken
+          loginToken: result?.loginToken || ''
         }
       });
       dispatchIMStoreState({
         type: 'PATCH',
-        payload: {
-          ...result.imConfig,
-          imGroupId: `${result.imConfig?.imGroupId || ''}`,
-        }
+        payload: result?.imConfig || {}
       });
-      history.push('/meeting-list');
-    } catch (error) {
-      console.error(error);
-    } finally {
       setIsLoading(false);
+      history.push(nextUrl);
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error);
     }
   };
 
@@ -100,12 +105,13 @@ const Login: React.FC = () => {
    */
   const onSmsClick = async () => {
     try {
-      setIsSmsLoading(true);
       if (!loginData.phone) {
         message.error('请输入手机号');
         return;
       }
+      setIsSmsLoading(true);
       await API.getSmsCode({ phone: loginData.phone });
+      setCountdown(60);
       message.success('验证码发送成功');
     } catch (error) {
       console.error(error);
@@ -125,18 +131,18 @@ const Login: React.FC = () => {
     });
   };
 
-  return <div className={styles.container}>
-    <LoginForm
-      className={styles.form}
-      data={loginData}
-      onChange={onChange}
-      onSmsClick={onSmsClick}
-      onSubmit={onSubmit}
-      isSmsLoading={isSmsLoading}
-      isLoading={isLoading}
-      countdown={countdown}
-    />
+  return <div className={styles.page}>
+    <div className={styles.card}>
+      <LoginForm
+        data={loginData}
+        onChange={onChange}
+        onSmsClick={onSmsClick}
+        onSubmit={onSubmit}
+        isSmsLoading={isSmsLoading}
+        isLoading={isLoading}
+        countdown={countdown}
+      />
+      {version && <div className={styles.version}>当前版本：{version}</div>}
+    </div>
   </div>;
 };
-
-export default Login;

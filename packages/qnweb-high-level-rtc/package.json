@@ -1,6 +1,6 @@
 {
   "name": "qnweb-high-level-rtc",
-  "version": "4.0.0-beta.4",
+  "version": "4.0.0",
   "main": "build/qnweb-high-level-rtc.umd.js",
   "module": "build/qnweb-high-level-rtc.esm.js",
   "types": "build/types/index.d.ts",

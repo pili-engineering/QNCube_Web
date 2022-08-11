@@ -28,13 +28,10 @@ importers:
       prompts: 2.4.2
       ts-node: 10.7.0
 
-  packages/qnuniapp-live/js_sdk/QNRTC-UniPlugin-JS:
+  packages/qnuniapp-live:
     specifiers: {}
 
-  packages/qnuniapp-live/uni_modules/uni-icons:
-    specifiers: {}
-
-  packages/qnuniapp-live/uni_modules/uni-scss:
+  packages/qnuniapp-voice-chat:
     specifiers: {}
 
   packages/qnweapp-interview-demo:
@@ -78,14 +75,13 @@ importers:
       eslint-plugin-react-hooks: ^4.2.0
       jest: ^27.5.1
       lodash: ^4.17.21
-      qnweb-high-level-rtc: ^4.0.0-beta.4
+      qnweb-high-level-rtc: 4.0.0
       qnweb-rtc: ^4.1.0
       qnweb-whiteboard: ^1.1.0-beta.3
       qs: ^6.10.1
       react: ^17.0.0
       react-dom: ^17.0.0
       react-router-dom: ^5.3.0
-      recoil: ^0.3.1
       sass: ^1.42.0
       typescript: ^4.4.4
       vite: ^2.6.4
@@ -96,14 +92,13 @@ importers:
       axios: 0.21.4
       classnames: 2.3.1
       lodash: 4.17.21
-      qnweb-high-level-rtc: 4.0.0
+      qnweb-high-level-rtc: link:../qnweb-high-level-rtc
       qnweb-rtc: 4.1.2
       qnweb-whiteboard: 1.1.1
       qs: 6.10.3
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router-dom: 5.3.1_react@17.0.2
-      recoil: 0.3.1_sfoxds7t5ydpegc3knd667wn6m
     devDependencies:
       '@types/lodash': 4.14.182
       '@types/node': 16.11.25
@@ -187,14 +182,13 @@ importers:
       qn-rtplayer-web: ^1.0.3
       qnweb-cube-ui: workspace:^0.0.0
       qnweb-exam-sdk: ^0.0.2
-      qnweb-high-level-rtc: ^4.0.0-beta.4
+      qnweb-high-level-rtc: 4.0.0
       qnweb-rtc: ^4.1.0
       qnweb-rtc-ai: ^4.0.0-beta.1
       qrcode.react: ^1.0.1
       react: ^17.0.2
       react-dom: ^17.0.2
       react-router-dom: ^5.3.0
-      recoil: ^0.3.1
       typescript: ^4.4.4
       vconsole: ^3.7.0
       vite: ^2.7.2
@@ -211,14 +205,13 @@ importers:
       qn-rtplayer-web: 1.0.3
       qnweb-cube-ui: link:../qnweb-cube-ui
       qnweb-exam-sdk: 0.0.2_zo42itspqzqtztokrd7nt3es7q
-      qnweb-high-level-rtc: 4.0.0
+      qnweb-high-level-rtc: link:../qnweb-high-level-rtc
       qnweb-rtc: 4.1.2
       qnweb-rtc-ai: 4.0.0-beta.4
       qrcode.react: 1.0.1_react@17.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router-dom: 5.3.1_react@17.0.2
-      recoil: 0.3.1_sfoxds7t5ydpegc3knd667wn6m
       vconsole: 3.14.6
     devDependencies:
       '@types/react': 17.0.45
@@ -303,7 +296,8 @@ importers:
       happy-dom: ^2.55.0
       lodash: ^4.17.21
       pili-rtc-web: ^2.5.0
-      qnweb-high-level-rtc: ^4.0.0-beta.4
+      qnweb-high-level-rtc: 4.0.0
+      qnweb-im: ^1.0.5
       qnweb-rtc: ^4.1.0
       react: ^17.0.2
       react-copy-to-clipboard: ^5.0.3
@@ -321,7 +315,8 @@ importers:
       dayjs: 1.11.2
       lodash: 4.17.21
       pili-rtc-web: 2.5.2
-      qnweb-high-level-rtc: 4.0.0
+      qnweb-high-level-rtc: link:../qnweb-high-level-rtc
+      qnweb-im: 1.0.5
       qnweb-rtc: 4.1.2
       react: 17.0.2
       react-copy-to-clipboard: 5.1.0_react@17.0.2
@@ -363,13 +358,12 @@ importers:
       lodash: ^4.17.21
       pili-rtc-web: ^2.5.0
       qn-rtplayer-web: ^1.0.1
-      qnweb-high-level-rtc: ^4.0.0-beta.4
+      qnweb-high-level-rtc: 4.0.0
       qnweb-rtc: ^4.1.0
       qs: ^6.10.1
       react: ^17.0.0
       react-dom: ^17.0.0
       react-router-dom: ^5.3.0
-      recoil: ^0.3.1
       sass: ^1.42.0
       typescript: ^4.4.4
       vite: ^2.5.4
@@ -383,13 +377,12 @@ importers:
       lodash: 4.17.21
       pili-rtc-web: 2.5.2
       qn-rtplayer-web: 1.0.3
-      qnweb-high-level-rtc: 4.0.0
+      qnweb-high-level-rtc: link:../qnweb-high-level-rtc
       qnweb-rtc: 4.1.2
       qs: 6.10.3
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router-dom: 5.3.1_react@17.0.2
-      recoil: 0.3.1_sfoxds7t5ydpegc3knd667wn6m
     devDependencies:
       '@types/node': 16.11.25
       '@types/qs': 6.9.7
@@ -445,7 +438,7 @@ importers:
       nyc: ^15.1.0
       postcss-px-to-viewport: https://github.com/evrone/postcss-px-to-viewport.git
       postcss-pxtorem: ^6.0.0
-      qnweb-high-level-rtc: ^4.0.0-beta.4
+      qnweb-high-level-rtc: 4.0.0
       qnweb-rtc: ^4.1.0
       qnweb-whiteboard: ^1.1.0-beta.3
       qrcode.react: ^1.0.1
@@ -454,7 +447,6 @@ importers:
       react-dom: ^17.0.0
       react-error-boundary: ^3.1.4
       react-router-dom: ^5.3.0
-      recoil: ^0.3.1
       sass: ^1.42.0
       typescript: ^4.3.2
       vite: ^2.6.4
@@ -469,7 +461,7 @@ importers:
       classnames: 2.3.1
       emoji-mart: 3.0.1_react@17.0.2
       lodash: 4.17.21
-      qnweb-high-level-rtc: 4.0.0
+      qnweb-high-level-rtc: link:../qnweb-high-level-rtc
       qnweb-rtc: 4.1.2
       qnweb-whiteboard: 1.1.1
       qrcode.react: 1.0.1_react@17.0.2
@@ -478,7 +470,6 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-error-boundary: 3.1.4_react@17.0.2
       react-router-dom: 5.3.1_react@17.0.2
-      recoil: 0.3.1_sfoxds7t5ydpegc3knd667wn6m
     devDependencies:
       '@cypress/code-coverage': 3.9.12_cypress@9.6.1
       '@hon2a/cypress-antd': 0.3.14
@@ -6591,10 +6582,6 @@ packages:
       deflate-js: 0.2.3
     dev: false
 
-  /hamt_plus/1.0.2:
-    resolution: {integrity: sha1-4hwlKWjH4zsg9qGwlM2FeHomVgE=}
-    dev: false
-
   /handlebars/4.7.7:
     resolution: {integrity: sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==}
     engines: {node: '>=0.4.7'}
@@ -9787,16 +9774,12 @@ packages:
       qnweb-rtc-ai: 4.0.0-beta.4
     dev: false
 
-  /qnweb-high-level-rtc/4.0.0:
-    resolution: {integrity: sha512-rEwU6TZ/lfqQBC3yjNNurh+4A6IK/XcA7vwFhTuckAOnLunGUYUMruFa5ngI4ft7dT5BxomfQfLpTFZf5bkNJw==}
-    dependencies:
-      '@rongcloud/imlib-v4': 4.6.3
-      qnweb-im: 1.0.4-beta.5
-      qnweb-rtc: 4.1.2
-    dev: false
-
   /qnweb-im/1.0.4-beta.5:
     resolution: {integrity: sha512-xxsm0Trg/midG/SIypFxdGpGXY2NpSGLuNd7Fcxu7gnWGY8dhfFfM4MIthyIXRzBtcMgVAIj+DvnhZsfx4CuPA==}
+    dev: false
+
+  /qnweb-im/1.0.5:
+    resolution: {integrity: sha512-G70jXXqp3J4EDFeS8mPFXVPAIQll9RgkcGAuYmO6xVyIAwuynQQbrRZwVT+r3vl6267/MO2sH23Gw07hztTjxA==}
     dev: false
 
   /qnweb-rtc-ai/4.0.0-beta.4:
@@ -10618,23 +10601,6 @@ packages:
     engines: {node: '>= 0.10'}
     dependencies:
       resolve: 1.22.0
-
-  /recoil/0.3.1_sfoxds7t5ydpegc3knd667wn6m:
-    resolution: {integrity: sha512-KNA3DRqgxX4rRC8E7fc6uIw7BACmMPuraIYy+ejhE8tsw7w32CetMm8w7AMZa34wzanKKkev3vl3H7Z4s0QSiA==}
-    peerDependencies:
-      react: '>=16.13.1'
-      react-dom: '*'
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      hamt_plus: 1.0.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-    dev: false
 
   /redent/3.0.0:
     resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
