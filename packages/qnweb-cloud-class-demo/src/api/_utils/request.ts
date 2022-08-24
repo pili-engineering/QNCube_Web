@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { message, Modal } from 'antd';
+import { Modal } from 'antd';
 
-import { apiResponseCode, apiRequestConfig } from './config';
+import { requestConfig } from '@/config';
 
-const request = axios.create(apiRequestConfig);
+const request = axios.create(requestConfig);
 
 request.interceptors.request.use((config) => {
   return config;
@@ -13,9 +13,9 @@ request.interceptors.request.use((config) => {
 request.interceptors.response.use((response) => {
   // Any status code that lie within the range of 2xx cause this function to trigger
   // Do something with response data
-  const responseCode: keyof typeof apiResponseCode = response.data.code;
+  const responseCode = response.data.code;
   if (responseCode === 0) {
-    return response.data.data;
+    return response.data;
   }
   if ([401001, 401003].includes(responseCode)) { // 用户未登录或TOKEN过期
     Modal.error({
@@ -23,19 +23,22 @@ request.interceptors.response.use((response) => {
       content: response.data.message,
       onOk() {
         localStorage.clear();
-        window.location.href = '/';
+        window.location.href = '/login';
       },
       okText: '确认',
     });
-    return Promise.reject(new Error('重新登录'));
+    return Promise.reject(response.data);
   }
-  message.error(response.data.message);
-  // message.error(apiResponseCode[responseCode])
-  return Promise.reject(new Error(`${response.config.url} 接口响应错误: ${response.data.message}`));
+  Modal.error({
+    title: '接口请求错误',
+    content: response.data.message,
+  });
+  return Promise.reject(response.data);
 }, (error) => {
-  // Any status codes that falls outside the range of 2xx cause this function to trigger
-  // Do something with response error
-  message.error(error.message);
+  Modal.error({
+    title: '接口请求错误',
+    content: error.message,
+  });
   return Promise.reject(error);
 });
 

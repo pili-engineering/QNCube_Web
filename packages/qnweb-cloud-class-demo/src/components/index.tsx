@@ -14,7 +14,7 @@ export * from './rtc-panel';
 export * from './chatroom-panel';
 export * from './chat-message';
 export * from './cloud-class-seat';
-export * from './cloud-class-icon-font';
+export * from './icon-font';
 export * from './whiteboard-tabs';
 export * from './guide-card';
 export * from './icon';

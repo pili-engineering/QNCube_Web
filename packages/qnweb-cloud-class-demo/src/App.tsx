@@ -1,4 +1,5 @@
 import React from 'react';
+
 import IRouter from './router';
 import { QNWhiteBoardStore } from './components';
 import UserStore from './store';

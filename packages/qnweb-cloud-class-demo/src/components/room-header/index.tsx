@@ -1,7 +1,7 @@
 import React, { FC, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 
-import { CloudClassIconFont } from '@/components';
+import { IconFont } from '@/components';
 
 import './index.scss';
 
@@ -94,7 +94,7 @@ export const RoomHeader: FC<RoomHeaderProps> = (props) => {
         </span>
       </span>
       <span className="buttons">
-        <CloudClassIconFont
+        <IconFont
           type="icon-jieshu"
           className="close-button"
           onClick={onClose}

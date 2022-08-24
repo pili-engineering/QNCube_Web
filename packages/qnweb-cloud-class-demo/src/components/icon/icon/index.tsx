@@ -73,16 +73,16 @@ export const Icon: React.FC<IconProps> = (props) => {
   const renderSizeValue = size ? `${size}px` : '';
   return (
     <span
-      className={classNames('icon', className)}
+      className={classNames('customized-icon', className)}
       {...restProps}
     >
       <img
-        className="icon-img"
+        className="customized-icon-img"
         style={{ width: renderSizeValue, height: renderSizeValue }}
         src={src}
-        alt="icon-img"
+        alt="customized-icon-img"
       />
-      {text && <div className="icon-text">{text}</div>}
+      {text && <div className="customized-icon-text">{text}</div>}
     </span>
   );
 };

@@ -1,41 +1,56 @@
+.overflowOmit {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .rtc-panel {
   background-color: #fff;
+  width: 100%;
+
+  .seat {
+    .username {
+      @extend .overflowOmit;
+    }
+  }
+
   .main-seats {
     width: 100%;
+
     .seat {
       width: 100%;
       height: 200px;
+
       .username {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         max-width: 200px;
       }
     }
   }
+
   .minor-seats {
     width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
     .seat {
       width: 50%;
       height: 120px;
       font-size: 12px;
+
       .username {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         max-width: 80px;
       }
     }
   }
+
   .panel-bar {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px;
+
     .icon {
       font-size: 24px;
       margin: 5px;

@@ -1,29 +1,43 @@
-import React  from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { Button, Form, FormProps, Input, Select } from 'antd';
 
 import './index.scss';
 
+export enum CloudClassType {
+  /**
+   * 小班课
+   */
+  Small = '1',
+  /**
+   * 1对1
+   */
+  OneToOne = '2',
+}
+
 export interface FormResult {
   title: string;
   nickname: string;
-  classType: 'smallClass' | 'oneToOne';
+  classType: CloudClassType;
   password: string;
 }
 
 export interface RoomCreateFormProps extends FormProps {
   title?: string;
+  loading?: boolean;
 }
 
 const prefixClassName = 'room-create-form';
 
-const classTypeOptions = [
-  { value: 'smallClass', label: '小班课' },
-  { value: 'oneToOne', label: '1v1' },
+const classTypeOptions: Array<{
+  value: CloudClassType, label: string
+}> = [
+  { value: CloudClassType.Small, label: '小班课' },
+  { value: CloudClassType.OneToOne, label: '1v1' },
 ];
 
 export const RoomCreateForm: React.FC<RoomCreateFormProps> = (props) => {
-  const { className, title, style, ...restProps } = props;
+  const { className, loading, title, style, ...restProps } = props;
   return <div className={classNames(prefixClassName, className)} style={style}>
     {title && <div className="title">{title}</div>}
     <Form {...restProps}>
@@ -48,7 +62,14 @@ export const RoomCreateForm: React.FC<RoomCreateFormProps> = (props) => {
         </Select>
       </Form.Item>
       <div className="tip">课堂时长默认30分钟</div>
-      <Button className="button" block type="primary" shape="round" htmlType="submit">创建教室</Button>
+      <Button
+        className="button"
+        block
+        loading={loading}
+        type="primary"
+        shape="round"
+        htmlType="submit"
+      >创建教室</Button>
     </Form>
   </div>;
 };

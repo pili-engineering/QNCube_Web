@@ -1,28 +1,17 @@
 import {
-  request,
-  BaseCreateRoomApiResponseData,
-  BaseCreateRoomApiRequestData,
-  BaseJoinRoomApiRequestData,
-  BaseJoinRoomApiResponseData,
-  BaseListRoomApiRequestData,
-  BaseListRoomApiResponseData,
-  BaseHeartBeatApiRequestData,
-  BaseHeartBeatApiResponseData,
-  BaseGetRoomInfoApiRequestData,
-  BaseGetRoomInfoApiResponseData,
-  BaseUpMicApiRequestData,
-  BaseUpMicApiResponseData,
-  BaseUpdateRoomAttrApiRequestData,
-  BaseUpdateRoomAttrApiResponseData,
-  BaseUpdateMicAttrApiRequestData,
-  BaseDownMicApiRequestData,
-  BaseGetRoomMicInfoApiResponseData,
-  BaseGetRoomMicInfoApiRequestData,
-  BaseGetRoomAttrApiRequestData,
-  BaseGetRoomAttrApiResponseData,
-  BaseGetMicAttrApiRequestData,
-  BaseGetMicAttrApiResponseData,
-  BaseLeaveRoomApiRequestData
+  GetBaseGetMicAttrParams, GetBaseGetMicAttrResult,
+  GetBaseGetRoomAttrParams, GetBaseGetRoomAttrResult,
+  GetBaseGetRoomInfoParams, GetBaseGetRoomInfoResult,
+  GetBaseGetRoomMicInfoParams, GetBaseGetRoomMicInfoResult,
+  GetBaseHeartBeatParams, GetBaseHeartBeatResult,
+  PostBaseCreateRoomParams, PostBaseCreateRoomResult,
+  PostBaseDownMicParams, PostBaseDownMicResult,
+  PostBaseJoinRoomParams, PostBaseJoinRoomResult,
+  PostBaseLeaveRoomParams, PostBaseLeaveRoomResult,
+  PostBaseUpdateMicAttrParams, PostBaseUpdateMicAttrResult,
+  PostBaseUpdateRoomAttrParams, PostBaseUpdateRoomAttrResult,
+  PostBaseUpMicParams, PostBaseUpMicResult,
+  request
 } from '@/api';
 
 export const sceneType = 'classroom';
@@ -33,8 +22,8 @@ export class RoomApi {
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2283
    * @param params
    */
-  static baseCreateRoomApi(params: Omit<BaseCreateRoomApiRequestData, 'type'>) {
-    return request.post<BaseCreateRoomApiResponseData, BaseCreateRoomApiResponseData>(
+  static baseCreateRoomApi(params: Omit<PostBaseCreateRoomParams, 'type'>) {
+    return request.post<PostBaseCreateRoomResult, PostBaseCreateRoomResult>(
       '/v1/base/createRoom',
       {
         ...params,
@@ -53,8 +42,8 @@ export class RoomApi {
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2292
    * @param params
    */
-  static baseJoinRoomApi(params: Omit<BaseJoinRoomApiRequestData, 'type'>) {
-    return request.post<BaseJoinRoomApiResponseData, BaseJoinRoomApiResponseData>(
+  static baseJoinRoomApi(params: Omit<PostBaseJoinRoomParams, 'type'>) {
+    return request.post<PostBaseJoinRoomResult, PostBaseJoinRoomResult>(
       '/v1/base/joinRoom',
       {
         ...params,
@@ -73,8 +62,8 @@ export class RoomApi {
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2301
    * @param params
    */
-  static baseLeaveRoomApi(params: Omit<BaseLeaveRoomApiRequestData, 'type'>) {
-    return request.post(
+  static baseLeaveRoomApi(params: Omit<PostBaseLeaveRoomParams, 'type'>) {
+    return request.post<PostBaseLeaveRoomResult, PostBaseLeaveRoomResult>(
       '/v1/base/leaveRoom',
       {
         ...params,
@@ -89,32 +78,12 @@ export class RoomApi {
   }
 
   /**
-   * 通用房间列表
-   * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2310
-   * @param params
-   */
-  static baseListRoomApi(params: Omit<BaseListRoomApiRequestData, 'type'>) {
-    return request.get<BaseListRoomApiResponseData, BaseListRoomApiResponseData>(
-      '/v1/base/listRoom',
-      {
-        params: {
-          ...params,
-          type: sceneType,
-        },
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('authorization')}`,
-        },
-      },
-    );
-  }
-
-  /**
    * 通用心跳
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2319
    * @param params
    */
-  static baseHeartBeatApi(params: Omit<BaseHeartBeatApiRequestData, 'type'>) {
-    return request.get<BaseHeartBeatApiResponseData, BaseHeartBeatApiResponseData>(
+  static baseHeartBeatApi(params: Omit<GetBaseHeartBeatParams, 'type'>) {
+    return request.get<GetBaseHeartBeatResult, GetBaseHeartBeatResult>(
       '/v1/base/heartBeat',
       {
         params: {
@@ -133,14 +102,17 @@ export class RoomApi {
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2328
    * @param params
    */
-  static baseGetRoomInfoApi(params: Omit<BaseGetRoomInfoApiRequestData, 'type'>) {
-    const { roomId } = params;
-    return request.get<BaseGetRoomInfoApiResponseData, BaseGetRoomInfoApiResponseData>(
-      `/v1/base/getRoomInfo/${sceneType}/${roomId}`,
+  static baseGetRoomInfoApi(params: Omit<GetBaseGetRoomInfoParams, 'type'>) {
+    return request.get<GetBaseGetRoomInfoResult, GetBaseGetRoomInfoResult>(
+      `/v1/base/getRoomInfo`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('authorization')}`,
         },
+        params: {
+          type: sceneType,
+          ...params,
+        }
       },
     );
   }
@@ -150,8 +122,8 @@ export class RoomApi {
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2337
    * @param params
    */
-  static baseUpMicApi(params: Omit<BaseUpMicApiRequestData, 'type'>) {
-    return request.post<BaseUpMicApiResponseData, BaseUpMicApiResponseData>(
+  static baseUpMicApi(params: Omit<PostBaseUpMicParams, 'type'>) {
+    return request.post<PostBaseUpMicResult, PostBaseUpMicResult>(
       '/v1/base/upMic',
       {
         ...params,
@@ -170,8 +142,8 @@ export class RoomApi {
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2346
    * @param params
    */
-  static baseUpdateRoomAttrApi(params: Omit<BaseUpdateRoomAttrApiRequestData, 'type'>) {
-    return request.post<BaseUpdateRoomAttrApiResponseData, BaseUpdateRoomAttrApiResponseData>(
+  static baseUpdateRoomAttrApi(params: Omit<PostBaseUpdateRoomAttrParams, 'type'>) {
+    return request.post<PostBaseUpdateRoomAttrResult, PostBaseUpdateRoomAttrResult>(
       '/v1/base/updateRoomAttr',
       {
         ...params,
@@ -190,8 +162,8 @@ export class RoomApi {
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2355
    * @param params
    */
-  static baseUpdateMicAttrApi(params: Omit<BaseUpdateMicAttrApiRequestData, 'type'>) {
-    return request.post(
+  static baseUpdateMicAttrApi(params: Omit<PostBaseUpdateMicAttrParams, 'type'>) {
+    return request.post<PostBaseUpdateMicAttrResult, PostBaseUpdateMicAttrResult>(
       '/v1/base/updateMicAttr',
       {
         ...params,
@@ -210,8 +182,8 @@ export class RoomApi {
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2400
    * @param params
    */
-  static baseDownMicApi(params: Omit<BaseDownMicApiRequestData, 'type'>) {
-    return request.post(
+  static baseDownMicApi(params: Omit<PostBaseDownMicParams, 'type'>) {
+    return request.post<PostBaseDownMicResult, PostBaseDownMicResult>(
       '/v1/base/downMic',
       {
         ...params,
@@ -230,8 +202,8 @@ export class RoomApi {
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2409
    * @param params
    */
-  static baseGetRoomMicInfoApi(params: Omit<BaseGetRoomMicInfoApiRequestData, 'type'>) {
-    return request.get<BaseGetRoomMicInfoApiResponseData, BaseGetRoomMicInfoApiResponseData>(
+  static baseGetRoomMicInfoApi(params: Omit<GetBaseGetRoomMicInfoParams, 'type'>) {
+    return request.get<GetBaseGetRoomMicInfoResult, GetBaseGetRoomMicInfoResult>(
       '/v1/base/getRoomMicInfo',
       {
         params: {
@@ -247,8 +219,8 @@ export class RoomApi {
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2418
    * @param params
    */
-  static baseGetRoomAttrApi(params: Omit<BaseGetRoomAttrApiRequestData, 'type'>) {
-    return request.get<BaseGetRoomAttrApiResponseData, BaseGetRoomAttrApiResponseData>(
+  static baseGetRoomAttrApi(params: Omit<GetBaseGetRoomAttrParams, 'type'>) {
+    return request.get<GetBaseGetRoomAttrResult, GetBaseGetRoomAttrResult>(
       '/v1/base/getRoomAttr',
       {
         params: {
@@ -267,8 +239,8 @@ export class RoomApi {
    * @link http://pili-yapi.aslan.qa.qiniu.io/project/51/interface/api/2427
    * @param params
    */
-  static baseGetMicAttrApi(params: Omit<BaseGetMicAttrApiRequestData, 'type'>) {
-    return request.get<BaseGetMicAttrApiResponseData, BaseGetMicAttrApiResponseData>(
+  static baseGetMicAttrApi(params: Omit<GetBaseGetMicAttrParams, 'type'>) {
+    return request.get<GetBaseGetMicAttrResult, GetBaseGetMicAttrResult>(
       '/v1/base/getMicAttr',
       {
         params: {

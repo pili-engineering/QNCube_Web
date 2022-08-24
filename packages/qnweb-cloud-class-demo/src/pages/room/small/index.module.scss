@@ -1,0 +1,76 @@
+.room {
+  width: 100%;
+  height: 100%;
+}
+
+.roomBody {
+  width: 100%;
+  height: calc(100% - 70px);
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.workBox {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  z-index: 2;
+}
+
+.iconRaiseHand {
+  position: absolute;
+  right: 320px;
+  bottom: 20px;
+  z-index: 2;
+  font-size: 32px;
+}
+
+.roomBodyWhiteBoard {
+  flex: 1;
+  border: 1px solid #ececf1;
+  overflow: hidden;
+}
+
+.roomBodyRight {
+  flex: 0 0 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  overflow: auto;
+  position: relative;
+  z-index: 1;
+  border: 1px solid #ececf1;
+}
+
+.roomBodyRTC {
+  width: 100%;
+}
+
+.roomBodyChat {
+  width: 100%;
+  background-color: #fff;
+}
+
+.roomBodyChatFloat {
+  width: 250px;
+  height: 300px;
+  position: fixed;
+  right: 420px;
+  bottom: 20px;
+  display: none;
+}
+
+.roomBodyChatFloatVisible {
+  display: flex;
+}
+
+.WhiteBoardPanelToolbarFixed {
+  height: 100%;
+  margin-top: 38px;
+}
+
+.WhiteBoardPanelToolbar {
+  height: 100%;
+}

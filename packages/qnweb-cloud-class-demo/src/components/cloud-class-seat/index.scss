@@ -3,22 +3,35 @@
   position: relative;
   box-sizing: border-box;
   background-color: #f9f9fc;
-  &--close {
-    > video {
-      display: none;
+
+  &--camera {
+    &-close {
+      > video {
+        display: none;
+      }
+    }
+
+    &-disbaled {
+      > video {
+        display: none;
+      }
     }
   }
+
   .username {
     text-shadow: 0 1px 2px rgb(13 29 61 / 80%);
     color: #fff;
   }
+
   .placeholder {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-size: 32px;
   }
-  .bottom-bar {
+
+  .footer {
     width: 100%;
     padding: 5px 10px;
     position: absolute;
@@ -28,6 +41,7 @@
     align-items: center;
     justify-content: space-between;
     z-index: 1;
+
     .camera-mic {
       .icon {
         vertical-align: middle;
@@ -35,8 +49,13 @@
       }
     }
   }
+
   > video {
-    object-fit: cover!important;
+    object-fit: cover !important;
     transform: rotateY(180deg);
+  }
+
+  &-icon {
+
   }
 }

@@ -1,10 +1,11 @@
 import React, { ReactNode, useState } from 'react';
 import { Form, FormProps } from 'antd';
+import { useHistory } from 'react-router-dom';
 
 import { useUserStore } from '@/store';
 import { RoomApi } from '@/api';
-import { usePushHistory } from '@/hooks';
 import {
+  CloudClassType,
   FormResult,
   GuideCard,
   RippleGroup,
@@ -13,19 +14,25 @@ import {
   RoomCreateForm,
   RoomJoinForm
 } from '@/components';
+import { RoutePath } from '@/router';
 
 import styles from './index.module.scss';
 
-type FormType = 'roleSelect' | 'roomCreate' | 'roomJoin';
+enum FormType {
+  Select = 'select',
+  Create = 'create',
+  Join = 'join',
+}
 
-const Guide: React.FC = () => {
-  const pushHistory = usePushHistory();
+export const Guide: React.FC = () => {
+  const history = useHistory();
   const { state: userState } = useUserStore();
   const [form] = Form.useForm();
 
   const [selectedRole, setSelectedRole] = useState<RoleValue>();
-  const [formType, setFormType] = useState<FormType>('roleSelect');
+  const [formType, setFormType] = useState<FormType>(FormType.Select);
   const [secretKey, setSecretKey] = useState<string>('');
+  const [createLoading, setCreateLoading] = useState(false);
 
   /**
    * 表单字段变化
@@ -48,25 +55,23 @@ const Guide: React.FC = () => {
    * @param result
    */
   const onCreateRoom = (result: FormResult): void => {
-    const mapClassType = {
-      smallClass: 1,
-      oneToOne: 2
-    };
-    const classTypeValue = mapClassType[result.classType];
+    setCreateLoading(true);
     RoomApi.baseCreateRoomApi({
       title: result.title,
       params: [
         { key: 'nickname', value: result.nickname },
-        { key: 'classType', value: classTypeValue },
-        { key: 'duration', value: 30 * 60 * 1000 },
+        { key: 'classType', value: result.classType },
+        { key: 'duration', value: `${30 * 60 * 1000}` },
         { key: 'role', value: selectedRole },
       ],
-    }).then((response) => {
-      const roomId = response.roomInfo?.roomId;
+    }).then((result) => {
+      const data = result.data;
+      const roomId = data?.roomInfo?.roomId;
       if (!roomId) {
         return Promise.reject(new TypeError(`roomId is ${roomId}`));
       }
-      onJoinRoom(roomId);
+      setCreateLoading(false);
+      pushRoute(roomId);
     });
   };
 
@@ -75,10 +80,10 @@ const Guide: React.FC = () => {
    */
   const onSubmitRole = (): void => {
     if (selectedRole === 'teacher') {
-      setFormType('roomCreate');
+      setFormType(FormType.Create);
     }
     if (selectedRole === 'student') {
-      setFormType('roomJoin');
+      setFormType(FormType.Join);
     }
   };
 
@@ -86,13 +91,8 @@ const Guide: React.FC = () => {
    * 加入房间
    * @param roomId
    */
-  const onJoinRoom = (roomId: string): void => {
-    pushHistory('/room', {
-      query: {
-        roomId,
-        role: selectedRole,
-      }
-    });
+  const pushRoute = (roomId: string): void => {
+    history.push(`${RoutePath.Room}?roomId=${roomId}&role=${selectedRole}`);
   };
 
   /**
@@ -100,7 +100,7 @@ const Guide: React.FC = () => {
    * @param type
    */
   const renderForm = (type: FormType): ReactNode => {
-    if (type === 'roleSelect') {
+    if (type === FormType.Select) {
       return <RoleSelectPanel
         title="欢迎来到牛课堂!"
         tipTitle="选择您的角色"
@@ -109,24 +109,25 @@ const Guide: React.FC = () => {
         onSubmit={onSubmitRole}
       />;
     }
-    if (type === 'roomCreate') {
+    if (type === FormType.Create) {
       return <RoomCreateForm
         title="创建教室"
         form={form}
         initialValues={{
           nickname: userState.userInfo?.nickname,
-          classType: 'smallClass',
+          classType: CloudClassType.Small,
         }}
         onFinish={onCreateRoom}
         onFieldsChange={onFieldsChange}
+        loading={createLoading}
       />;
     }
-    if (type === 'roomJoin') {
+    if (type === FormType.Join) {
       return <RoomJoinForm
         title="进入教室"
         value={secretKey}
         onChange={event => setSecretKey(event.target.value)}
-        onOk={() => onJoinRoom(secretKey)}
+        onOk={() => pushRoute(secretKey)}
       />;
     }
   };
@@ -147,5 +148,3 @@ const Guide: React.FC = () => {
     </div>
   );
 };
-
-export default Guide;

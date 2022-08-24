@@ -1,1 +1,1 @@
-declare const projectVersion: string;
+declare const mainVersion: string;

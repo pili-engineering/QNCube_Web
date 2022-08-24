@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { InputMode, PenType, GeometryMode } from 'qnweb-whiteboard';
 
 import {
-  CloudClassIconFont,
+  IconFont,
   IconGeometry,
   IconGesture,
   IconMouse,
@@ -242,7 +242,7 @@ export const BaseToolbar: FC<ToolbarProps> = (props) => {
           }}
           onClick={() => onModeChange(InputMode.Geometry)}
         />
-        <CloudClassIconFont
+        <IconFont
           type="icon-lajixiang"
           style={{ fontSize: 26 }}
           className="button"

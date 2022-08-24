@@ -1,44 +1,52 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import {
   BrowserRouter, Redirect, Route, Switch,
 } from 'react-router-dom';
 
-import { RouterLoading } from '@/components';
+import { Auth } from '@/layouts';
+import { Login } from '@/pages/login';
+import { Guide } from '@/pages/guide';
+import { Room } from '@/pages/room';
 
-export const routes = [
-  {
-    path: '/login',
-    component: lazy(
-      () => import(/* webpackChunkName: 'login' */ '../pages/login'),
-    ),
-  },
-  {
-    path: '/guide',
-    component: lazy(() => import(/* webpackChunkName: 'role-select' */ '../pages/guide')),
-  },
-  {
-    path: '/room',
-    component: lazy(() => import(/* webpackChunkName: 'room' */ '../pages/room')),
-  },
-] as const;
+export enum RoutePath {
+  Base = '/',
+  Login = '/login',
+  Guide = '/guide',
+  Room = '/room'
+}
 
-const IRouter = () => (
+const MAIN_VERSION = mainVersion;
+
+const IRouter: React.FC = () => (
   <BrowserRouter>
-    <Suspense fallback={<RouterLoading />}>
-      <Switch>
-        {
-          routes.map((route) => (
-            <Route
-              exact
-              key={route.path}
-              path={route.path}
-              component={route.component}
-            />
-          ))
-        }
-        <Redirect to="/login" />
-      </Switch>
-    </Suspense>
+    <Switch>
+      <Route
+        exact
+        path={RoutePath.Login}
+        render={() => <Login nextUrl={RoutePath.Guide} version={MAIN_VERSION}/>}
+      />
+      <Route
+        path={RoutePath.Base}
+        render={() => {
+          return <Auth>
+            <Switch>
+              <Route
+                exact
+                path={RoutePath.Guide}
+                component={Guide}
+              />
+              <Route
+                exact
+                path={RoutePath.Room}
+                component={Room}
+              />
+              <Redirect to={RoutePath.Login}/>
+            </Switch>
+          </Auth>;
+        }}
+      />
+      <Redirect to="/login"/>
+    </Switch>
   </BrowserRouter>
 );
 

@@ -3,46 +3,31 @@
  */
 export const envConfig = {
   dev: {
-    RongIMConfig: {
-      appKey: '3argexb63fl0e',
+    imConfig: {
+      appKey: 'cigzypnhoyno'
     },
     requestConfig: {
       baseURL: 'http://10.200.20.28:5080',
-      timeout: 10000,
-    },
-    linkConfig: {
-      cloudStorageUrl: 'http://image-dev.code41.me',
-      privacyRight: 'https://www.qiniu.com/privacy-right', // 隐私权政策
-      userAgreement: 'https://www.qiniu.com/user-agreement', // 服务用户协议
-    },
+      timeout: 3000,
+    }
   },
   test: {
-    RongIMConfig: {
-      appKey: '3argexb63fl0e',
+    imConfig: {
+      appKey: 'cigzypnhoyno'
     },
     requestConfig: {
       baseURL: 'http://10.200.20.28:5080',
-      timeout: 10000,
-    },
-    linkConfig: {
-      cloudStorageUrl: 'http://image-dev.code41.me',
-      privacyRight: 'https://www.qiniu.com/privacy-right', // 隐私权政策
-      userAgreement: 'https://www.qiniu.com/user-agreement', // 服务用户协议
-    },
+      timeout: 3000,
+    }
   },
   prod: {
-    RongIMConfig: {
-      appKey: 'ik1qhw09isbvp',
+    imConfig: {
+      appKey: 'cigzypnhoyno'
     },
     requestConfig: {
       baseURL: 'https://niucube-api.qiniu.com',
-      timeout: 10000,
-    },
-    linkConfig: {
-      cloudStorageUrl: 'http://image-dev.code41.me',
-      privacyRight: 'https://www.qiniu.com/privacy-right', // 隐私权政策
-      userAgreement: 'https://www.qiniu.com/user-agreement', // 服务用户协议
-    },
+      timeout: 3000,
+    }
   },
 };
 
@@ -57,17 +42,11 @@ export const curEnv = import.meta.env.VITE_NODE_ENV || 'dev';
 export const curConfig = envConfig[curEnv];
 
 /**
- * 融云IM配置
- * @link https://developer.rongcloud.cn/app/appService/XaKs3DkxBidRWBKYfdx0TA
+ * IM配置
  */
-export const { RongIMConfig } = curConfig;
+export const imConfig = curConfig.imConfig;
 
 /**
  * 请求配置
  */
-export const { requestConfig } = curConfig;
-
-/**
- * 链接配置
- */
-export const { linkConfig } = curConfig;
+export const requestConfig = curConfig.requestConfig;
