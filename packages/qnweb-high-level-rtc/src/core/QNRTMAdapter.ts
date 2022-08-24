@@ -1,7 +1,7 @@
 import * as QNIM from 'qnweb-im';
 
 import { RtmAdapter, RtmCallBack } from '../types';
-import RtmManager from '../event-bus/RtmManager';
+import { RtmManager } from '../event-bus';
 import { LogModel } from '../util';
 
 const log = new LogModel('log');
@@ -22,6 +22,7 @@ class QNRTMAdapter extends RtmAdapter {
     channelId: string
   }[] = [];
   public tag = 'QNRTMAdapter';
+  public currentUserId = '';
   private joinChannelSuccessCallback: ((res?: unknown) => void) | undefined;
 
   constructor(appKey: string) {
@@ -42,12 +43,12 @@ class QNRTMAdapter extends RtmAdapter {
   private addListener() {
     this.im.on({
       imGroupJoined: (data: unknown) => {
-        log.log('imGroupJoined', data)
+        log.log('imGroupJoined data', data);
         /**
          * 聊天室加入成功
          */
         if (this.joinChannelSuccessCallback) {
-          log.log('imGroupJoined this.joinChannelSuccessCallback', data)
+          log.log('imGroupJoined this.joinChannelSuccessCallback', data);
           this.joinChannelSuccessCallback(data);
         }
       },
@@ -58,8 +59,9 @@ class QNRTMAdapter extends RtmAdapter {
        * @param message
        */
       onGroupMessage: (message: QNIM.IGroupMessage) => {
-        const cuid = this.im.userManage.getUid() + '';
-        const isRemoteMessage = cuid !== message.from;
+        const isRemoteMessage = this.currentUserId !== message.from;
+        log.log('onGroupMessage message', message);
+        log.log('onGroupMessage this.currentUserId', this.currentUserId);
         if (isRemoteMessage) { // 收到远端消息，触发消息接收回调
           RtmManager.mRtmChannelListeners.forEach(listener => {
             listener(
@@ -107,6 +109,9 @@ class QNRTMAdapter extends RtmAdapter {
        * @param res
        */
       loginSuccess: (res: any) => {
+        this.currentUserId = this.im.userManage.getUid() + '';
+        log.log('loginSuccess res', res);
+        log.log('loginSuccess this.currentUserId', this.currentUserId);
         if (this.loginCallback?.onSuccess) {
           this.loginCallback?.onSuccess(res);
         }
@@ -222,7 +227,7 @@ class QNRTMAdapter extends RtmAdapter {
    */
   joinChannel(channelId: string, callback?: RtmCallBack) {
     return this.im.chatroomManage.join(channelId).then(() => {
-      log.log('join after')
+      log.log('join after');
       return new Promise(resolve => {
         this.joinChannelSuccessCallback = (data: unknown) => {
           if (callback?.onSuccess) callback?.onSuccess(data);

@@ -49,24 +49,41 @@ export interface MicSeatListener<T extends MicSeat = MicSeat> {
    * @param seat
    */
   onUserSitDown?: MicSeatListenerCallback<T>;
-
   /**
    * 有人下麦
    * @param seat
    */
   onUserSitUp?: MicSeatListenerCallback<T>;
-
   /**
    * 麦克风状态改变
    * @param seat
    */
   onMicrophoneStatusChanged?: MicSeatListenerCallback<T>;
-
   /**
    * 摄像头状态改变
    * @param seat
    */
   onCameraStatusChanged?: MicSeatListenerCallback<T>;
+  /**
+   * 麦位被管理员禁摄像头变化
+   */
+  onVideoForbiddenStatusChanged?: MicSeatListenerCallback<T>;
+  /**
+   * 麦位被管理员禁麦克风变化
+   */
+  onAudioForbiddenStatusChanged?: MicSeatListenerCallback<T>;
+  /**
+   * 从麦位上踢出
+   */
+  onKickOutFromMicSeat?: MicSeatListenerCallback<T>;
+  /**
+   * 从房间踢出
+   */
+  onKickOutFromRoom?: MicSeatListenerCallback<T>;
+  /**
+   * 自定义麦位信令
+   */
+  onCustomSeatAction?: MicSeatListenerCallback<T>;
 }
 
 export enum ClientRoleType {

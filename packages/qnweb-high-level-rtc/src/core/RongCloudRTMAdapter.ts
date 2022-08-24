@@ -1,6 +1,6 @@
 import * as RongIMLib from '@rongcloud/imlib-v4';
 
-import RtmManager from '../event-bus/RtmManager';
+import { RtmManager } from '../event-bus';
 import { RtmCallBack, RtmAdapter } from '../types';
 import { LogModel } from '../util';
 

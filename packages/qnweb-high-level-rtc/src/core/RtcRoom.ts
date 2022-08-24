@@ -9,14 +9,13 @@ import QNRTC, {
   QNRemoteVideoTrack,
   QNRTCClient, QNTrack,
 } from 'qnweb-rtc';
+
 import { ClientRoleType, RoomEntity, UserExtension } from '../types';
 import CustomTrackTool from './CustomTrackTool';
 import MixStreamTool from './MixStreamTool';
 import PlayerTool from './PlayerTool';
 import ScreenTrackTool from './ScreenTrackTool';
-import ExtQNClientEventListener from '../event-bus/ExtQNClientEventListener';
-import RtmManager from '../event-bus/RtmManager';
-import RoomManager from '../event-bus/RoomManager';
+import { ExtQNClientEventListener, RtmManager, RoomManager } from '../event-bus';
 import { LogModel, parseRoomToken } from '../util';
 import { TAG_CAMERA, TAG_MICROPHONE } from '../constants';
 
@@ -39,7 +38,7 @@ class RtcRoom {
   public mixStreamTool: MixStreamTool = new MixStreamTool(this); // 混流工具
   public playerTool: PlayerTool = new PlayerTool(this); // 播放器工具
   public currentUserId = ''; // 当前用户id
-  public currentUserExtension?: UserExtension; // 当前用户
+  public currentUserExtension?: UserExtension | null; // 当前用户
   public QNRTCVersion: string = QNRTC.VERSION; // QNRTC版本
   public tag = '[RtcRoom]'; // 日志标签
   // 过滤掉远端指定的track类型
@@ -66,6 +65,9 @@ class RtcRoom {
    */
   public setClientRoleType(clientRoleType: ClientRoleType) {
     this.clientRoleType = clientRoleType;
+    if (this.currentUserExtension) {
+      this.currentUserExtension.clientRoleType = this.clientRoleType;
+    }
   }
 
   /**

@@ -3,7 +3,7 @@ export type LogLevel = 'disable' | 'warning' | 'debug' | 'log';
 export class LogModel {
   public level: LogLevel;
 
-  public preTitle: string = `${getLogTimeString()}`;
+  public preTitle = `${getLogTimeString()}`;
 
   public constructor(level: LogLevel) {
     this.level = level;
@@ -13,7 +13,7 @@ export class LogModel {
     this.level = level;
   }
 
-  public setPreTitle(preTitle: string) {
+  public setPreTitle(preTitle: string): void {
     this.preTitle = `${getLogTimeString()} %c${preTitle}`;
   }
 
@@ -44,6 +44,7 @@ export class LogModel {
 
 function getLogTimeString(): string {
   const date = new Date();
+
   function paddingStart(num: number): string {
     const str = num.toString();
     if (str.length < 2) {
@@ -52,6 +53,7 @@ function getLogTimeString(): string {
 
     return str;
   }
+
   const hours = paddingStart(date.getHours());
   const minutes = paddingStart(date.getMinutes());
   const secs = paddingStart(date.getSeconds());

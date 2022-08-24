@@ -7,7 +7,7 @@ import QNRTC, {
   QNScreenVideoTrackConfig, QNTrack
 } from 'qnweb-rtc';
 import { ClientRoleType, ScreenMicSeat, ScreenMicSeatListener } from '../types';
-import ExtQNClientEventListener from '../event-bus/ExtQNClientEventListener';
+import { ExtQNClientEventListener } from '../event-bus';
 import { TAG_SCREEN } from '../constants';
 import { LogModel } from '../util';
 

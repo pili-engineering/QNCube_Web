@@ -14,7 +14,7 @@ const log = new LogModel('log');
 log.setPreTitle('RoomSignalingManager');
 
 class RoomSignalingManager {
-  public tag = 'RoomSignalingManager'
+  public tag = 'RoomSignalingManager';
 
   getImGroupId() {
     return RoomManager.getRoomEntity()?.imGroupId || '';
@@ -36,7 +36,7 @@ class RoomSignalingManager {
       msg,
       this.getImGroupId(),
       true
-    )
+    );
   }
 
   /**
@@ -53,7 +53,7 @@ class RoomSignalingManager {
       msg,
       this.getImGroupId(),
       true
-    )
+    );
   }
 
   /**
@@ -70,7 +70,7 @@ class RoomSignalingManager {
       msg,
       this.getImGroupId(),
       true
-    )
+    );
   }
 
   /**
@@ -87,7 +87,7 @@ class RoomSignalingManager {
       msg,
       this.getImGroupId(),
       true
-    )
+    );
   }
 
   /**
@@ -104,7 +104,7 @@ class RoomSignalingManager {
       msg,
       this.getImGroupId(),
       true
-    )
+    );
   }
 
   /**
@@ -121,7 +121,7 @@ class RoomSignalingManager {
       msg,
       this.getImGroupId(),
       true
-    )
+    );
   }
 
   /**
@@ -138,7 +138,7 @@ class RoomSignalingManager {
       msg,
       this.getImGroupId(),
       true
-    )
+    );
   }
 
   /**
@@ -155,7 +155,49 @@ class RoomSignalingManager {
       msg,
       this.getImGroupId(),
       true
-    )
+    );
+  }
+
+  /**
+   * 禁止开麦克风
+   * @param data
+   */
+  forbiddenMicSeatAudio(data: {
+    uid: string;
+    isForbidden: boolean;
+    msg: string
+  }) {
+    const signaling = {
+      action: 'rtc_forbiddenAudio',
+      data
+    };
+    const msg = JSON.stringify(signaling);
+    return RtmManager.getRtmAdapter()?.sendChannelMsg(
+      msg,
+      this.getImGroupId(),
+      true
+    );
+  }
+
+  /**
+   * 禁止开摄像头
+   * @param data
+   */
+  forbiddenMicSeatVideo(data: {
+    uid: string;
+    isForbidden: boolean;
+    msg: string
+  }) {
+    const signaling = {
+      action: 'rtc_forbiddenVideo',
+      data
+    };
+    const msg = JSON.stringify(signaling);
+    return RtmManager.getRtmAdapter()?.sendChannelMsg(
+      msg,
+      this.getImGroupId(),
+      true
+    );
   }
 }
 

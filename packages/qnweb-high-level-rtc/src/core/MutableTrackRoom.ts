@@ -1,13 +1,3 @@
-import RtcRoom from './RtcRoom';
-import {
-  CameraMicStatusSignaling,
-  ClientRoleType,
-  MicSeatListener,
-  RoomEntity,
-  SitDownUpSignaling,
-  UserExtension,
-  UserMicSeat
-} from '../types';
 import {
   QNConnectionDisconnectedInfo,
   QNConnectionState,
@@ -17,23 +7,48 @@ import {
   QNRemoteTrack,
   QNRemoteVideoTrack
 } from 'qnweb-rtc';
+
+import RtcRoom from './RtcRoom';
+import {
+  ClientRoleType,
+  MicSeatListener,
+  RoomEntity,
+  UserExtension,
+  UserMicSeat
+} from '../types';
 import RoomSignalingManager from '../event-bus/RoomSignalingManager';
 import RtmManager from '../event-bus/RtmManager';
 import { TAG_CAMERA, TAG_MICROPHONE } from '../constants';
 import { LogModel } from '../util';
 
 const log = new LogModel('log');
-log.setPreTitle('MutableTrackRoom')
+log.setPreTitle('MutableTrackRoom');
 
 export interface MutableTrackRoomSeat extends UserMicSeat {
+  /**
+   * 视频是不是被我屏蔽了
+   */
   isMuteVideoByMe?: boolean,
+  /**
+   * 音频是不是被我屏蔽了
+   */
   isMuteAudioByMe?: boolean,
+  /**
+   * 管理员关麦克风
+   */
+  isForbiddenAudioByManager?: boolean,
+  /**
+   * 管理员关摄像头
+   */
+  isForbiddenVideoByManager?: boolean,
 }
 
 class MutableTrackRoom extends RtcRoom {
   public mMicSeats: MutableTrackRoomSeat[] = []; // 麦位列表
   public micSeatListeners: MicSeatListener<MutableTrackRoomSeat>[] = []; // 麦位监听器
   public tag = '[MutableTrackRoom]'; // 日志标签
+  public syncMicSeats: MutableTrackRoomSeat[] = [];
+
   constructor() {
     super();
     this.handleRtcUserJoined = this.handleRtcUserJoined.bind(this); // 用户加入房间
@@ -47,288 +62,14 @@ class MutableTrackRoom extends RtcRoom {
     this.handleRtcDirectLivestreamingStateChanged = this.handleRtcDirectLivestreamingStateChanged.bind(this); // 单路转推状态变化
     this.handleRtcTranscodingLivestreamingStateChanged = this.handleRtcTranscodingLivestreamingStateChanged.bind(this); // 合流转推状态变化
     this.handleRtmMessageReceived = this.handleRtmMessageReceived.bind(this); // im消息
-    this.bindEvents();
-  }
-
-  /**
-   * 添加麦位事件监听
-   * @param listener
-   */
-  public addMicSeatListener(listener: MicSeatListener<MutableTrackRoomSeat>) {
-    this.micSeatListeners = this.micSeatListeners.concat(listener);
-  }
-
-  /**
-   * 移除事件监听
-   * @param listener
-   */
-  public removeMicSeatListener(listener: MicSeatListener<MutableTrackRoomSeat>) {
-    this.micSeatListeners = this.micSeatListeners.filter(
-      mListener => mListener !== listener
-    );
-  }
-
-  /**
-   * 初始化同步麦位
-   * @param mMicSeats
-   */
-  public userClientTypeSyncMicSeats(mMicSeats: MutableTrackRoomSeat[]) {
-    this.mMicSeats = mMicSeats;
-  }
-
-  /**
-   * 切换角色
-   * @param clientRoleType
-   */
-  public setClientRoleType(clientRoleType: ClientRoleType) {
-    super.setClientRoleType(clientRoleType);
-  }
-
-  /**
-   * 加入房间
-   * 主播角色: 加入房间+上麦
-   * 其他角色: 离开房间
-   * @param roomEntity
-   * @param userExtension
-   */
-  public joinRoom(roomEntity: RoomEntity, userExtension?: UserExtension): Promise<void> {
-    return super.joinRoom(roomEntity, userExtension).then(() => {
-      RoomSignalingManager.sendUserJoin({
-        uid: this.currentUserId,
-        ...this.currentUserExtension
-      });
-      if (this.clientRoleType === ClientRoleType.CLIENT_ROLE_BROADCASTER) {
-        this.userSitDown(
-          this.currentUserId,
-          this.currentUserExtension
-        );
-        const currentMicSeat = this.getMicSeatByUid(this.currentUserId);
-        if (currentMicSeat) {
-          RoomSignalingManager.sendUserSitDown(
-            currentMicSeat
-          );
-        }
-      }
-      // this.initRemoteMicSeats();
-    });
-  }
-
-  /**
-   * 离开房间
-   * 主播角色: 离开房间+下麦
-   * 其他角色: 离开房间
-   */
-  public leaveRoom() {
-    RoomSignalingManager.sendUserLeft({
-      uid: this.currentUserId,
-      ...this.currentUserExtension
-    });
-    if (this.clientRoleType === ClientRoleType.CLIENT_ROLE_BROADCASTER) {
-      const currentMicSeat = this.getMicSeatByUid(this.currentUserId);
-      if (currentMicSeat) {
-        RoomSignalingManager.sendUserSitUp(currentMicSeat);
-      }
-    }
-    log.log('leaveRoom');
-    return super.leaveRoom().then(() => {
-      log.log('leaveRoom Successfully', this.clientRoleType);
-      this.mMicSeats = [];
-      this.currentUserId = '';
-      this.currentUserExtension = undefined;
-      // this.unbindEvents();
-    });
-  }
-
-  /**
-   * 开启摄像头
-   * 主播角色: 开启摄像头+发布
-   * 有人打开摄像头则触发打开摄像头回调
-   */
-  public enableCamera(): Promise<void> {
-    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
-      return Promise.reject('No permission');
-    }
-    return super.enableCamera().then(() => {
-      this.userCameraStatusChanged(this.currentUserId, true);
-      const userMicSeat = this.getMicSeatByUid(this.currentUserId);
-      if (userMicSeat) {
-        RoomSignalingManager.sendUserCameraStatusChange(
-          userMicSeat,
-        );
-      }
-    });
-  }
-
-  /**
-   * 关闭摄像头
-   * 有人关闭摄像头则触发关闭摄像头回调
-   */
-  public disableCamera(): Promise<void> {
-    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
-      return Promise.reject('No permission');
-    }
-    return Promise.resolve(super.disableCamera()).then(() => {
-      this.userCameraStatusChanged(this.currentUserId, false);
-      const userMicSeat = this.getMicSeatByUid(this.currentUserId);
-      if (userMicSeat) {
-        RoomSignalingManager.sendUserCameraStatusChange(
-          userMicSeat,
-        );
-      }
-    });
-  }
-
-  /**
-   * 开启麦克风
-   * 有人打开麦克风则触发打开麦克风回调
-   */
-  public enableMicrophone(): Promise<void> {
-    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
-      return Promise.reject('No permission');
-    }
-    return super.enableMicrophone().then(() => {
-      this.userMicrophoneStatusChanged(this.currentUserId, true);
-      const userMicSeat = this.getMicSeatByUid(this.currentUserId);
-      if (userMicSeat) {
-        RoomSignalingManager.sendUserMicrophoneStatusChange(
-          userMicSeat,
-        );
-      }
-    });
-  }
-
-  /**
-   * 关闭麦克风
-   * 有人关闭麦克风则触发关闭麦克风回调
-   */
-  public disableMicrophone(): Promise<void> {
-    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
-      return Promise.reject('No permission');
-    }
-    return Promise.resolve(super.disableMicrophone()).then(() => {
-      this.userMicrophoneStatusChanged(this.currentUserId, false);
-      const userMicSeat = this.getMicSeatByUid(this.currentUserId);
-      if (userMicSeat) {
-        RoomSignalingManager.sendUserMicrophoneStatusChange(
-          userMicSeat,
-        );
-      }
-    });
-  }
-
-  /**
-   * mute摄像头
-   * @param muted
-   */
-  public muteLocalCamera(muted: boolean) {
-    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
-      throw new TypeError('No permission');
-    }
-    super.muteLocalCamera(muted);
-    this.userCameraStatusChanged(this.currentUserId, !muted);
-    const userMicSeat = this.getMicSeatByUid(this.currentUserId);
-    if (userMicSeat) {
-      RoomSignalingManager.sendUserCameraStatusChange({
-        ...userMicSeat,
-        isOwnerOpenVideo: !muted,
-      });
-    }
-  }
-
-  /**
-   * mute麦克风
-   * @param muted
-   */
-  public muteLocalMicrophone(muted: boolean) {
-    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
-      throw new TypeError('No permission');
-    }
-    super.muteLocalMicrophone(muted);
-    this.userMicrophoneStatusChanged(this.currentUserId, !muted);
-    const userMicSeat = this.getMicSeatByUid(this.currentUserId);
-    if (userMicSeat) {
-      RoomSignalingManager.sendUserMicrophoneStatusChange({
-        ...userMicSeat,
-        isOwnerOpenAudio: !muted,
-      });
-    }
-  }
-
-  /**
-   * mute远端摄像头
-   * @param userId
-   * @param muted
-   */
-  public muteRemoteCamera(userId: string, muted: boolean) {
-    return super.muteRemoteCamera(userId, muted).then(() => {
-      this.userCameraStatusChanged(userId, !muted);
-      const userMicSeat = this.getMicSeatByUid(userId);
-      if (userMicSeat) {
-        RoomSignalingManager.sendUserCameraStatusChange(
-          userMicSeat,
-        );
-      }
-    });
-  }
-
-  /**
-   * mute远端麦克风
-   * @param userId
-   * @param muted
-   */
-  public muteRemoteMicrophone(userId: string, muted: boolean) {
-    return super.muteRemoteMicrophone(userId, muted).then(() => {
-      this.userMicrophoneStatusChanged(userId, !muted);
-      const userMicSeat = this.getMicSeatByUid(userId);
-      if (userMicSeat) {
-        RoomSignalingManager.sendUserMicrophoneStatusChange(
-          userMicSeat,
-        );
-      }
-    });
-  }
-
-  /**
-   * mute远端所有摄像头
-   * @param muted
-   */
-  public muteAllRemoteCamera(muted: boolean) {
-    return super.muteAllRemoteCamera(muted).then(() => {
-      this.mMicSeats.forEach(mMicSeat => {
-        this.userCameraStatusChanged(mMicSeat.uid, !muted);
-        const userMicSeat = this.getMicSeatByUid(mMicSeat.uid);
-        if (userMicSeat) {
-          RoomSignalingManager.sendUserCameraStatusChange(
-            userMicSeat,
-          );
-        }
-      });
-    });
-  }
-
-  /**
-   * mute远端所有麦克风
-   * @param muted
-   */
-  public muteAllRemoteMicrophone(muted: boolean) {
-    return super.muteAllRemoteMicrophone(muted).then(() => {
-      this.mMicSeats.forEach(mMicSeat => {
-        this.userMicrophoneStatusChanged(mMicSeat.uid, !muted);
-        const userMicSeat = this.getMicSeatByUid(mMicSeat.uid);
-        if (userMicSeat) {
-          RoomSignalingManager.sendUserMicrophoneStatusChange(
-            userMicSeat,
-          );
-        }
-      });
-    });
+    this.registerEvents();
   }
 
   /**
    * 注册事件监听
    * @link https://developer.qiniu.com/rtc/9246/WEB%20API%20%E6%A6%82%E8%A7%88
    */
-  private bindEvents() {
+  private registerEvents() {
     this.rtcClient.on('user-joined', this.handleRtcUserJoined);
     this.rtcClient.on('user-left', this.handleRtcUserLeft);
     this.rtcClient.on('user-published', this.handleRtcUserPublished);
@@ -348,7 +89,7 @@ class MutableTrackRoom extends RtcRoom {
    * 解绑事件监听
    * @link https://developer.qiniu.com/rtc/9246/WEB%20API%20%E6%A6%82%E8%A7%88
    */
-  private unbindEvents() {
+  private unRegisterEvents() {
     this.rtcClient.off('user-joined', this.handleRtcUserJoined);
     this.rtcClient.off('user-left', this.handleRtcUserLeft);
     this.rtcClient.off('user-published', this.handleRtcUserPublished);
@@ -369,11 +110,13 @@ class MutableTrackRoom extends RtcRoom {
    * @param uid
    * @param userExtension
    */
-  private userSitDown(uid: string, userExtension?: UserExtension) {
+  private userSitDown(uid: string, userExtension?: UserExtension | null) {
     const isOnMic = this.mMicSeats.some(mMicSeat => mMicSeat.uid === uid);
     const currentMicSeat: MutableTrackRoomSeat = {
       isOwnerOpenVideo: false,
       isOwnerOpenAudio: false,
+      isMuteAudioByMe: false,
+      isMuteVideoByMe: false,
       uid,
       userExtension,
       isMySeat: uid === this.currentUserId
@@ -450,19 +193,22 @@ class MutableTrackRoom extends RtcRoom {
    * @param peerId
    */
   private handleRtmMessageReceived(msg: string, peerId: string) {
-    const signaling: SitDownUpSignaling | CameraMicStatusSignaling = JSON.parse(msg || '{}');
+    const signaling = JSON.parse(msg || '{}');
     if (signaling.action === 'rtc_sitDown') {
+      log.log('handleRtmMessageReceived rtc_sitDown', msg);
       return this.userSitDown(
         signaling.data.uid,
         signaling.data.userExtension || undefined
       );
     }
     if (signaling.action === 'rtc_sitUp') {
+      log.log('handleRtmMessageReceived rtc_sitUp', msg);
       return this.userSitUp(
         signaling.data.uid,
       );
     }
     if (signaling.action === 'rtc_cameraStatus') {
+      log.log('handleRtmMessageReceived rtc_cameraStatus', msg);
       return this.userCameraStatusChanged(
         signaling.data.uid,
         signaling.data.isOwnerOpenVideo,
@@ -473,6 +219,36 @@ class MutableTrackRoom extends RtcRoom {
         signaling.data.uid,
         signaling.data.isOwnerOpenAudio,
       );
+    }
+    if (signaling.action === 'rtc_forbiddenAudio') {
+      log.log('handleRtmMessageReceived rtc_forbiddenAudio', msg);
+      this.mMicSeats = this.mMicSeats.map(mMicSeat => {
+        return mMicSeat.uid === signaling.data.uid ? {
+          ...mMicSeat,
+          isForbiddenAudioByManager: signaling.data.isForbidden
+        } : mMicSeat;
+      });
+      const currentMicSeat = this.getMicSeatByUid(signaling.data.uid);
+      if (currentMicSeat) {
+        this.micSeatListeners.forEach(
+          listener => listener.onAudioForbiddenStatusChanged?.(currentMicSeat)
+        );
+      }
+    }
+    if (signaling.action === 'rtc_forbiddenVideo') {
+      log.log('handleRtmMessageReceived rtc_forbiddenVideo', msg);
+      this.mMicSeats = this.mMicSeats.map(mMicSeatItem => {
+        return mMicSeatItem.uid === signaling.data.uid ? {
+          ...mMicSeatItem,
+          isForbiddenVideoByManager: signaling.data.isForbidden
+        } : mMicSeatItem;
+      });
+      const currentMicSeat = this.getMicSeatByUid(signaling.data.uid);
+      if (currentMicSeat) {
+        this.micSeatListeners.forEach(
+          listener => listener.onVideoForbiddenStatusChanged?.(currentMicSeat)
+        );
+      }
     }
   }
 
@@ -616,12 +392,11 @@ class MutableTrackRoom extends RtcRoom {
   private initTrackMicSeats(tracks: QNRemoteTrack[]) {
     log.log('initTrackMicSeats tracks', tracks);
     tracks.forEach(track => {
-      const isOpen = !track.isMuted();
       if (track.tag === TAG_CAMERA && track.userID) {
-        this.userCameraStatusChanged(track.userID, isOpen);
+        this.userCameraStatusChanged(track.userID, !track.isMuted());
       }
       if (track.tag === TAG_MICROPHONE && track.userID) {
-        this.userMicrophoneStatusChanged(track.userID, isOpen);
+        this.userMicrophoneStatusChanged(track.userID, !track.isMuted());
       }
     });
   }
@@ -671,6 +446,321 @@ class MutableTrackRoom extends RtcRoom {
     return this.mMicSeats.find(
       mMicSeat => mMicSeat.uid === uid
     );
+  }
+
+  /**
+   * 添加麦位事件监听
+   * @param listener
+   */
+  public addMicSeatListener(listener: MicSeatListener<MutableTrackRoomSeat>) {
+    this.micSeatListeners = this.micSeatListeners.concat(listener);
+  }
+
+  /**
+   * 移除事件监听
+   * @param listener
+   */
+  public removeMicSeatListener(listener: MicSeatListener<MutableTrackRoomSeat>) {
+    this.micSeatListeners = this.micSeatListeners.filter(
+      mListener => mListener !== listener
+    );
+  }
+
+  /**
+   * 初始化同步麦位
+   * @param seats
+   */
+  public userClientTypeSyncMicSeats(seats: MutableTrackRoomSeat[]) {
+    this.syncMicSeats = seats;
+  }
+
+  /**
+   * 切换角色
+   * @param clientRoleType
+   */
+  public setClientRoleType(clientRoleType: ClientRoleType) {
+    super.setClientRoleType(clientRoleType);
+  }
+
+  /**
+   * 加入房间
+   * 主播角色: 加入房间+上麦
+   * 其他角色: 离开房间
+   * @param roomEntity
+   * @param userExtension
+   */
+  public joinRoom(roomEntity: RoomEntity, userExtension?: UserExtension): Promise<void> {
+    return super.joinRoom(roomEntity, userExtension).then(() => {
+      this.syncMicSeats.map(syncMicSeatItem => {
+        this.userSitDown(syncMicSeatItem.uid, syncMicSeatItem.userExtension);
+      });
+      RoomSignalingManager.sendUserJoin({
+        uid: this.currentUserId,
+        ...this.currentUserExtension
+      });
+      if (this.clientRoleType === ClientRoleType.CLIENT_ROLE_BROADCASTER) {
+        this.userSitDown(
+          this.currentUserId,
+          this.currentUserExtension
+        );
+        const currentMicSeat = this.getMicSeatByUid(this.currentUserId);
+        if (currentMicSeat) {
+          RoomSignalingManager.sendUserSitDown(
+            currentMicSeat
+          );
+        }
+      }
+      // this.initRemoteMicSeats();
+    });
+  }
+
+  /**
+   * 离开房间
+   * 主播角色: 离开房间+下麦
+   * 其他角色: 离开房间
+   */
+  public leaveRoom() {
+    RoomSignalingManager.sendUserLeft({
+      uid: this.currentUserId,
+      ...this.currentUserExtension
+    });
+    if (this.clientRoleType === ClientRoleType.CLIENT_ROLE_BROADCASTER) {
+      const currentMicSeat = this.getMicSeatByUid(this.currentUserId);
+      if (currentMicSeat) {
+        RoomSignalingManager.sendUserSitUp(currentMicSeat);
+      }
+    }
+    log.log('leaveRoom');
+    return super.leaveRoom().then(() => {
+      log.log('leaveRoom Successfully', this.clientRoleType);
+      this.mMicSeats = [];
+      this.currentUserId = '';
+      this.currentUserExtension = undefined;
+      // this.unRegisterEvents();
+    });
+  }
+
+  /**
+   * 开启摄像头
+   * 主播角色: 开启摄像头+发布
+   * 有人打开摄像头则触发打开摄像头回调
+   */
+  public enableCamera(): Promise<void> {
+    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
+      return Promise.reject('No permission');
+    }
+    return super.enableCamera().then(() => {
+      this.userCameraStatusChanged(this.currentUserId, true);
+      const userMicSeat = this.getMicSeatByUid(this.currentUserId);
+      if (userMicSeat) {
+        RoomSignalingManager.sendUserCameraStatusChange(
+          userMicSeat,
+        );
+      }
+    });
+  }
+
+  /**
+   * 关闭摄像头
+   * 有人关闭摄像头则触发关闭摄像头回调
+   */
+  public disableCamera(): Promise<void> {
+    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
+      return Promise.reject('No permission');
+    }
+    return Promise.resolve(super.disableCamera()).then(() => {
+      this.userCameraStatusChanged(this.currentUserId, false);
+      const userMicSeat = this.getMicSeatByUid(this.currentUserId);
+      if (userMicSeat) {
+        RoomSignalingManager.sendUserCameraStatusChange(
+          userMicSeat,
+        );
+      }
+    });
+  }
+
+  /**
+   * 开启麦克风
+   * 有人打开麦克风则触发打开麦克风回调
+   */
+  public enableMicrophone(): Promise<void> {
+    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
+      return Promise.reject('No permission');
+    }
+    return super.enableMicrophone().then(() => {
+      this.userMicrophoneStatusChanged(this.currentUserId, true);
+      const userMicSeat = this.getMicSeatByUid(this.currentUserId);
+      if (userMicSeat) {
+        RoomSignalingManager.sendUserMicrophoneStatusChange(
+          userMicSeat,
+        );
+      }
+    });
+  }
+
+  /**
+   * 关闭麦克风
+   * 有人关闭麦克风则触发关闭麦克风回调
+   */
+  public disableMicrophone(): Promise<void> {
+    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
+      return Promise.reject('No permission');
+    }
+    return Promise.resolve(super.disableMicrophone()).then(() => {
+      this.userMicrophoneStatusChanged(this.currentUserId, false);
+      const userMicSeat = this.getMicSeatByUid(this.currentUserId);
+      if (userMicSeat) {
+        RoomSignalingManager.sendUserMicrophoneStatusChange(
+          userMicSeat,
+        );
+      }
+    });
+  }
+
+  /**
+   * mute摄像头
+   * @param muted
+   */
+  public muteLocalCamera(muted: boolean) {
+    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
+      throw new TypeError('No permission');
+    }
+    super.muteLocalCamera(muted);
+    this.userCameraStatusChanged(this.currentUserId, !muted);
+    const userMicSeat = this.getMicSeatByUid(this.currentUserId);
+    if (userMicSeat) {
+      RoomSignalingManager.sendUserCameraStatusChange({
+        ...userMicSeat,
+        isOwnerOpenVideo: !muted,
+      });
+    }
+  }
+
+  /**
+   * mute麦克风
+   * @param muted
+   */
+  public muteLocalMicrophone(muted: boolean) {
+    if (this.clientRoleType !== ClientRoleType.CLIENT_ROLE_BROADCASTER) {
+      throw new TypeError('No permission');
+    }
+    super.muteLocalMicrophone(muted);
+    this.userMicrophoneStatusChanged(this.currentUserId, !muted);
+    const userMicSeat = this.getMicSeatByUid(this.currentUserId);
+    if (userMicSeat) {
+      RoomSignalingManager.sendUserMicrophoneStatusChange({
+        ...userMicSeat,
+        isOwnerOpenAudio: !muted,
+      });
+    }
+  }
+
+  /**
+   * mute远端摄像头
+   * @param userId
+   * @param muted
+   */
+  public muteRemoteCamera(userId: string, muted: boolean) {
+    return super.muteRemoteCamera(userId, muted).then(() => {
+      this.mMicSeats = this.mMicSeats.map(
+        item => item.uid === userId ? {
+          ...item,
+          isMuteVideoByMe: muted
+        } : item
+      );
+
+      const userMicSeat = this.getMicSeatByUid(userId);
+      if (userMicSeat) {
+        this.micSeatListeners.forEach(
+          listener => listener.onCameraStatusChanged?.(userMicSeat)
+        );
+      }
+    });
+  }
+
+  /**
+   * mute远端麦克风
+   * @param userId
+   * @param muted
+   */
+  public muteRemoteMicrophone(userId: string, muted: boolean) {
+    return super.muteRemoteMicrophone(userId, muted).then(() => {
+      this.mMicSeats = this.mMicSeats.map(
+        item => item.uid === userId ? {
+          ...item,
+          isMuteAudioByMe: muted
+        } : item
+      );
+
+      const userMicSeat = this.getMicSeatByUid(userId);
+      if (userMicSeat) {
+        this.micSeatListeners.forEach(
+          listener => listener.onMicrophoneStatusChanged?.(userMicSeat)
+        );
+      }
+    });
+  }
+
+  /**
+   * mute远端所有摄像头
+   * @param muted
+   */
+  public muteAllRemoteCamera(muted: boolean) {
+    return super.muteAllRemoteCamera(muted).then(() => {
+      this.mMicSeats.filter(
+        item => item.uid !== this.currentUserId
+      ).map(item => {
+        return {
+          ...item,
+          isMuteVideoByMe: muted
+        };
+      });
+    });
+  }
+
+  /**
+   * mute远端所有麦克风
+   * @param muted
+   */
+  public muteAllRemoteMicrophone(muted: boolean) {
+    return super.muteAllRemoteMicrophone(muted).then(() => {
+      this.mMicSeats.filter(
+        item => item.uid !== this.currentUserId
+      ).map(item => {
+        return {
+          ...item,
+          isMuteAudioByMe: muted
+        };
+      });
+    });
+  }
+
+  /**
+   * 禁止开麦克风
+   * @param uid
+   * @param isForbidden
+   * @param msg
+   */
+  public forbiddenMicSeatAudio(uid: string, isForbidden: boolean, msg: string) {
+    return RoomSignalingManager.forbiddenMicSeatAudio({
+      uid,
+      isForbidden,
+      msg
+    });
+  }
+
+  /**
+   * 禁止开摄像头
+   * @param uid
+   * @param isForbidden
+   * @param msg
+   */
+  public forbiddenMicSeatVideo(uid: string, isForbidden: boolean, msg: string) {
+    return RoomSignalingManager.forbiddenMicSeatVideo({
+      uid,
+      isForbidden,
+      msg
+    });
   }
 }
 

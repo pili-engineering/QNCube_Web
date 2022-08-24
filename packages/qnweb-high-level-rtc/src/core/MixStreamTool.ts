@@ -6,7 +6,7 @@ import {
   QNTranscodingLiveStreamingTrack
 } from 'qnweb-rtc';
 import RtcRoom from './RtcRoom';
-import ExtQNClientEventListener, { ExtQNClientEventName } from '../event-bus/ExtQNClientEventListener';
+import { ExtQNClientEventName, ExtQNClientEventListener } from '../event-bus';
 import { TAG_CAMERA, TAG_MICROPHONE, TAG_SCREEN } from '../constants';
 import { LogModel } from '../util';
 import { FunctionType } from '../types';
