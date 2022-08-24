@@ -1,6 +1,6 @@
 {
   "name": "qnweb-video-together-demo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "dev": "vite",
     "build:test": "tsc && vite build --mode test",

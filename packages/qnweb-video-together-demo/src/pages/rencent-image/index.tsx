@@ -38,7 +38,7 @@ const RecentQrCode = () => {
   return (
     <div className={styles.container}>
       <div className={styles.center}>
-        <div className={styles.title}>七牛短视频SDK</div>
+        <div className={styles.title}>欢迎体验Avatar虚拟形象自动生成</div>
         <div className={styles.card}>
           {
             fileUrl ? <img src={fileUrl} alt="fileUrl" /> : <span>未获取到图片</span>
