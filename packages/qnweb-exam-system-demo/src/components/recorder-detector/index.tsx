@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { QNLocalTrack } from 'qnweb-rtc';
-import { Button } from 'antd';
-import { QNMediaRecorder } from 'qnweb-rtc-ai';
+import { Button, Modal } from 'antd';
+import RecordRTC from 'recordrtc';
 import { QNCamera, QNMicrophone } from 'qnweb-exam-sdk';
 
 import './index.scss';
@@ -14,9 +14,7 @@ const RecorderDetector: React.FC<RecorderDetectorProps> = (props) => {
   const localCameraTrackRef = useRef<QNLocalTrack>();
   const localMicrophoneTrackRef = useRef<QNLocalTrack>();
   const [isRecording, setIsRecording] = useState(false);
-  const [recorder] = useState<QNMediaRecorder>(() => {
-    return new QNMediaRecorder();
-  })
+  const recorderRef = useRef<RecordRTC | null>(null);
 
   /**
    * 摄像头
@@ -26,7 +24,7 @@ const RecorderDetector: React.FC<RecorderDetectorProps> = (props) => {
       elementId: 'local-camera',
     });
     camera.start().then(() => {
-      localCameraTrackRef.current = camera.cameraVideoTrack
+      localCameraTrackRef.current = camera.cameraVideoTrack;
     });
     return () => {
       camera.stop().then(() => {
@@ -43,7 +41,7 @@ const RecorderDetector: React.FC<RecorderDetectorProps> = (props) => {
       elementId: 'local-camera',
     });
     microphone.start().then(() => {
-      localMicrophoneTrackRef.current = microphone.microphoneAudioTrack
+      localMicrophoneTrackRef.current = microphone.microphoneAudioTrack;
     });
     return () => {
       microphone.stop().then(() => {
@@ -56,17 +54,32 @@ const RecorderDetector: React.FC<RecorderDetectorProps> = (props) => {
   const onToggleRecording = () => {
     const nextIsRecording = !isRecording;
     if (nextIsRecording) { // 开始录制
-      recorder.start({
-        videoTrack: localCameraTrackRef.current,
-        audioTrack: localMicrophoneTrackRef.current,
+      const tracks = [
+        localCameraTrackRef.current?.getMediaStreamTrack(),
+        localMicrophoneTrackRef.current?.getMediaStreamTrack(),
+      ].filter(Boolean) as MediaStreamTrack[];
+      const stream = new MediaStream(tracks);
+
+      recorderRef.current = new RecordRTC(stream, {
+        type: 'video',
+        mimeType: 'video/mp4',
       });
+      recorderRef.current.startRecording();
     } else { // 结束录制
-      const blob = recorder.stop();
-      const replayVideoElement = document.getElementById('replay-video') as HTMLVideoElement;
-      if (replayVideoElement && blob) {
-        replayVideoElement.src = URL.createObjectURL(blob);
-        replayVideoElement.play();
-      }
+      recorderRef.current?.stopRecording(() => {
+        const blob = recorderRef.current?.getBlob();
+        const replayVideoElement = document.getElementById('replay-video') as HTMLVideoElement;
+        if (replayVideoElement && blob) {
+          replayVideoElement.src = URL.createObjectURL(blob);
+          replayVideoElement.play().catch((error) => {
+            console.error(error);
+            Modal.error({
+              title: '播放失败',
+              content: error.message,
+            });
+          });
+        }
+      });
     }
     setIsRecording(nextIsRecording);
   };

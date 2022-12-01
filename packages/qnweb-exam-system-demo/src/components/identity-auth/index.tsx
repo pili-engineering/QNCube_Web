@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-import QNRTC, { QNLocalVideoTrack } from 'qnweb-rtc';
+import { QNLocalVideoTrack } from 'qnweb-rtc';
 import { QNAuthoritativeFaceComparer, QNRtcAiManager } from 'qnweb-rtc-ai';
 import { Button, Input, Modal } from 'antd';
+import { QNCamera } from 'qnweb-exam-sdk';
+
+import AIApi from '@/api/AIApi';
 import BoxAngle, { BoxAngleProps } from '../box-angle';
 import './index.scss';
-import AIApi from '@/api/AIApi';
-import { QNCamera } from 'qnweb-exam-sdk';
 
 export interface IdentityAuthResult {
   fullName: string;
@@ -95,19 +96,19 @@ const IdentityAuth: React.FC<IdentityAuthProps> = (props) => {
 
   return (
     <div className={classNames('identity-auth', className)} {...restProps}>
-      <div id="identity-auth-camera" className="identity-auth-camera" />
+      <div id="identity-auth-camera" className="identity-auth-camera"/>
       <div className="box">
-        <BoxAngle type={getAngleType()} />
+        <BoxAngle type={getAngleType()}/>
         {
           status !== 'pending' && (
-          <div className={classNames('auth-result-hint', {
-            [`auth-result-hint--${status}`]: status,
-          })}
-          >
-            身份认证
-            {status === 'failed' && '失败'}
-            {status === 'success' && '成功'}
-          </div>
+            <div className={classNames('auth-result-hint', {
+              [`auth-result-hint--${status}`]: status,
+            })}
+            >
+              身份认证
+              {status === 'failed' && '失败'}
+              {status === 'success' && '成功'}
+            </div>
           )
         }
       </div>
@@ -119,10 +120,11 @@ const IdentityAuth: React.FC<IdentityAuthProps> = (props) => {
         onCancel={() => setVisible(false)}
       >
         <div style={{ marginBottom: 10 }}>
-          <Input value={fullName} placeholder="请输入姓名" onChange={(event) => setFullName(event.target.value)} />
+          <Input value={fullName} placeholder="请输入姓名" onChange={(event) => setFullName(event.target.value)}/>
         </div>
         <div style={{ marginBottom: 10 }}>
-          <Input value={idCardNumber} placeholder="请输入身份证号" onChange={(event) => setIDCardNumber(event.target.value)} />
+          <Input value={idCardNumber} placeholder="请输入身份证号"
+                 onChange={(event) => setIDCardNumber(event.target.value)}/>
         </div>
         <div style={{ textAlign: 'right' }}>
           <Button type="primary" onClick={onSubmit} loading={loading}>确认</Button>

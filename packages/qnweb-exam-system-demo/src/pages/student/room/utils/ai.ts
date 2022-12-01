@@ -36,6 +36,6 @@ export const checkFaceDetect = (
   userId,
   event: {
     action: 'faceDetect',
-    value: `${result.response.num_face}`,
+    value: `${result?.response?.result?.face_num || 0}`,
   },
 }));

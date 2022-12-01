@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { pandora } from '@/utils';
+
 import GuideCard from '@/components/guide-card';
 import RoleSelectPanel from '@/components/guide-card/role-select-panel';
 import RippleGroup from '@/components/guide-card/ripple-group';
+
 import styles from './index.module.scss';
 
 const Guide = () => {
   const history = useHistory();
   const [selectedRole, setSelectedRole] = useState<string>();
   const onSubmit = () => {
-    pandora.report({
-      action: 'choose_role',
-    });
     if (selectedRole === 'teacher') return history.push('/teacher/list');
     if (selectedRole === 'student') return history.push('/student/list');
   };

@@ -15,7 +15,7 @@ import useExamInfo from '@/hooks/useExamInfo';
 import useMtTrackRoom from '@/hooks/useMtTrackRoom';
 import useJoinMtTrackRoom from '@/hooks/useJoinMtTrackRoom';
 import { IM_APPKEY } from '@/config';
-import { getUrlQueryParams, isInvitationSignal, log, pandora } from '@/utils';
+import { getUrlQueryParams, isInvitationSignal, log } from '@/utils';
 import styles from './index.module.scss';
 import { userStoreContext } from '@/store/UserStore';
 import { ExamEventLogMoreResult, ExamExamineesExamIdResult } from '@/api/types';
@@ -266,15 +266,6 @@ const TeacherRoom = () => {
    */
   const onClickStudent = (student: ExamExamineesExamIdResult['list'][number]) => {
     if (student.userId === currentStudent?.userId) return;
-    pandora.report({
-      action: 'invigilate_exact_student',
-      value: {
-        userId: pandora.getCacheValue('userId'),
-        role: pandora.getCacheValue('role'),
-        pathname: pandora.getCacheValue('pathname'),
-        student,
-      },
-    });
     if (isMtTrackRoomJoined) {
       BaseRoomApi.baseLeaveRoomApi({
         roomId: currentStudent?.roomInfo.roomId || '',

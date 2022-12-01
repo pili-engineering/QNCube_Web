@@ -7,7 +7,6 @@ import {
 import classNames from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { useInterval } from 'ahooks';
-import { pandora } from '@/utils';
 import bgLoginImage from './images/bg-login.svg';
 import loginCardBgImage from './images/login-card-bg.png';
 import BarImage from './images/bar.svg';
@@ -133,10 +132,6 @@ const Login = () => {
    * 点击登录
    */
   const onLogin = () => {
-    // 埋点
-    pandora.report({
-      action: 'login',
-    });
     const errorText = validateForm(form);
     if (errorText) {
       message.error(errorText);

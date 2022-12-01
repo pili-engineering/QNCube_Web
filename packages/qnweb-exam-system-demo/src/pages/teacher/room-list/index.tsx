@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import useTeacherExaminationRoomList from '@/hooks/useTeacherExaminationRoomList';
 import useQuestionList from '@/hooks/useQuestionList';
 import { useMount } from 'ahooks';
-import { pandora } from '@/utils';
 import styles from './index.module.scss';
 import ExamApi from '@/api/ExamApi';
 import { ExamCreateResult, ExamListTeacherResult, ExamUpdateResult } from '@/api/types';
@@ -28,17 +27,6 @@ const TeacherRoomList = () => {
   const [modalTitle, setModalTitle] = useState('新增考试');
   const examIdRef = useRef<string>('');
 
-  useMount(() => {
-    pandora.report({
-      action: 'invigilation_list',
-      value: {
-        userId: pandora.getCacheValue('userId'),
-        role: pandora.getCacheValue('role'),
-        pathname: pandora.getCacheValue('pathname'),
-      },
-    });
-  });
-
   /**
    * 点击确认创建考试
    */
@@ -52,25 +40,6 @@ const TeacherRoomList = () => {
         questionList: values.questions,
       },
     })).then<ExamCreateResult | ExamUpdateResult>((result) => {
-      if (modalTitle === '新增考试') {
-        pandora.report({
-          action: 'finish_add_exam',
-          value: {
-            userId: pandora.getCacheValue('userId'),
-            role: pandora.getCacheValue('role'),
-            pathname: pandora.getCacheValue('pathname'),
-          },
-        });
-        return ExamApi.create(result);
-      }
-      pandora.report({
-        action: 'modify_exam_info',
-        value: {
-          userId: pandora.getCacheValue('userId'),
-          role: pandora.getCacheValue('role'),
-          pathname: pandora.getCacheValue('pathname'),
-        },
-      });
       return ExamApi.update({ examId: examIdRef.current, ...result });
     }).then(() => {
       message.success(`${modalTitle}成功`);
@@ -109,15 +78,6 @@ const TeacherRoomList = () => {
    * @param record
    */
   const onDeleteExam = (record: ExamListTeacherResult['list'][number]) => {
-    pandora.report({
-      action: 'delete_exam',
-      value: {
-        userId: pandora.getCacheValue('userId'),
-        role: pandora.getCacheValue('role'),
-        pathname: pandora.getCacheValue('pathname'),
-        examId: record.examId,
-      },
-    });
     Modal.confirm({
       title: '确认删除该考试吗？',
       closable: true,
@@ -143,14 +103,6 @@ const TeacherRoomList = () => {
           <Button
             type="primary"
             onClick={() => {
-              pandora.report({
-                action: 'add_exam',
-                value: {
-                  userId: pandora.getCacheValue('userId'),
-                  role: pandora.getCacheValue('role'),
-                  pathname: pandora.getCacheValue('pathname'),
-                },
-              });
               form.resetFields();
               form.setFieldsValue({
                 dateTimeRange: [moment(), moment().add(30, 'minutes')],

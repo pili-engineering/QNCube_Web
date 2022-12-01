@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useMount } from 'ahooks';
-
-import { log, pandora } from '@/utils';
 import classNames from 'classnames';
+
+import { log } from '@/utils';
 import MediaDetector from '@/components/media-detector';
 import MobileMediaDetector from '@/components/mobile-media-detector';
 import RecorderDetector from '@/components/recorder-detector';
@@ -31,17 +30,6 @@ const DeviceDetector: React.FC<DeviceDetectorProps> = (props) => {
     ),
     [mtTrackRoomMicSeats],
   );
-
-  useMount(() => {
-    pandora.report({
-      action: 'device_detect',
-      value: {
-        userId: pandora.getCacheValue('userId'),
-        role: pandora.getCacheValue('role'),
-        pathname: pandora.getCacheValue('pathname'),
-      },
-    });
-  });
 
   /**
    * 移动端摄像头预览

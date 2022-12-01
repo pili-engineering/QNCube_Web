@@ -25,7 +25,7 @@ export const defaultHttpRequestConfig = {
     baseURL: 'http://10.200.20.28:5080',
     timeout: 1000,
   },
-  test: {
+  staging: {
     baseURL: 'http://10.200.20.28:5080',
     timeout: 1000,
   },

@@ -43,10 +43,6 @@ import { userStoreContext } from '@/store/UserStore';
 import ExamApi from '@/api/ExamApi';
 import AIApi from '@/api/AIApi';
 import useExamSDK from '@/hooks/useExamSDK';
-import {
-  quitAnswerQuestionsReport,
-  commitExamPaperReport,
-} from './utils';
 import ScheduleCard from './schedule-card';
 import useRoomJoin from '@/hooks/useRoomJoin';
 import useRoomHeart from '@/hooks/useRoomHeart';
@@ -375,7 +371,6 @@ const StudentRoom = () => {
    * 提交试卷
    */
   const onSubmitPaper = () => {
-    commitExamPaperReport(urlQueryRef.current.examId);
     const hide = message.loading('正在提交试卷', 0);
     const answerList = answer.map((a) => ({
       questionId: a.questionId,
@@ -402,7 +397,6 @@ const StudentRoom = () => {
    * 退出答题
    */
   const onExitExam = () => {
-    quitAnswerQuestionsReport(urlQueryRef.current.examId);
     Modal.confirm({
       title: '提示',
       content: '考试还未结束，请确认是否退出答题，答题内容将不会被保留',
