@@ -12,7 +12,7 @@ import RouterLoading from '../components/router-loading';
 const RootRouter = () => (
   <BrowserRouter>
     <Suspense fallback={<RouterLoading />}>
-      w<App>
+      <App>
         {createRouter(routes)}
       </App>
     </Suspense>
