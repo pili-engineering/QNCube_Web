@@ -4,12 +4,13 @@ import {
 } from 'antd';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
+
 import useTeacherExaminationRoomList from '@/hooks/useTeacherExaminationRoomList';
 import useQuestionList from '@/hooks/useQuestionList';
-import { useMount } from 'ahooks';
-import styles from './index.module.scss';
 import ExamApi from '@/api/ExamApi';
 import { ExamCreateResult, ExamListTeacherResult, ExamUpdateResult } from '@/api/types';
+
+import styles from './index.module.scss';
 
 const TeacherRoomList = () => {
   const history = useHistory();
@@ -40,7 +41,7 @@ const TeacherRoomList = () => {
         questionList: values.questions,
       },
     })).then<ExamCreateResult | ExamUpdateResult>((result) => {
-      return ExamApi.update({ examId: examIdRef.current, ...result });
+      return ExamApi.create(result);
     }).then(() => {
       message.success(`${modalTitle}成功`);
       setVisible(false);
@@ -207,14 +208,14 @@ const TeacherRoomList = () => {
             name="examName"
             rules={[{ required: true }]}
           >
-            <Input placeholder="请输入考试名" />
+            <Input placeholder="请输入考试名"/>
           </Form.Item>
           <Form.Item
             label="考试时间"
             name="dateTimeRange"
             rules={[{ required: true }]}
           >
-            <DatePicker.RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+            <DatePicker.RangePicker showTime format="YYYY-MM-DD HH:mm:ss"/>
           </Form.Item>
           <Form.Item
             label="考试试题"
